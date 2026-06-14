@@ -13,7 +13,7 @@ export function SiteChrome() {
   const isOverlay = isHome && overHero;
 
   return (
-    <div className="relative top-0 z-50 w-full">
+    <div className="sticky top-0 z-50 w-full">
       {isOverlay ? (
         <div
           aria-hidden

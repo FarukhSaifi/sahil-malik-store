@@ -29,6 +29,7 @@ export const A11Y = {
   pauseSlideshow: "Pause slideshow",
   playSlideshow: "Play slideshow",
   backToTop: "Back to top",
+  whatsapp: "Chat with us on WhatsApp",
   goToSlide: (index: number) => `Go to slide ${index}`,
 } as const;
 
@@ -184,6 +185,10 @@ export const SITE = {
     phone: "+91 11 4000 0000",
     address: "Hauz Khas, New Delhi, India",
     hours: "By appointment only",
+    whatsapp: {
+      phone: "+91 11 4000 0000",
+      defaultMessage: "Hello, I would like to connect with Sahil Malik Atelier.",
+    },
     headings: {
       atelier: "Atelier",
       hours: "Hours",
