@@ -1,4 +1,4 @@
-import type { PressItem } from "@/lib/data/types";
+import type { PressItem } from "@/types";
 
 export const PRESS_ITEMS: PressItem[] = [
   {

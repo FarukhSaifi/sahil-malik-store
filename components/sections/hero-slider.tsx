@@ -1,17 +1,17 @@
 "use client";
 
-import { useHeroSlideshow } from "@/components/providers/hero-slideshow-provider";
-import { EditorialImage } from "@/components/ui/editorial-image";
-import { SITE } from "@/constants/site";
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
-import type { HeroSlide } from "@/lib/data/types";
-import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
-type HeroSliderProps = {
-  slides: HeroSlide[];
-};
+import { AnimatePresence, motion } from "framer-motion";
+
+import { SITE } from "@/constants/site";
+
+import { useHeroSlideshow } from "@/components/providers/hero-slideshow-provider";
+import { CtaLink } from "@/components/ui/cta-link";
+import { EditorialImage } from "@/components/ui/editorial-image";
+
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import type { HeroSliderProps } from "@/types";
 
 export function HeroSlider({ slides }: HeroSliderProps) {
   const [index, setIndex] = useState(0);
@@ -58,9 +58,9 @@ export function HeroSlider({ slides }: HeroSliderProps) {
           className="max-w-4xl"
         >
           <h1 className="heading-promo mb-5">{SITE.heroPromo}</h1>
-          <Link href={SITE.routes.collections} prefetch className="editorial-link-light-underline">
+          <CtaLink href={SITE.routes.collections} variant="light">
             {SITE.ui.discoverNow}
-          </Link>
+          </CtaLink>
         </motion.div>
       </div>
 

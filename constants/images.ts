@@ -1,5 +1,6 @@
-import type { ImageAsset } from "@/lib/data/types";
 import { BLUR_DATA_URL } from "./site";
+
+import type { ImageAsset, ImageOptions } from "@/types";
 
 /** Verified working Unsplash photo IDs (404-safe) */
 export const IMAGE_IDS = {
@@ -23,14 +24,7 @@ export const IMAGE_IDS = {
   lookbookAlt: "1496747611176-843222e1e57c",
 } as const;
 
-type UnsplashOptions = {
-  width: number;
-  height?: number;
-  alt: string;
-  priority?: boolean;
-};
-
-export function unsplash(id: string, options: UnsplashOptions): ImageAsset {
+export function unsplash(id: string, options: ImageOptions): ImageAsset {
   const height = options.height ?? Math.round(options.width * 1.25);
 
   return {

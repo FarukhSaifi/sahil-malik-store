@@ -1,6 +1,8 @@
-import { Container } from "@/components/ui/container";
-import { SITE } from "@/constants/site";
 import Link from "next/link";
+
+import { SITE } from "@/constants/site";
+
+import { Container } from "@/components/ui/container";
 
 export function SiteFooter() {
   return (

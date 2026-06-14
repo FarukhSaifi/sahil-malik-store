@@ -1,13 +1,13 @@
-import { Container } from "@/components/ui/container";
-import { EditorialImage } from "@/components/ui/editorial-image";
-import { SITE } from "@/constants/site";
-import { getLookbookBySlug, getLookbooks } from "@/lib/data";
-import { buildMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 
-type LookbookDetailPageProps = {
-  params: Promise<{ slug: string }>;
-};
+import { SITE } from "@/constants/site";
+
+import { Container } from "@/components/ui/container";
+import { EditorialImage } from "@/components/ui/editorial-image";
+
+import { getLookbookBySlug, getLookbooks } from "@/lib/data";
+import { buildMetadata } from "@/lib/seo";
+import type { LookbookDetailPageProps } from "@/types";
 
 export async function generateStaticParams() {
   const lookbooks = getLookbooks();

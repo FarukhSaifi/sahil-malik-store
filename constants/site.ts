@@ -175,20 +175,18 @@ export const SITE = {
       email: "Email",
       message: "Message",
     },
+    errors: {
+      nameRequired: "Name is required",
+      emailRequired: "Email is required",
+      emailInvalid: "Enter a valid email address",
+      messageRequired: "Message is required",
+    },
     submitLabel: UI.sendInquiry,
     mailtoSubject: (name: string) => `Appointment Inquiry from ${name}`,
     mailtoBody: (name: string, email: string, message: string) =>
       `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
   },
   contact: {
-    email: "atelier@sahilmalik.com",
-    phone: "+91 11 4000 0000",
-    address: "Hauz Khas, New Delhi, India",
-    hours: "By appointment only",
-    whatsapp: {
-      phone: "+91 11 4000 0000",
-      defaultMessage: "Hello, I would like to connect with Sahil Malik Atelier.",
-    },
     headings: {
       atelier: "Atelier",
       hours: "Hours",
@@ -224,8 +222,6 @@ export const SITE = {
   ],
   copyright: "© 2026 Sahil Malik. All rights reserved.",
 } as const;
-
-export type CollectionFilter = (typeof SITE.pages.collections.filters)[number];
 
 const LEFT_NAV_KEYS = new Set(["shop", "couture"]);
 const MEGA_NAV_KEYS = new Set(SITE.navMegaKeys);

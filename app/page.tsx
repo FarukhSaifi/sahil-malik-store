@@ -6,6 +6,7 @@ import { DiscoverMore } from "@/components/sections/discover-more";
 import { HeroSlider } from "@/components/sections/hero-slider";
 import { PhilosophyBlock } from "@/components/sections/philosophy-block";
 import { PressCarousel } from "@/components/sections/press-carousel";
+
 import {
   getCategories,
   getCelebrities,

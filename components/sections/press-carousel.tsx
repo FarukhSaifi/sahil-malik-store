@@ -1,13 +1,11 @@
 "use client";
 
+import { SITE } from "@/constants/site";
+
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
-import { SITE } from "@/constants/site";
-import type { PressItem } from "@/lib/data/types";
 
-type PressCarouselProps = {
-  items: PressItem[];
-};
+import type { PressCarouselProps } from "@/types";
 
 export function PressCarousel({ items }: PressCarouselProps) {
   return (

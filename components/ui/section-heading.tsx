@@ -1,11 +1,5 @@
 import { cn } from "@/lib/utils";
-
-type SectionHeadingProps = {
-  title: string;
-  subtitle?: string;
-  align?: "left" | "center";
-  className?: string;
-};
+import type { SectionHeadingProps } from "@/types";
 
 export function SectionHeading({ title, subtitle, align = "left", className }: SectionHeadingProps) {
   return (

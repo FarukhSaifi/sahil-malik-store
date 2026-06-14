@@ -1,13 +1,12 @@
 "use client";
 
-import { Sheet, SheetClose, SheetContent } from "@/components/ui/sheet";
-import { SITE, getNavDrawerItems, getNavMegaItem } from "@/constants/site";
 import Link from "next/link";
 
-type MobileMenuProps = {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-};
+import { SITE, getNavDrawerItems, getNavMegaItem } from "@/constants/site";
+
+import { Sheet, SheetClose, SheetContent } from "@/components/ui/sheet";
+
+import type { MobileMenuProps } from "@/types";
 
 export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
   const shopNav = getNavMegaItem("shop");

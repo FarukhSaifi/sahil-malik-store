@@ -1,7 +1,9 @@
+import Link from "next/link";
+
+import { SITE } from "@/constants/site";
+
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { SITE } from "@/constants/site";
-import Link from "next/link";
 
 export default function NotFound() {
   const { code, title, description, cta } = SITE.pages.notFound;
@@ -13,7 +15,7 @@ export default function NotFound() {
           <p className="mb-4 uppercase tracking-[0.2em] text-xs text-muted">{code}</p>
           <h1 className="heading-section mb-6">{title}</h1>
           <p className="mb-8 text-sm text-muted sm:text-base">{description}</p>
-          <Button asChild>
+          <Button asChild variant="default" size="lg" className="label-caps">
             <Link href={SITE.routes.home}>{cta}</Link>
           </Button>
         </div>

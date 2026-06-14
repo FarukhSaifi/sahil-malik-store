@@ -1,12 +1,17 @@
+import type { Metadata, Viewport } from "next";
+import { Cormorant_Garamond, Inter } from "next/font/google";
+
+import { SITE } from "@/constants/site";
+
 import { BackToTop } from "@/components/layout/back-to-top";
 import { SiteChrome } from "@/components/layout/site-chrome";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { WhatsAppButton } from "@/components/layout/whatsapp-button";
 import { HeroSlideshowProvider } from "@/components/providers/hero-slideshow-provider";
-import { SITE } from "@/constants/site";
+
+import { getContactInfo } from "@/lib/contact";
 import { buildMetadata } from "@/lib/seo";
-import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -40,6 +45,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const contact = getContactInfo();
+
   return (
     <html lang="en" className={`${cormorant.variable} ${inter.variable} h-full`}>
       <body className="min-h-full flex flex-col">
@@ -55,7 +62,9 @@ export default function RootLayout({
             {children}
           </main>
           <SiteFooter />
-          <WhatsAppButton />
+          {contact.whatsapp.phone ? (
+            <WhatsAppButton phone={contact.whatsapp.phone} defaultMessage={contact.whatsapp.defaultMessage} />
+          ) : null}
           <BackToTop />
         </HeroSlideshowProvider>
       </body>

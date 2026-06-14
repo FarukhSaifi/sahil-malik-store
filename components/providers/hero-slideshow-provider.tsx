@@ -2,10 +2,7 @@
 
 import { createContext, useContext, useState, type ReactNode } from "react";
 
-type HeroSlideshowContextValue = {
-  paused: boolean;
-  setPaused: (paused: boolean) => void;
-};
+import type { HeroSlideshowContextValue } from "@/types";
 
 const HeroSlideshowContext = createContext<HeroSlideshowContextValue | null>(null);
 

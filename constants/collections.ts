@@ -1,5 +1,6 @@
-import type { Collection } from "@/lib/data/types";
 import { IMAGE_IDS, galleryFromIds, unsplash } from "./images";
+
+import type { Collection } from "@/types";
 
 export const COLLECTIONS: Collection[] = [
   {

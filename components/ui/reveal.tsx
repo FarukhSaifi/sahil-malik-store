@@ -1,15 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { fadeUp } from "@/lib/animations/variants";
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
-import { cn } from "@/lib/utils";
 
-type RevealProps = {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-};
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { fadeUp } from "@/lib/animations/variants";
+import { cn } from "@/lib/utils";
+import type { RevealProps } from "@/types";
 
 export function Reveal({ children, className, delay = 0 }: RevealProps) {
   const prefersReducedMotion = usePrefersReducedMotion();

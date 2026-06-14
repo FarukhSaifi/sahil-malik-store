@@ -1,5 +1,6 @@
-import type { Lookbook } from "@/lib/data/types";
 import { IMAGE_IDS, galleryFromIds, unsplash } from "./images";
+
+import type { Lookbook } from "@/types";
 
 export const LOOKBOOKS: Lookbook[] = [
   {

@@ -7,7 +7,8 @@ import { HERO_SLIDES } from "@/constants/hero";
 import { LOOKBOOKS } from "@/constants/lookbook";
 import { ABOUT, PHILOSOPHY } from "@/constants/philosophy";
 import { PRESS_ITEMS } from "@/constants/press";
-import type { QueryOptions } from "@/lib/data/types";
+
+import type { QueryOptions } from "@/types";
 
 function filterFeatured<T extends { featured?: boolean }>(items: T[], opts?: QueryOptions) {
   let result = [...items];

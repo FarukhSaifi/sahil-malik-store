@@ -1,19 +1,11 @@
 "use client";
 
-import type { ImageAsset } from "@/lib/data/types";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
 import { useState } from "react";
 
-type EditorialImageProps = {
-  image: ImageAsset;
-  sizes?: string;
-  className?: string;
-  imageClassName?: string;
-  quality?: number;
-  fill?: boolean;
-  priority?: boolean;
-};
+import Image from "next/image";
+
+import { cn } from "@/lib/utils";
+import type { EditorialImageProps } from "@/types";
 
 export function EditorialImage({
   image,

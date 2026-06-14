@@ -1,11 +1,9 @@
-import { EditorialImage } from "@/components/ui/editorial-image";
-import { Reveal } from "@/components/ui/reveal";
-import type { CoutureSeason } from "@/lib/data/types";
 import Link from "next/link";
 
-type CoutureShowcaseProps = {
-  seasons: CoutureSeason[];
-};
+import { EditorialImage } from "@/components/ui/editorial-image";
+import { Reveal } from "@/components/ui/reveal";
+
+import type { CoutureShowcaseProps } from "@/types";
 
 export function CoutureShowcase({ seasons }: CoutureShowcaseProps) {
   return (

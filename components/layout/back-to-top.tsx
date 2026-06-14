@@ -1,9 +1,12 @@
 "use client";
 
-import { SITE } from "@/constants/site";
-import { cn } from "@/lib/utils";
-import { ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
+
+import { ArrowUp } from "lucide-react";
+
+import { SITE } from "@/constants/site";
+
+import { cn } from "@/lib/utils";
 
 export function BackToTop() {
   const [visible, setVisible] = useState(false);

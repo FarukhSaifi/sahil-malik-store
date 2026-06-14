@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
+
 import { SITE } from "@/constants/site";
 
-type PageMeta = {
-  title: string;
-  description: string;
-  path?: string;
-};
+import type { PageMeta } from "@/types";
 
 export function buildMetadata({ title, description, path = "" }: PageMeta): Metadata {
   const url = `${SITE.url}${path}`;

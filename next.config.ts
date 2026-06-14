@@ -52,7 +52,7 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  allowedDevOrigins: ["localhost:3000", "*.localhost:3000", "192.168.1.40"],
+  allowedDevOrigins: ["localhost:3000", "*.localhost:3000", "192.168.1.34"],
 };
 
 export default nextConfig;

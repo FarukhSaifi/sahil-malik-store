@@ -1,5 +1,6 @@
-import type { HeroSlide } from "@/lib/data/types";
 import { IMAGE_IDS, unsplash } from "./images";
+
+import type { HeroSlide } from "@/types";
 
 export const HERO_SLIDES: HeroSlide[] = [
   {
