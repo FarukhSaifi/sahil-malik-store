@@ -1,26 +1,161 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #111111;
+  --color-muted: #767676;
+  --color-accent: #111111;
+  --color-border: #e5e5e5;
+  --color-inverse: #111111;
+
+  --font-display: var(--font-cormorant);
+  --font-sans: var(--font-inter);
+
+  --text-hero: clamp(2rem, 5.5vw, 4.5rem);
+  --text-promo: clamp(1.75rem, 4vw, 3.25rem);
+  --text-section: clamp(1.5rem, 3vw, 2.75rem);
+  --text-editorial: clamp(1.125rem, 2vw, 1.5rem);
+  --spacing-section: clamp(3.5rem, 9vw, 7rem);
+
+  --site-announcement-height: 2.75rem;
+  --site-header-height: 4rem;
+  --site-chrome-height: calc(var(--site-announcement-height) + var(--site-header-height));
+  --animate-marquee: marquee 28s linear infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
+  }
+
+  ::selection {
+    @apply bg-foreground/10 text-foreground;
+  }
+}
+
+@layer components {
+  .heading-hero {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    line-height: 1.08;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+  }
+
+  .heading-promo {
+    font-family: var(--font-sans);
+    font-size: var(--text-promo);
+    line-height: 1.1;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .heading-section {
+    font-family: var(--font-display);
+    font-size: var(--text-section);
+    line-height: 1.12;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+  }
+
+  .heading-editorial {
+    font-family: var(--font-display);
+    font-size: var(--text-editorial);
+    line-height: 1.35;
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  .label-caps {
+    @apply uppercase tracking-[0.22em] text-[10px] sm:text-[11px];
+  }
+
+  .nav-link {
+    @apply uppercase tracking-[0.18em] text-[11px] text-foreground transition-opacity duration-300 hover:opacity-60;
+  }
+
+  .nav-link-light {
+    @apply uppercase tracking-[0.18em] text-[11px] text-background transition-opacity duration-300 hover:opacity-70;
+  }
+
+  .site-logo {
+    @apply font-display text-base font-light uppercase tracking-[0.22em] transition-opacity hover:opacity-70 sm:text-lg lg:text-[1.35rem];
+  }
+
+  .site-header {
+    @apply relative z-10;
+  }
+
+  .section-padding {
+    padding-top: var(--spacing-section);
+    padding-bottom: var(--spacing-section);
+  }
+
+  .section-padding-tight {
+    padding-top: clamp(2rem, 5vw, 4rem);
+    padding-bottom: clamp(2rem, 5vw, 4rem);
+  }
+
+  .image-hover-lift {
+    @apply transition-transform duration-900 ease-out motion-reduce:transition-none lg:hover:scale-[1.02];
+  }
+
+  .editorial-link {
+    @apply inline-flex items-center gap-2 uppercase tracking-[0.22em] text-[10px] sm:text-[11px] text-foreground transition-opacity duration-300 hover:opacity-60;
+  }
+
+  .editorial-link-light {
+    @apply inline-flex items-center gap-2 uppercase tracking-[0.22em] text-[10px] sm:text-[11px] text-background transition-opacity duration-300 hover:opacity-70;
+  }
+
+  .editorial-link-underline {
+    @apply inline-flex items-center gap-2 uppercase tracking-[0.22em] text-[10px] sm:text-[11px] text-foreground underline underline-offset-[6px] decoration-foreground/80 transition-opacity duration-300 hover:opacity-60;
+  }
+
+  .editorial-link-light-underline {
+    @apply inline-flex items-center gap-2 uppercase tracking-[0.22em] text-[10px] sm:text-[11px] text-background underline underline-offset-[6px] decoration-background/80 transition-opacity duration-300 hover:opacity-70;
+  }
+
+  .full-bleed {
+    @apply w-full;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
