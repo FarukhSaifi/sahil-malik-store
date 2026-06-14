@@ -1,7 +1,9 @@
 "use client";
 
 import { SITE } from "@/constants/site";
+
 import { cn, getWhatsAppUrl } from "@/lib/utils";
+import type { WhatsAppButtonProps } from "@/types";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -11,8 +13,7 @@ function WhatsAppIcon({ className }: { className?: string }) {
   );
 }
 
-export function WhatsAppButton() {
-  const { phone, defaultMessage } = SITE.contact.whatsapp;
+export function WhatsAppButton({ phone, defaultMessage }: WhatsAppButtonProps) {
   const href = getWhatsAppUrl(phone, defaultMessage);
 
   return (

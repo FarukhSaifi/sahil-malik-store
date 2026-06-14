@@ -1,5 +1,6 @@
-import type { Category } from "@/lib/data/types";
 import { IMAGE_IDS, unsplash } from "./images";
+
+import type { Category } from "@/types";
 
 export const CATEGORIES: Category[] = [
   {

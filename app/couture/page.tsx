@@ -1,10 +1,14 @@
+import Link from "next/link";
+
+import { SITE } from "@/constants/site";
+
 import { Container } from "@/components/ui/container";
+import { CtaText } from "@/components/ui/cta-link";
 import { EditorialImage } from "@/components/ui/editorial-image";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { SITE } from "@/constants/site";
+
 import { getCoutureSeasons } from "@/lib/data";
 import { buildMetadata } from "@/lib/seo";
-import Link from "next/link";
 
 export const metadata = buildMetadata({
   title: `${SITE.pages.couture.metaTitle} | ${SITE.name}`,
@@ -39,7 +43,7 @@ export default function CouturePage() {
                 <p className="mb-2 uppercase tracking-[0.2em] text-xs text-muted">{season.subtitle}</p>
                 <h2 className="heading-section mb-4">{season.title}</h2>
                 <p className="text-sm leading-relaxed text-muted sm:text-base">{season.description}</p>
-                <span className="editorial-link-underline mt-6">{SITE.ui.explore}</span>
+                <CtaText className="mt-6">{SITE.ui.explore}</CtaText>
               </div>
             </Link>
           ))}

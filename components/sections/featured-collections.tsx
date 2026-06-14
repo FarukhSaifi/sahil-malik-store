@@ -1,14 +1,14 @@
+import Link from "next/link";
+
+import { SITE } from "@/constants/site";
+
 import { Container } from "@/components/ui/container";
+import { CtaLink } from "@/components/ui/cta-link";
 import { EditorialImage } from "@/components/ui/editorial-image";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { SITE } from "@/constants/site";
-import type { Collection } from "@/lib/data/types";
-import Link from "next/link";
 
-type FeaturedCollectionsProps = {
-  collections: Collection[];
-};
+import type { FeaturedCollectionsProps } from "@/types";
 
 export function FeaturedCollections({ collections }: FeaturedCollectionsProps) {
   return (
@@ -21,9 +21,7 @@ export function FeaturedCollections({ collections }: FeaturedCollectionsProps) {
               subtitle={SITE.sections.collections.subtitle}
               className="mb-0"
             />
-            <Link href={SITE.sections.collections.href} prefetch className="editorial-link">
-              {SITE.ui.viewAll}
-            </Link>
+            <CtaLink href={SITE.sections.collections.href}>{SITE.ui.viewAll}</CtaLink>
           </div>
         </Reveal>
 

@@ -1,6 +1,8 @@
-import { SITE } from "@/constants/site";
-import { getCollections, getCoutureSeasons, getLookbooks } from "@/lib/data";
 import type { MetadataRoute } from "next";
+
+import { SITE } from "@/constants/site";
+
+import { getCollections, getCoutureSeasons, getLookbooks } from "@/lib/data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = SITE.url;

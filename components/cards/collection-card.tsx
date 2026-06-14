@@ -1,10 +1,8 @@
-import { EditorialImage } from "@/components/ui/editorial-image";
-import type { Collection } from "@/lib/data/types";
 import Link from "next/link";
 
-type CollectionCardProps = {
-  collection: Collection;
-};
+import { EditorialImage } from "@/components/ui/editorial-image";
+
+import type { CollectionCardProps } from "@/types";
 
 export function CollectionCard({ collection }: CollectionCardProps) {
   return (

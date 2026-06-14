@@ -1,10 +1,11 @@
-import { Button } from "@/components/ui/button";
+import { SITE } from "@/constants/site";
+
+import { BookAppointmentLink } from "@/components/ui/book-appointment-link";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { SITE } from "@/constants/site";
+
 import { getAbout } from "@/lib/data";
 import { buildMetadata } from "@/lib/seo";
-import Link from "next/link";
 
 export const metadata = buildMetadata({
   title: `${SITE.pages.about.metaTitle} | ${SITE.name}`,
@@ -34,9 +35,7 @@ export default function AboutPage() {
         </div>
 
         <div className="mt-12 text-center">
-          <Button asChild>
-            <Link href={SITE.routes.contact}>{SITE.ui.bookAppointment}</Link>
-          </Button>
+          <BookAppointmentLink />
         </div>
       </Container>
     </section>

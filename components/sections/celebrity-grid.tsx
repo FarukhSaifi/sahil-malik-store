@@ -1,13 +1,11 @@
+import { SITE } from "@/constants/site";
+
 import { Container } from "@/components/ui/container";
+import { CtaLink } from "@/components/ui/cta-link";
 import { EditorialImage } from "@/components/ui/editorial-image";
 import { Reveal } from "@/components/ui/reveal";
-import { SITE } from "@/constants/site";
-import type { Celebrity } from "@/lib/data/types";
-import Link from "next/link";
 
-type CelebrityGridProps = {
-  celebrities: Celebrity[];
-};
+import type { CelebrityGridProps } from "@/types";
 
 export function CelebrityGrid({ celebrities }: CelebrityGridProps) {
   return (
@@ -16,9 +14,7 @@ export function CelebrityGrid({ celebrities }: CelebrityGridProps) {
         <Reveal>
           <div className="mb-10 flex flex-col items-center gap-4 text-center sm:mb-14">
             <h2 className="heading-section">{SITE.sections.asSeenOn.title}</h2>
-            <Link href={SITE.sections.asSeenOn.href} prefetch className="editorial-link">
-              {SITE.ui.viewAll}
-            </Link>
+            <CtaLink href={SITE.sections.asSeenOn.href}>{SITE.ui.viewAll}</CtaLink>
           </div>
         </Reveal>
 

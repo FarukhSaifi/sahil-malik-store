@@ -1,5 +1,6 @@
-import type { DiscoverItem } from "@/lib/data/types";
 import { IMAGE_IDS, unsplash } from "./images";
+
+import type { DiscoverItem } from "@/types";
 
 export const DISCOVER_ITEMS: DiscoverItem[] = [
   {

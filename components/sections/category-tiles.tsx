@@ -1,12 +1,12 @@
-import { EditorialImage } from "@/components/ui/editorial-image";
-import { Reveal } from "@/components/ui/reveal";
-import { SITE } from "@/constants/site";
-import type { Category } from "@/lib/data/types";
 import Link from "next/link";
 
-type CategoryTilesProps = {
-  categories: Category[];
-};
+import { SITE } from "@/constants/site";
+
+import { CtaText } from "@/components/ui/cta-link";
+import { EditorialImage } from "@/components/ui/editorial-image";
+import { Reveal } from "@/components/ui/reveal";
+
+import type { CategoryTilesProps } from "@/types";
 
 export function CategoryTiles({ categories }: CategoryTilesProps) {
   return (
@@ -24,9 +24,9 @@ export function CategoryTiles({ categories }: CategoryTilesProps) {
               </div>
               <div className="flex items-center justify-between px-4 py-5 sm:px-5 sm:py-6">
                 <h2 className="font-display text-xl font-light sm:text-2xl lg:text-[1.75rem]">{category.title}</h2>
-                <span className="label-caps opacity-0 transition-opacity duration-300 group-hover:opacity-100 lg:opacity-100">
+                <CtaText className="opacity-0 transition-opacity duration-300 group-hover:opacity-100 lg:opacity-100">
                   {SITE.ui.viewAll}
-                </span>
+                </CtaText>
               </div>
             </Link>
           </Reveal>

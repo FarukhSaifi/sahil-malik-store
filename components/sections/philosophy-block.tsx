@@ -1,13 +1,8 @@
 import { Container } from "@/components/ui/container";
+import { CtaLink } from "@/components/ui/cta-link";
 import { Reveal } from "@/components/ui/reveal";
-import Link from "next/link";
 
-type PhilosophyBlockProps = {
-  title: string;
-  subtitle: string;
-  body: string;
-  cta: { label: string; href: string };
-};
+import type { PhilosophyBlockProps } from "@/types";
 
 export function PhilosophyBlock({ title, subtitle, body, cta }: PhilosophyBlockProps) {
   return (
@@ -22,9 +17,9 @@ export function PhilosophyBlock({ title, subtitle, body, cta }: PhilosophyBlockP
                 <p key={paragraph.slice(0, 24)}>{paragraph}</p>
               ))}
             </div>
-            <Link href={cta.href} prefetch className="editorial-link mt-10">
+            <CtaLink href={cta.href} className="mt-10">
               {cta.label}
-            </Link>
+            </CtaLink>
           </div>
         </Reveal>
       </Container>

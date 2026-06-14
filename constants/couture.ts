@@ -1,5 +1,6 @@
-import type { CoutureSeason } from "@/lib/data/types";
 import { IMAGE_IDS, galleryFromIds, unsplash } from "./images";
+
+import type { CoutureSeason } from "@/types";
 
 export const COUTURE_SEASONS: CoutureSeason[] = [
   {

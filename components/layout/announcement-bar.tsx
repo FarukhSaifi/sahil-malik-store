@@ -1,14 +1,14 @@
 "use client";
 
-import { useHeroSlideshow } from "@/components/providers/hero-slideshow-provider";
-import { SITE } from "@/constants/site";
-import { cn } from "@/lib/utils";
 import { Pause, Play } from "lucide-react";
-import Link from "next/link";
 
-type AnnouncementBarProps = {
-  overlay?: boolean;
-};
+import { SITE } from "@/constants/site";
+
+import { useHeroSlideshow } from "@/components/providers/hero-slideshow-provider";
+import { CtaLink } from "@/components/ui/cta-link";
+
+import { cn } from "@/lib/utils";
+import type { AnnouncementBarProps } from "@/types";
 
 export function AnnouncementBar({ overlay = false }: AnnouncementBarProps) {
   const { paused, setPaused } = useHeroSlideshow();
@@ -43,16 +43,13 @@ export function AnnouncementBar({ overlay = false }: AnnouncementBarProps) {
           </div>
         </div>
 
-        <Link
+        <CtaLink
           href={SITE.routes.collections}
-          prefetch
-          className={cn(
-            "label-caps hidden shrink-0 underline underline-offset-4 transition-opacity hover:opacity-60 sm:inline-flex",
-            overlay ? "text-background" : "text-foreground",
-          )}
+          variant={overlay ? "light" : "default"}
+          className="hidden shrink-0 sm:inline-flex"
         >
           {SITE.ui.discoverNow}
-        </Link>
+        </CtaLink>
 
         <div className="w-11 shrink-0 sm:hidden" aria-hidden />
       </div>

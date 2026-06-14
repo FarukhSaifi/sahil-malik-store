@@ -1,8 +1,4 @@
-import type { PressItem } from "@/lib/data/types";
-
-type PressCardProps = {
-  item: PressItem;
-};
+import type { PressCardProps } from "@/types";
 
 export function PressCard({ item }: PressCardProps) {
   return (

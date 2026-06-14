@@ -1,15 +1,15 @@
-import { CollectionCard } from "@/components/cards/collection-card";
-import { Container } from "@/components/ui/container";
-import { EditorialImage } from "@/components/ui/editorial-image";
-import { SITE } from "@/constants/site";
-import { getCollectionBySlug, getCollections } from "@/lib/data";
-import { buildMetadata } from "@/lib/seo";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
-type CollectionDetailPageProps = {
-  params: Promise<{ slug: string }>;
-};
+import { SITE } from "@/constants/site";
+
+import { CollectionCard } from "@/components/cards/collection-card";
+import { Container } from "@/components/ui/container";
+import { CtaLink } from "@/components/ui/cta-link";
+import { EditorialImage } from "@/components/ui/editorial-image";
+
+import { getCollectionBySlug, getCollections } from "@/lib/data";
+import { buildMetadata } from "@/lib/seo";
+import type { CollectionDetailPageProps } from "@/types";
 
 export async function generateStaticParams() {
   const collections = getCollections();
@@ -68,9 +68,7 @@ export default async function CollectionDetailPage({ params }: CollectionDetailP
             <div className="mt-16">
               <div className="mb-8 flex items-end justify-between">
                 <h2 className="heading-section text-2xl sm:text-3xl">{SITE.ui.related}</h2>
-                <Link href={SITE.routes.collections} className="editorial-link">
-                  {SITE.ui.viewAll}
-                </Link>
+                <CtaLink href={SITE.routes.collections}>{SITE.ui.viewAll}</CtaLink>
               </div>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {related.map((item) => (

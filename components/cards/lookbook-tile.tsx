@@ -1,10 +1,8 @@
-import { EditorialImage } from "@/components/ui/editorial-image";
-import type { Lookbook } from "@/lib/data/types";
 import Link from "next/link";
 
-type LookbookTileProps = {
-  lookbook: Lookbook;
-};
+import { EditorialImage } from "@/components/ui/editorial-image";
+
+import type { LookbookTileProps } from "@/types";
 
 export function LookbookTile({ lookbook }: LookbookTileProps) {
   return (

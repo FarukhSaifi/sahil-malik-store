@@ -1,16 +1,17 @@
 "use client";
 
-import { SITE } from "@/constants/site";
-import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
+
 import { Menu, Search } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+
+import { SITE } from "@/constants/site";
+
 import { DesktopNav } from "./desktop-nav";
 import { MobileMenu } from "./mobile-menu";
 
-type SiteHeaderProps = {
-  overlay?: boolean;
-};
+import { cn } from "@/lib/utils";
+import type { SiteHeaderProps } from "@/types";
 
 export function SiteHeader({ overlay = false }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,7 +32,7 @@ export function SiteHeader({ overlay = false }: SiteHeaderProps) {
     <>
       <header
         className={cn(
-          "site-header w-full transition-colors duration-500",
+          "site-header w-full overflow-visible transition-colors duration-500",
           overlay ? "border-transparent bg-transparent" : "border-b border-border bg-background",
         )}
       >

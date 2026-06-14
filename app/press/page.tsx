@@ -1,7 +1,9 @@
+import { SITE } from "@/constants/site";
+
 import { PressCard } from "@/components/cards/press-card";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { SITE } from "@/constants/site";
+
 import { getPress } from "@/lib/data";
 import { buildMetadata } from "@/lib/seo";
 

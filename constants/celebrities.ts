@@ -1,5 +1,6 @@
-import type { Celebrity } from "@/lib/data/types";
 import { IMAGE_IDS, unsplash } from "./images";
+
+import type { Celebrity } from "@/types";
 
 export const CELEBRITIES: Celebrity[] = [
   {
