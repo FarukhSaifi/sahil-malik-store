@@ -1,6 +1,7 @@
 import { BackToTop } from "@/components/layout/back-to-top";
 import { SiteChrome } from "@/components/layout/site-chrome";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { WhatsAppButton } from "@/components/layout/whatsapp-button";
 import { HeroSlideshowProvider } from "@/components/providers/hero-slideshow-provider";
 import { SITE } from "@/constants/site";
 import { buildMetadata } from "@/lib/seo";
@@ -54,6 +55,7 @@ export default function RootLayout({
             {children}
           </main>
           <SiteFooter />
+          <WhatsAppButton />
           <BackToTop />
         </HeroSlideshowProvider>
       </body>
