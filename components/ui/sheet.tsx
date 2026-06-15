@@ -7,7 +7,6 @@ import { X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-
 const Sheet = DialogPrimitive.Root;
 const SheetTrigger = DialogPrimitive.Trigger;
 const SheetClose = DialogPrimitive.Close;
@@ -40,6 +39,7 @@ const SheetContent = React.forwardRef<
         "fixed inset-0 z-50 flex flex-col bg-background p-6 duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
         className,
       )}
+      aria-describedby={undefined}
       {...props}
     >
       <DialogPrimitive.Title className="sr-only">Navigation Menu</DialogPrimitive.Title>
