@@ -90,7 +90,7 @@ All `[slug]` routes use `generateStaticParams` — new entries in constants are 
 
 ## Quick start
 
-**Requirements:** Node.js 20+, npm
+**Requirements:** Node.js 24+ (LTS), npm
 
 ```bash
 git clone https://github.com/FarukhSaifi/sahil-malik-store.git
@@ -235,7 +235,7 @@ Update the ID in `constants/images.ts`, or pass a new ID to `unsplash()` in the 
 3. Add environment variables from `.env.example`.
 4. Deploy — build command `npm run build`, output handled by Next.js.
 
-Works on any Node.js 20+ host: `npm run build && npm run start`.
+Works on any Node.js 24+ host: `npm run build && npm run start`.
 
 ---
 

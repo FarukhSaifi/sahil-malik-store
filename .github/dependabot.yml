@@ -6,3 +6,10 @@ updates:
       interval: "weekly"
     reviewers:
       - "FarukhSaifi"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "FarukhSaifi"
