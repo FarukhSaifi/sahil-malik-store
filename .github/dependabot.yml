@@ -16,6 +16,10 @@ updates:
       semver-patch-days: 3
       semver-minor-days: 7
       semver-major-days: 7
+    ignore:
+      # eslint-config-next@16 does not support ESLint 10 yet (breaks react/display-name rule).
+      - dependency-name: "eslint"
+        update-types: ["version-update:semver-major"]
     groups:
       npm-minor-patch:
         patterns:
