@@ -1,13 +1,14 @@
+# CodeQL requires "Code scanning" enabled in repo settings:
+# Settings → Code security and analysis → Code scanning → Set up → CodeQL analysis
+#
+# On private repos this needs GitHub Advanced Security (paid) unless your org provides it.
+# Until enabled, this workflow is manual-only so CI does not fail.
+# Day-to-day dependency checks run in the main CI workflow (npm audit).
+
 name: CodeQL
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-  schedule:
-    # Weekly security scan — Mondays 06:00 UTC
-    - cron: "0 6 * * 1"
+  workflow_dispatch:
 
 permissions:
   actions: read
