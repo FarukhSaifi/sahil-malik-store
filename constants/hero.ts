@@ -1,32 +1,33 @@
-import { IMAGE_IDS, unsplash } from "./images";
+import { localImage } from "./images";
+import { MEDIA_MANIFEST } from "./media-manifest";
 
 import type { HeroSlide } from "@/types";
 
 export const HERO_SLIDES: HeroSlide[] = [
   {
-    image: unsplash(IMAGE_IDS.heroRunway, {
+    image: localImage(MEDIA_MANIFEST.sherwani[0], {
       width: 1920,
       height: 1080,
-      alt: "Sahil Malik couture evening gown on runway",
+      alt: "Sahil Malik sherwani collection",
       priority: true,
     }),
     quote: "We don't simply fall in love, we become it.",
     attribution: "— Sahil Malik, Becoming Love",
   },
   {
-    image: unsplash(IMAGE_IDS.heroEditorial, {
+    image: localImage(MEDIA_MANIFEST.suits[0], {
       width: 1920,
       height: 1080,
-      alt: "Editorial bridal couture by Sahil Malik",
+      alt: "Sahil Malik tailored suits",
     }),
     quote: "Luxury is shaped by care, craft, and time.",
     attribution: "— Sahil Malik Atelier",
   },
   {
-    image: unsplash(IMAGE_IDS.heroEmbroidery, {
+    image: localImage(MEDIA_MANIFEST["kurta-sets"][0], {
       width: 1920,
       height: 1080,
-      alt: "Hand-embroidered festive couture detail",
+      alt: "Sahil Malik kurta sets",
     }),
     quote: "Every creation carries the soul of many hands.",
     attribution: "— Sahil Malik",

@@ -1,15 +1,16 @@
 export const BLUR_DATA_URL =
   "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAr/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q==";
 
-export const ROUTES = {
-  home: "/",
-  collections: "/collections",
-  couture: "/couture",
-  contact: "/contact",
-  lookbook: "/lookbook",
-  press: "/press",
-  about: "/about",
-} as const;
+import { collectionPath, collectionsCategoryPath, couturePath, ROUTES } from "./routes";
+
+export {
+  collectionPath,
+  collectionsCategoryPath,
+  couturePath,
+  lookbookPath,
+  ROUTES,
+  SITEMAP_STATIC_ROUTES,
+} from "./routes";
 
 export const UI = {
   discoverNow: "Discover Now",
@@ -30,6 +31,10 @@ export const A11Y = {
   playSlideshow: "Play slideshow",
   backToTop: "Back to top",
   whatsapp: "Chat with us on WhatsApp",
+  whatsappLabel: "WhatsApp",
+  close: "Close",
+  navigationMenu: "Navigation Menu",
+  home: (name: string) => `${name} — Home`,
   goToSlide: (index: number) => `Go to slide ${index}`,
 } as const;
 
@@ -43,57 +48,41 @@ export const SITE = {
   heroAttribution: "— Sahil Malik, Becoming Love",
   meta: {
     homeDescription:
-      "Sahil Malik — luxury fashion designer. Discover couture collections, festive wear, bridal, menswear, and editorial lookbooks.",
+      "Sahil Malik — luxury fashion designer. Discover sherwanis, kurta sets, suits, bandhgalas, and womenswear from the atelier.",
   },
   routes: ROUTES,
   ui: UI,
   a11y: A11Y,
   nav: [
-    { key: "shop", label: "Shop", href: ROUTES.collections, mega: "shop" },
+    { key: "menswear", label: "Menswear", href: collectionsCategoryPath("menswear"), mega: "menswear" },
+    { key: "womenswear", label: "Womenswear", href: collectionsCategoryPath("womenswear"), mega: "womenswear" },
     { key: "couture", label: "Paris Haute Couture", href: ROUTES.couture, mega: "couture" },
-    { key: "findUs", label: "Find Us", href: ROUTES.contact },
+    // { key: "findUs", label: "Find Us", href: ROUTES.contact },
     { key: "lookbook", label: "Lookbook", href: ROUTES.lookbook },
   ],
   navSecondary: [
     { key: "press", label: "Press", href: ROUTES.press },
     { key: "about", label: "About", href: ROUTES.about },
   ],
-  navMegaKeys: ["shop", "couture"] as const,
-  shopMenu: {
-    headings: {
-      women: "Women",
-      men: "Men",
-      collections: "Collections",
-      trending: "Trending",
-    },
-    women: [
-      { label: "Lehenga", href: "/collections?category=bridal" },
-      { label: "Saree", href: "/collections?category=saree" },
-      { label: "Gown", href: "/collections?category=evening" },
-      { label: "Dress", href: "/collections?category=evening" },
-    ],
-    men: [
-      { label: "Sherwani", href: "/collections?category=menswear" },
-      { label: "Bandhgala", href: "/collections?category=menswear" },
-      { label: "Kurta Set", href: "/collections?category=menswear" },
-    ],
-    collections: [
-      { label: "Raas — Spring Summer '26", href: "/collections/raas-spring-summer-26" },
-      { label: "Becoming Love — Festive '25", href: "/collections/becoming-love-festive-25" },
-      { label: "Amrita — Festive '24", href: "/collections/amrita-festive-24" },
-      { label: "Nargis — Festive '24", href: "/collections/nargis-festive-24" },
-    ],
-    trending: [
-      { label: "Bride's Edit", href: "/collections?category=bridal" },
-      { label: "Festive Couture", href: ROUTES.collections },
-      { label: "Groom's Edit", href: "/collections?category=menswear" },
-    ],
-  },
-  coutureMenu: [
-    { label: "Alchemy — Spring '26", href: "/couture/alchemy-spring-2026" },
-    { label: "Becoming Love — Fall '25", href: "/couture/becoming-love-fall-2025" },
-    { label: "Aura — Fall '24", href: "/couture/aura-fall-2024" },
+  navMegaKeys: ["menswear", "womenswear", "couture"] as const,
+  menswearMenu: [
+    { label: "Sherwani", href: collectionPath("sherwani") },
+    { label: "Kurta Sets", href: collectionPath("kurta-sets") },
+    { label: "Suits", href: collectionPath("suits") },
+    { label: "Jawahar Jacket Set", href: collectionPath("jawahar-jacket-set") },
+    { label: "Bandhgala & Indo-Western", href: collectionPath("bandhgala-indo-western") },
+    { label: "Shirts", href: collectionPath("shirts") },
   ],
+  womenswearMenu: [{ label: "Stock Clearance", href: collectionPath("womenswear-stock-clearance") }],
+  coutureMenu: [
+    { label: "Alchemy — Spring '26", href: couturePath("alchemy-spring-2026") },
+    { label: "Becoming Love — Fall '25", href: couturePath("becoming-love-fall-2025") },
+    { label: "Aura — Fall '24", href: couturePath("aura-fall-2024") },
+  ],
+  homepage: {
+    featuredCoutureLimit: 2,
+    pressLimit: 6,
+  },
   sections: {
     asSeenOn: {
       title: "As Seen On",
@@ -104,7 +93,7 @@ export const SITE = {
     },
     collections: {
       title: "Collections",
-      subtitle: "Seasonal",
+      subtitle: "Product Lines",
       href: ROUTES.collections,
     },
     appointment: {
@@ -120,8 +109,11 @@ export const SITE = {
   pages: {
     about: {
       metaTitle: "About",
-      metaDescription: "The Sahil Malik atelier — philosophy, craft, and conscious luxury.",
+      metaDescription:
+        "Discover Sahil Malik Couture — from NIFT to Shahpur Jat, a journey of heritage craftsmanship and contemporary menswear.",
       subtitle: "Our Story",
+      heroImageAlt: "Sahil Malik in Shahpur Jat couture studio",
+      ogImageAlt: "Sahil Malik Couture — Shahpur Jat atelier",
     },
     contact: {
       metaTitle: "Contact & Appointments",
@@ -131,16 +123,16 @@ export const SITE = {
     },
     collections: {
       metaTitle: "Collections",
-      metaDescription: "Explore Sahil Malik collections — evening wear, bridal, menswear, and saree.",
+      metaDescription:
+        "Explore Sahil Malik menswear and womenswear — sherwanis, kurta sets, suits, bandhgalas, shirts, and more.",
       title: "Collections",
-      subtitle: "All Seasons",
+      subtitle: "Menswear & Womenswear",
       filters: [
         { label: "All", value: undefined },
-        { label: "Evening", value: "evening" },
-        { label: "Bridal", value: "bridal" },
         { label: "Menswear", value: "menswear" },
-        { label: "Saree", value: "saree" },
+        { label: "Womenswear", value: "womenswear" },
       ],
+      relatedLimit: 3,
     },
     couture: {
       metaTitle: "Couture",
@@ -209,7 +201,7 @@ export const SITE = {
     info: [
       { label: "About Us", href: ROUTES.about },
       { label: "Contact Us", href: ROUTES.contact },
-      { label: "Find Us", href: ROUTES.contact },
+      // { label: "Find Us", href: ROUTES.contact },
     ],
   },
   social: {
@@ -223,7 +215,7 @@ export const SITE = {
   copyright: "© 2026 Sahil Malik. All rights reserved.",
 } as const;
 
-const LEFT_NAV_KEYS = new Set(["shop", "couture"]);
+const LEFT_NAV_KEYS = new Set(["menswear", "womenswear", "couture"]);
 const MEGA_NAV_KEYS = new Set(SITE.navMegaKeys);
 
 export function getNavBySide(side: "left" | "right") {

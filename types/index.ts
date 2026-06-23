@@ -20,7 +20,7 @@ export type NavItem = {
 export type Collection = {
   slug: string;
   title: string;
-  category: "evening" | "bridal" | "menswear" | "saree";
+  category: "menswear" | "womenswear";
   season: string;
   coverImage: ImageAsset;
   description: string;
@@ -117,6 +117,9 @@ export type PageMeta = {
   title: string;
   description: string;
   path?: string;
+  /** Local path (/media/...) or absolute URL for Open Graph / Twitter cards */
+  image?: string;
+  imageAlt?: string;
 };
 
 // ─── Contact ─────────────────────────────────────────────────────────────────
@@ -316,6 +319,11 @@ export type SectionHeadingProps = {
 
 export type SiteHeaderProps = {
   overlay?: boolean;
+};
+
+export type SiteLogoProps = {
+  overlay?: boolean;
+  className?: string;
 };
 
 export type WhatsAppButtonProps = {

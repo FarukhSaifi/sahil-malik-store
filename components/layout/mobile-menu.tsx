@@ -9,7 +9,8 @@ import { Sheet, SheetClose, SheetContent } from "@/components/ui/sheet";
 import type { MobileMenuProps } from "@/types";
 
 export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
-  const shopNav = getNavMegaItem("shop");
+  const menswearNav = getNavMegaItem("menswear");
+  const womenswearNav = getNavMegaItem("womenswear");
   const coutureNav = getNavMegaItem("couture");
 
   return (
@@ -21,13 +22,36 @@ export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
           <nav className="flex flex-col gap-8">
             <div>
               <SheetClose asChild>
-                <Link href={shopNav.href} prefetch className="label-caps text-muted">
-                  {shopNav.label}
+                <Link href={menswearNav.href} prefetch className="label-caps text-muted">
+                  {menswearNav.label}
                 </Link>
               </SheetClose>
               <ul className="mt-4 space-y-3 pl-2">
-                {SITE.shopMenu.collections.map((item) => (
-                  <li key={item.label}>
+                {SITE.menswearMenu.map((item) => (
+                  <li key={item.href}>
+                    <SheetClose asChild>
+                      <Link
+                        href={item.href}
+                        prefetch
+                        className="text-lg font-light transition-opacity hover:opacity-60"
+                      >
+                        {item.label}
+                      </Link>
+                    </SheetClose>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <SheetClose asChild>
+                <Link href={womenswearNav.href} prefetch className="label-caps text-muted">
+                  {womenswearNav.label}
+                </Link>
+              </SheetClose>
+              <ul className="mt-4 space-y-3 pl-2">
+                {SITE.womenswearMenu.map((item) => (
+                  <li key={item.href}>
                     <SheetClose asChild>
                       <Link
                         href={item.href}

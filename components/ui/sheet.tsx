@@ -5,6 +5,8 @@ import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 
+import { SITE } from "@/constants/site";
+
 import { cn } from "@/lib/utils";
 
 const Sheet = DialogPrimitive.Root;
@@ -42,11 +44,11 @@ const SheetContent = React.forwardRef<
       aria-describedby={undefined}
       {...props}
     >
-      <DialogPrimitive.Title className="sr-only">Navigation Menu</DialogPrimitive.Title>
+      <DialogPrimitive.Title className="sr-only">{SITE.a11y.navigationMenu}</DialogPrimitive.Title>
       {children}
       <SheetClose className="absolute right-4 top-4 min-h-11 min-w-11 flex items-center justify-center rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-accent">
         <X className="h-5 w-5" />
-        <span className="sr-only">Close</span>
+        <span className="sr-only">{SITE.a11y.close}</span>
       </SheetClose>
     </DialogPrimitive.Content>
   </SheetPortal>

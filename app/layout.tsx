@@ -1,7 +1,9 @@
-import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 
 import { SITE } from "@/constants/site";
+
+import { getContactInfo } from "@/lib/contact";
+import { buildMetadata, rootMetadata } from "@/lib/seo";
 
 import { BackToTop } from "@/components/layout/back-to-top";
 import { SiteChrome } from "@/components/layout/site-chrome";
@@ -9,8 +11,8 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { WhatsAppButton } from "@/components/layout/whatsapp-button";
 import { HeroSlideshowProvider } from "@/components/providers/hero-slideshow-provider";
 
-import { getContactInfo } from "@/lib/contact";
-import { buildMetadata } from "@/lib/seo";
+
+import type { Metadata, Viewport } from "next";
 
 import "./globals.css";
 
@@ -28,11 +30,14 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata: Metadata = buildMetadata({
-  title: `${SITE.name} | ${SITE.tagline}`,
-  description: SITE.meta.homeDescription,
-  path: SITE.routes.home,
-});
+export const metadata: Metadata = {
+  ...rootMetadata,
+  ...buildMetadata({
+    title: `${SITE.name} | ${SITE.tagline}`,
+    description: SITE.meta.homeDescription,
+    path: SITE.routes.home,
+  }),
+};
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -49,7 +54,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${cormorant.variable} ${inter.variable} h-full`}>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <HeroSlideshowProvider>
           <a
             href="#main-content"

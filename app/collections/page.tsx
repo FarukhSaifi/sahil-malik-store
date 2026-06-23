@@ -2,13 +2,15 @@ import { Suspense } from "react";
 
 import { SITE } from "@/constants/site";
 
+import { getCollections } from "@/lib/data";
+import { buildMetadata } from "@/lib/seo";
+
 import { CollectionFilters } from "@/components/sections/collection-filters";
 import { CollectionGrid } from "@/components/sections/collection-grid";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 
-import { getCollections } from "@/lib/data";
-import { buildMetadata } from "@/lib/seo";
+
 import type { CollectionsPageProps } from "@/types";
 
 export const metadata = buildMetadata({

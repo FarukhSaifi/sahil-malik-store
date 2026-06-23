@@ -135,7 +135,7 @@
   }
 
   .site-logo {
-    @apply font-display text-base font-light uppercase tracking-[0.22em] transition-opacity hover:opacity-70 sm:text-lg lg:text-[1.35rem];
+    @apply leading-none;
   }
 
   .site-header {

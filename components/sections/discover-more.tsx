@@ -1,6 +1,8 @@
 import Link from "next/link";
 
+import { IMAGE_SIZES } from "@/constants/layout";
 import { SITE } from "@/constants/site";
+import { TIMING } from "@/constants/timing";
 
 import { Container } from "@/components/ui/container";
 import { CtaText } from "@/components/ui/cta-link";
@@ -19,12 +21,12 @@ export function DiscoverMore({ items }: DiscoverMoreProps) {
 
         <div className="grid gap-0 sm:grid-cols-3">
           {items.map((item, index) => (
-            <Reveal key={item.href} delay={index * 0.08}>
+            <Reveal key={item.href} delay={index * TIMING.revealStagger.discover}>
               <Link href={item.href} prefetch className="group block">
                 <div className="relative aspect-4/5 overflow-hidden">
                   <EditorialImage
                     image={item.image}
-                    sizes="(max-width: 640px) 100vw, 33vw"
+                    sizes={IMAGE_SIZES.discoverMore}
                     className="image-hover-lift h-full w-full"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-inverse/55 via-inverse/10 to-transparent" />

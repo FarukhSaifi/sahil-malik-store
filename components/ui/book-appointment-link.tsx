@@ -2,9 +2,10 @@ import Link from "next/link";
 
 import { SITE } from "@/constants/site";
 
+import { cn } from "@/lib/utils";
+
 import { Button } from "@/components/ui/button";
 
-import { cn } from "@/lib/utils";
 import type { BookAppointmentLinkProps } from "@/types";
 
 export function BookAppointmentLink({ variant = "outlineInvert", size = "lg", className }: BookAppointmentLinkProps) {

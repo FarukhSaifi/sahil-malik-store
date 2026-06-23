@@ -1,12 +1,16 @@
 import { notFound } from "next/navigation";
 
+import { IMAGE_SIZES } from "@/constants/layout";
+import { lookbookPath } from "@/constants/routes";
 import { SITE } from "@/constants/site";
+
+import { getLookbookBySlug, getLookbooks } from "@/lib/data";
+import { buildMetadata } from "@/lib/seo";
 
 import { Container } from "@/components/ui/container";
 import { EditorialImage } from "@/components/ui/editorial-image";
 
-import { getLookbookBySlug, getLookbooks } from "@/lib/data";
-import { buildMetadata } from "@/lib/seo";
+
 import type { LookbookDetailPageProps } from "@/types";
 
 export async function generateStaticParams() {
@@ -23,7 +27,9 @@ export async function generateMetadata({ params }: LookbookDetailPageProps) {
   return buildMetadata({
     title: `${lookbook.title} ${SITE.pages.lookbook.detailMetaSuffix} | ${SITE.name}`,
     description: lookbook.description,
-    path: `/lookbook/${lookbook.slug}`,
+    path: lookbookPath(lookbook.slug),
+    image: lookbook.coverImage.src,
+    imageAlt: lookbook.coverImage.alt,
   });
 }
 
@@ -36,7 +42,7 @@ export default async function LookbookDetailPage({ params }: LookbookDetailPageP
   return (
     <>
       <section className="relative h-[45vh] min-h-[280px] w-full lg:h-[55vh]">
-        <EditorialImage image={lookbook.coverImage} sizes="100vw" priority className="h-full w-full" />
+        <EditorialImage image={lookbook.coverImage} sizes={IMAGE_SIZES.detailHero} priority className="h-full w-full" />
         <div className="absolute inset-0 bg-linear-to-t from-inverse/50 to-transparent" />
         <Container className="absolute inset-x-0 bottom-0 pb-10 text-background">
           {lookbook.subtitle ? <p className="mb-2 uppercase tracking-[0.2em] text-xs">{lookbook.subtitle}</p> : null}
@@ -53,7 +59,7 @@ export default async function LookbookDetailPage({ params }: LookbookDetailPageP
           <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 [content-visibility:auto]">
             {lookbook.gallery.map((image) => (
               <div key={image.src} className="relative mb-4 aspect-3/4 break-inside-avoid overflow-hidden">
-                <EditorialImage image={image} sizes="(max-width: 768px) 100vw, 33vw" className="h-full w-full" />
+                <EditorialImage image={image} sizes={IMAGE_SIZES.galleryThreeCol} className="h-full w-full" />
               </div>
             ))}
           </div>

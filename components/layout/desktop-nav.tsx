@@ -13,62 +13,53 @@ import type { DesktopNavProps } from "@/types";
 export function DesktopNav({ overlay, side }: DesktopNavProps) {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const linkClass = overlay ? "nav-link-light" : "nav-link";
-  const shopNav = getNavMegaItem("shop");
+  const menswearNav = getNavMegaItem("menswear");
+  const womenswearNav = getNavMegaItem("womenswear");
   const coutureNav = getNavMegaItem("couture");
 
   const closeMenu = useCallback(() => setOpenMenu(null), []);
 
   if (side === "left") {
     return (
-      <nav className="relative hidden items-center gap-8 overflow-visible lg:flex">
+      <nav className="relative hidden items-center gap-6 overflow-visible xl:gap-8 lg:flex">
         <NavDropdown
-          id="shop"
-          label={shopNav.label}
-          href={shopNav.href}
-          isOpen={openMenu === "shop"}
-          onOpen={() => setOpenMenu("shop")}
+          id="menswear"
+          label={menswearNav.label}
+          href={menswearNav.href}
+          isOpen={openMenu === "menswear"}
+          onOpen={() => setOpenMenu("menswear")}
           onClose={closeMenu}
           linkClass={linkClass}
-          panelClassName="w-[min(90vw,720px)] border border-border bg-background p-8 text-foreground shadow-sm"
+          panelClassName="w-[min(90vw,560px)] border border-border bg-background p-8 text-foreground shadow-sm"
         >
-          <div className="grid gap-8 sm:grid-cols-3">
-            <div>
-              <p className="label-caps mb-4 text-muted">{SITE.shopMenu.headings.women}</p>
-              <ul className="space-y-2">
-                {SITE.shopMenu.women.map((item) => (
-                  <li key={item.label}>
-                    <Link href={item.href} prefetch className="text-sm transition-opacity hover:opacity-60">
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="label-caps mb-4 text-muted">{SITE.shopMenu.headings.men}</p>
-              <ul className="space-y-2">
-                {SITE.shopMenu.men.map((item) => (
-                  <li key={item.label}>
-                    <Link href={item.href} prefetch className="text-sm transition-opacity hover:opacity-60">
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="label-caps mb-4 text-muted">{SITE.shopMenu.headings.collections}</p>
-              <ul className="space-y-2">
-                {SITE.shopMenu.collections.map((item) => (
-                  <li key={item.label}>
-                    <Link href={item.href} prefetch className="text-sm transition-opacity hover:opacity-60">
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="grid gap-8 sm:grid-cols-2">
+            {SITE.menswearMenu.map((item) => (
+              <Link key={item.href} href={item.href} prefetch className="text-sm transition-opacity hover:opacity-60">
+                {item.label}
+              </Link>
+            ))}
           </div>
+        </NavDropdown>
+
+        <NavDropdown
+          id="womenswear"
+          label={womenswearNav.label}
+          href={womenswearNav.href}
+          isOpen={openMenu === "womenswear"}
+          onOpen={() => setOpenMenu("womenswear")}
+          onClose={closeMenu}
+          linkClass={linkClass}
+          panelClassName="min-w-[240px] border border-border bg-background p-6 text-foreground shadow-sm"
+        >
+          <ul className="space-y-3">
+            {SITE.womenswearMenu.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} prefetch className="text-sm transition-opacity hover:opacity-60">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </NavDropdown>
 
         <NavDropdown

@@ -1,121 +1,111 @@
-import { IMAGE_IDS, galleryFromIds, unsplash } from "./images";
+import { galleryFromPaths, localImage } from "./images";
+import { MEDIA_MANIFEST  } from "./media-manifest";
 
+import type {MediaManifestSlug} from "./media-manifest";
 import type { Collection } from "@/types";
 
-export const COLLECTIONS: Collection[] = [
+type CollectionDef = {
+  slug: MediaManifestSlug;
+  title: string;
+  category: Collection["category"];
+  season: string;
+  description: string;
+  featured: boolean;
+  order: number;
+};
+
+const COLLECTION_DEFS: CollectionDef[] = [
   {
-    slug: "becoming-love-festive-25",
-    title: "Becoming Love",
-    category: "bridal",
-    season: "Festive '25",
-    coverImage: unsplash(IMAGE_IDS.bridal, {
-      width: 1200,
-      height: 1500,
-      alt: "Becoming Love Festive 2025 collection",
-      priority: true,
-    }),
+    slug: "sherwani",
+    title: "Sherwani",
+    category: "menswear",
+    season: "Menswear",
     description:
-      "A celebration of devotion rendered in hand embroidery, silk organza, and celestial motifs — where romance becomes ritual.",
+      "Architectural sherwanis in heritage textiles, elevated with tonal threadwork, hand embroidery, and ceremonial refinement.",
     featured: true,
     order: 1,
-    gallery: galleryFromIds(
-      [IMAGE_IDS.bridal, IMAGE_IDS.couture, IMAGE_IDS.heroEditorial, IMAGE_IDS.fashionWalk],
-      "Becoming Love",
-    ),
   },
   {
-    slug: "raas-spring-summer-26",
-    title: "Raas",
-    category: "evening",
-    season: "Spring Summer '26",
-    coverImage: unsplash(IMAGE_IDS.heroRunway, {
-      width: 1200,
-      height: 1500,
-      alt: "Raas Spring Summer 2026 collection",
-    }),
+    slug: "kurta-sets",
+    title: "Kurta Sets",
+    category: "menswear",
+    season: "Menswear",
     description:
-      "Elemental silhouettes in fluid drapes and micro-pleats, inspired by the rhythm of spring and the poetry of movement.",
+      "Festive and occasion kurta sets crafted with artisanal surface ornamentation, fluid silhouettes, and conscious luxury.",
     featured: true,
     order: 2,
-    gallery: galleryFromIds(
-      [IMAGE_IDS.heroRunway, IMAGE_IDS.eveningGown, IMAGE_IDS.couture, IMAGE_IDS.editorial],
-      "Raas",
-    ),
   },
   {
-    slug: "amrita-festive-24",
-    title: "Amrita",
-    category: "saree",
-    season: "Festive '24",
-    coverImage: unsplash(IMAGE_IDS.saree, {
-      width: 1200,
-      height: 1500,
-      alt: "Amrita Festive 2024 saree collection",
-    }),
+    slug: "suits",
+    title: "Suits",
+    category: "menswear",
+    season: "Menswear",
     description:
-      "Heritage weaves reimagined through contemporary drape, featuring zardozi, aari, and tonal resham embroidery.",
+      "Tailored suits that balance modern structure with Sahil Malik's signature embroidery and refined Indian craft.",
     featured: true,
     order: 3,
-    gallery: galleryFromIds(
-      [IMAGE_IDS.saree, IMAGE_IDS.heroEmbroidery, IMAGE_IDS.bridal, IMAGE_IDS.fashionWalk],
-      "Amrita",
-    ),
   },
   {
-    slug: "nargis-festive-24",
-    title: "Nargis",
-    category: "evening",
-    season: "Festive '24",
-    coverImage: unsplash(IMAGE_IDS.eveningGown, {
-      width: 1200,
-      height: 1500,
-      alt: "Nargis Festive 2024 evening collection",
-    }),
+    slug: "jawahar-jacket-set",
+    title: "Jawahar Jacket Set",
+    category: "menswear",
+    season: "Menswear",
     description:
-      "Nocturnal florals bloom across sculpted corsetry and trailing hemlines — evening wear as wearable art.",
-    featured: true,
+      "Jawahar jacket sets rendered in rich weaves and meticulous hand-finish — occasion wear with quiet authority.",
+    featured: false,
     order: 4,
-    gallery: galleryFromIds(
-      [IMAGE_IDS.eveningGown, IMAGE_IDS.heroRunway, IMAGE_IDS.couture, IMAGE_IDS.editorial],
-      "Nargis",
-    ),
   },
   {
-    slug: "cosmos-spring-23",
-    title: "Cosmos",
-    category: "bridal",
-    season: "Spring Festive '23",
-    coverImage: unsplash(IMAGE_IDS.heroEditorial, {
-      width: 1200,
-      height: 1500,
-      alt: "Cosmos Spring Festive 2023 collection",
-    }),
+    slug: "bandhgala-indo-western",
+    title: "Bandhgala & Indo-Western",
+    category: "menswear",
+    season: "Menswear",
     description:
-      "Constellations hand-stitched across tulle and silk — a bridal odyssey through light, shadow, and infinite craft.",
+      "Bandhgalas and Indo-western silhouettes that merge classic Indian tailoring with contemporary global restraint.",
     featured: false,
     order: 5,
-    gallery: galleryFromIds(
-      [IMAGE_IDS.heroEditorial, IMAGE_IDS.bridal, IMAGE_IDS.couture, IMAGE_IDS.fashionWalk],
-      "Cosmos",
-    ),
   },
   {
-    slug: "regal-menswear-25",
-    title: "Regal",
+    slug: "shirts",
+    title: "Shirts",
     category: "menswear",
-    season: "Festive '25",
-    coverImage: unsplash(IMAGE_IDS.menswear, {
-      width: 1200,
-      height: 1500,
-      alt: "Regal Menswear Festive 2025",
-    }),
+    season: "Menswear",
     description:
-      "Sherwanis and bandhgalas in architectural cuts, elevated with tonal threadwork and heritage textiles.",
+      "Elevated shirts with embroidered detail and precise cut — versatile pieces from the Sahil Malik atelier.",
     featured: false,
     order: 6,
-    gallery: galleryFromIds(
-      [IMAGE_IDS.menswear, IMAGE_IDS.fashionWalk, IMAGE_IDS.editorial, IMAGE_IDS.atelier],
-      "Regal",
-    ),
+  },
+  {
+    slug: "womenswear-stock-clearance",
+    title: "Womenswear Stock Clearance",
+    category: "womenswear",
+    season: "Womenswear",
+    description:
+      "A curated selection of womenswear pieces from the atelier — limited availability, signature Sahil Malik craft.",
+    featured: true,
+    order: 7,
   },
 ];
+
+function buildCollection(def: CollectionDef): Collection {
+  const paths = MEDIA_MANIFEST[def.slug];
+
+  return {
+    slug: def.slug,
+    title: def.title,
+    category: def.category,
+    season: def.season,
+    description: def.description,
+    featured: def.featured,
+    order: def.order,
+    coverImage: localImage(paths[0], {
+      width: 1200,
+      height: 1500,
+      alt: `${def.title} by Sahil Malik`,
+      priority: def.featured,
+    }),
+    gallery: galleryFromPaths(paths, def.title),
+  };
+}
+
+export const COLLECTIONS: Collection[] = COLLECTION_DEFS.map(buildCollection);

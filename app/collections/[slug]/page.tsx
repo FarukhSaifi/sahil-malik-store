@@ -1,14 +1,18 @@
 import { notFound } from "next/navigation";
 
+import { IMAGE_SIZES, LAYOUT } from "@/constants/layout";
+import { collectionPath } from "@/constants/routes";
 import { SITE } from "@/constants/site";
+
+import { getCollectionBySlug, getCollections } from "@/lib/data";
+import { buildMetadata } from "@/lib/seo";
 
 import { CollectionCard } from "@/components/cards/collection-card";
 import { Container } from "@/components/ui/container";
 import { CtaLink } from "@/components/ui/cta-link";
 import { EditorialImage } from "@/components/ui/editorial-image";
 
-import { getCollectionBySlug, getCollections } from "@/lib/data";
-import { buildMetadata } from "@/lib/seo";
+
 import type { CollectionDetailPageProps } from "@/types";
 
 export async function generateStaticParams() {
@@ -25,7 +29,9 @@ export async function generateMetadata({ params }: CollectionDetailPageProps) {
   return buildMetadata({
     title: `${collection.title} | ${SITE.name}`,
     description: collection.description,
-    path: `/collections/${collection.slug}`,
+    path: collectionPath(collection.slug),
+    image: collection.coverImage.src,
+    imageAlt: collection.coverImage.alt,
   });
 }
 
@@ -37,12 +43,17 @@ export default async function CollectionDetailPage({ params }: CollectionDetailP
 
   const related = getCollections()
     .filter((c) => c.slug !== collection.slug && c.category === collection.category)
-    .slice(0, 3);
+    .slice(0, SITE.pages.collections.relatedLimit);
 
   return (
     <>
       <section className="relative h-[50vh] min-h-[320px] w-full lg:h-[60vh]">
-        <EditorialImage image={collection.coverImage} sizes="100vw" priority className="h-full w-full" />
+        <EditorialImage
+          image={collection.coverImage}
+          sizes={IMAGE_SIZES.detailHero}
+          priority
+          className="h-full w-full"
+        />
         <div className="absolute inset-0 bg-linear-to-t from-inverse/50 to-transparent" />
         <Container className="absolute inset-x-0 bottom-0 pb-10 text-background">
           <p className="mb-2 uppercase tracking-[0.2em] text-xs">{collection.season}</p>
@@ -57,9 +68,14 @@ export default async function CollectionDetailPage({ params }: CollectionDetailP
           </p>
 
           <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-2 lg:gap-4 [content-visibility:auto]">
-            {collection.gallery.map((image) => (
+            {collection.gallery.map((image, index) => (
               <div key={image.src} className="relative aspect-3/4 overflow-hidden">
-                <EditorialImage image={image} sizes="(max-width: 768px) 100vw, 50vw" className="h-full w-full" />
+                <EditorialImage
+                  image={image}
+                  sizes={IMAGE_SIZES.collectionGallery}
+                  className="h-full w-full"
+                  priority={index < LAYOUT.collectionGalleryPriorityCount}
+                />
               </div>
             ))}
           </div>

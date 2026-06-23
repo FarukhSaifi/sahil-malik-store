@@ -1,11 +1,12 @@
 import { SITE } from "@/constants/site";
 
+import { getLookbooks } from "@/lib/data";
+import { buildMetadata } from "@/lib/seo";
+
 import { LookbookTile } from "@/components/cards/lookbook-tile";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 
-import { getLookbooks } from "@/lib/data";
-import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: `${SITE.pages.lookbook.metaTitle} | ${SITE.name}`,

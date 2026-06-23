@@ -2,15 +2,19 @@
 
 import { motion } from "framer-motion";
 
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { fadeUp } from "@/lib/animations/variants";
 import { cn } from "@/lib/utils";
+
+import { useMounted } from "@/hooks/use-mounted";
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+
 import type { RevealProps } from "@/types";
 
 export function Reveal({ children, className, delay = 0 }: RevealProps) {
+  const mounted = useMounted();
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  if (prefersReducedMotion) {
+  if (!mounted || prefersReducedMotion) {
     return <div className={className}>{children}</div>;
   }
 

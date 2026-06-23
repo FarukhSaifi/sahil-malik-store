@@ -1,14 +1,16 @@
 import Link from "next/link";
 
+import { IMAGE_SIZES } from "@/constants/layout";
+import { couturePath } from "@/constants/routes";
 import { SITE } from "@/constants/site";
+
+import { getCoutureSeasons } from "@/lib/data";
+import { buildMetadata } from "@/lib/seo";
 
 import { Container } from "@/components/ui/container";
 import { CtaText } from "@/components/ui/cta-link";
 import { EditorialImage } from "@/components/ui/editorial-image";
 import { SectionHeading } from "@/components/ui/section-heading";
-
-import { getCoutureSeasons } from "@/lib/data";
-import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: `${SITE.pages.couture.metaTitle} | ${SITE.name}`,
@@ -28,14 +30,14 @@ export default function CouturePage() {
           {seasons.map((season) => (
             <Link
               key={season.slug}
-              href={`${SITE.routes.couture}/${season.slug}`}
+              href={couturePath(season.slug)}
               prefetch
               className="group grid gap-6 lg:grid-cols-2 lg:items-center"
             >
               <div className="relative aspect-16/10 overflow-hidden">
                 <EditorialImage
                   image={season.heroImage}
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  sizes={IMAGE_SIZES.coutureListing}
                   className="image-hover-lift h-full w-full"
                 />
               </div>

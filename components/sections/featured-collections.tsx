@@ -1,6 +1,9 @@
 import Link from "next/link";
 
+import { IMAGE_SIZES } from "@/constants/layout";
+import { collectionPath } from "@/constants/routes";
 import { SITE } from "@/constants/site";
+import { TIMING } from "@/constants/timing";
 
 import { Container } from "@/components/ui/container";
 import { CtaLink } from "@/components/ui/cta-link";
@@ -27,12 +30,12 @@ export function FeaturedCollections({ collections }: FeaturedCollectionsProps) {
 
         <div className="grid gap-4 sm:grid-cols-2 lg:gap-6">
           {collections.map((collection, index) => (
-            <Reveal key={collection.slug} delay={index * 0.1}>
-              <Link href={`/collections/${collection.slug}`} prefetch className="group block">
+            <Reveal key={collection.slug} delay={index * TIMING.revealStagger.featured}>
+              <Link href={collectionPath(collection.slug)} prefetch className="group block">
                 <div className="relative aspect-3/4 overflow-hidden">
                   <EditorialImage
                     image={collection.coverImage}
-                    sizes="(max-width: 640px) 100vw, 50vw"
+                    sizes={IMAGE_SIZES.featuredCollection}
                     className="image-hover-lift h-full w-full"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-inverse/60 via-transparent to-transparent" />

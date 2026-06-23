@@ -1,8 +1,9 @@
 "use client";
 
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useState } from "react";
 
 import type { HeroSlideshowContextValue } from "@/types";
+import type { ReactNode } from "react";
 
 const HeroSlideshowContext = createContext<HeroSlideshowContextValue | null>(null);
 

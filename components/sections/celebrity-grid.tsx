@@ -1,4 +1,6 @@
+import { IMAGE_SIZES } from "@/constants/layout";
 import { SITE } from "@/constants/site";
+import { TIMING } from "@/constants/timing";
 
 import { Container } from "@/components/ui/container";
 import { CtaLink } from "@/components/ui/cta-link";
@@ -20,12 +22,16 @@ export function CelebrityGrid({ celebrities }: CelebrityGridProps) {
 
         <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 scrollbar-none sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-6 lg:gap-6 [&::-webkit-scrollbar]:hidden">
           {celebrities.map((celebrity, index) => (
-            <Reveal key={celebrity.name} delay={index * 0.05} className="w-[42vw] shrink-0 snap-start sm:w-auto">
+            <Reveal
+              key={celebrity.name}
+              delay={index * TIMING.revealStagger.press}
+              className="w-[42vw] shrink-0 snap-start sm:w-auto"
+            >
               <div className="group text-center">
                 <div className="relative aspect-3/4 overflow-hidden">
                   <EditorialImage
                     image={celebrity.image}
-                    sizes="(max-width: 640px) 42vw, (max-width: 1024px) 33vw, 16vw"
+                    sizes={IMAGE_SIZES.celebrity}
                     className="image-hover-lift h-full w-full"
                   />
                 </div>

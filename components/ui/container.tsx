@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+
 import type { ContainerProps } from "@/types";
 
 export function Container({ children, className, as: Component = "div" }: ContainerProps) {

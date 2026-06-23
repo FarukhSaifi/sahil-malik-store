@@ -1,46 +1,22 @@
-import { IMAGE_IDS, unsplash } from "./images";
+import { COLLECTIONS } from "./collections";
+import { collectionPath } from "./routes";
 
 import type { Category } from "@/types";
 
-export const CATEGORIES: Category[] = [
-  {
-    slug: "evening",
-    title: "Evening Wear",
-    href: "/collections?category=evening",
-    image: unsplash(IMAGE_IDS.eveningGown, {
+const HOMEPAGE_CATEGORY_SLUGS = ["sherwani", "kurta-sets", "suits", "womenswear-stock-clearance"] as const;
+
+export const CATEGORIES: Category[] = HOMEPAGE_CATEGORY_SLUGS.map((slug) => {
+  const collection = COLLECTIONS.find((item) => item.slug === slug)!;
+
+  return {
+    slug: collection.slug,
+    title: collection.title,
+    href: collectionPath(collection.slug),
+    image: {
+      ...collection.coverImage,
       width: 800,
       height: 1000,
-      alt: "Evening wear collection by Sahil Malik",
-    }),
-  },
-  {
-    slug: "bridal",
-    title: "Bridal Wear",
-    href: "/collections?category=bridal",
-    image: unsplash(IMAGE_IDS.bridal, {
-      width: 800,
-      height: 1000,
-      alt: "Bridal couture by Sahil Malik",
-    }),
-  },
-  {
-    slug: "menswear",
-    title: "Menswear",
-    href: "/collections?category=menswear",
-    image: unsplash(IMAGE_IDS.menswear, {
-      width: 800,
-      height: 1000,
-      alt: "Menswear collection by Sahil Malik",
-    }),
-  },
-  {
-    slug: "saree",
-    title: "Saree",
-    href: "/collections?category=saree",
-    image: unsplash(IMAGE_IDS.saree, {
-      width: 800,
-      height: 1000,
-      alt: "Saree collection by Sahil Malik",
-    }),
-  },
-];
+      alt: `${collection.title} by Sahil Malik`,
+    },
+  };
+});

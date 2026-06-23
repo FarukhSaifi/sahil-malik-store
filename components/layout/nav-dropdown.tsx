@@ -2,12 +2,18 @@
 
 import { useEffect } from "react";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+
+import { TIMING } from "@/constants/timing";
+
+import { EASE_EDITORIAL } from "@/lib/animations/variants";
 import { cn } from "@/lib/utils";
+
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+
 import type { NavDropdownProps } from "@/types";
 
 export function NavDropdown({
@@ -55,10 +61,10 @@ export function NavDropdown({
         {isOpen ? (
           <motion.div
             key={id}
-            initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: TIMING.nav.dropdownOffsetY }}
             animate={{ opacity: 1, y: 0 }}
-            exit={prefersReducedMotion ? undefined : { opacity: 0, y: -8 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            exit={prefersReducedMotion ? undefined : { opacity: 0, y: TIMING.nav.dropdownOffsetY }}
+            transition={{ duration: TIMING.nav.dropdownDuration, ease: EASE_EDITORIAL }}
             className="absolute left-0 top-full z-50 pt-4"
           >
             <div className={panelClassName}>{children}</div>

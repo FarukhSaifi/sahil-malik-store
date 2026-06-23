@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { ArrowUp } from "lucide-react";
 
+import { LAYOUT } from "@/constants/layout";
 import { SITE } from "@/constants/site";
 
 import { cn } from "@/lib/utils";
@@ -12,7 +13,7 @@ export function BackToTop() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 600);
+    const onScroll = () => setVisible(window.scrollY > LAYOUT.backToTopScrollThreshold);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);

@@ -1,16 +1,19 @@
 import Link from "next/link";
 
+import { IMAGE_SIZES } from "@/constants/layout";
+import { lookbookPath } from "@/constants/routes";
+
 import { EditorialImage } from "@/components/ui/editorial-image";
 
 import type { LookbookTileProps } from "@/types";
 
 export function LookbookTile({ lookbook }: LookbookTileProps) {
   return (
-    <Link href={`/lookbook/${lookbook.slug}`} prefetch className="group block">
+    <Link href={lookbookPath(lookbook.slug)} prefetch className="group block">
       <div className="relative aspect-3/4 overflow-hidden">
         <EditorialImage
           image={lookbook.coverImage}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes={IMAGE_SIZES.editorialDefault}
           className="image-hover-lift h-full w-full"
         />
         <div className="absolute inset-0 bg-linear-to-t from-inverse/60 to-transparent" />

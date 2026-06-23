@@ -1,25 +1,36 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
-import { SITE } from "@/constants/site";
+import { motion } from "framer-motion";
 
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { MOTION_LAYOUT_IDS } from "@/constants/layout";
+import { collectionsCategoryPath } from "@/constants/routes";
+import { SITE } from "@/constants/site";
+import { TIMING } from "@/constants/timing";
+
+import { EASE_EDITORIAL } from "@/lib/animations/variants";
 import { cn } from "@/lib/utils";
+
+import { useMounted } from "@/hooks/use-mounted";
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
 export function CollectionFilters() {
   const searchParams = useSearchParams();
   const category = searchParams.get("category") ?? undefined;
+  const mounted = useMounted();
   const prefersReducedMotion = usePrefersReducedMotion();
+  const canAnimate = mounted && !prefersReducedMotion;
   const filters = SITE.pages.collections.filters;
   const activeCategory = filters.find((filter) => filter.value === category)?.value;
 
   return (
     <div className="mb-10 flex flex-wrap gap-3">
       {filters.map((filter) => {
-        const href = filter.value ? `${SITE.routes.collections}?category=${filter.value}` : SITE.routes.collections;
+        const href = filter.value
+          ? collectionsCategoryPath(filter.value as "menswear" | "womenswear")
+          : SITE.routes.collections;
         const isActive = filter.value === activeCategory || (!filter.value && !activeCategory);
 
         return (
@@ -35,15 +46,15 @@ export function CollectionFilters() {
           >
             {filter.label}
             {isActive ? (
-              prefersReducedMotion ? (
-                <span aria-hidden className="absolute inset-x-0 -bottom-px h-0.5 bg-foreground" />
-              ) : (
+              canAnimate ? (
                 <motion.span
-                  layoutId="collection-filter-underline"
+                  layoutId={MOTION_LAYOUT_IDS.collectionFilterUnderline}
                   aria-hidden
                   className="absolute inset-x-0 -bottom-px h-0.5 bg-foreground"
-                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: TIMING.filter.underlineDuration, ease: EASE_EDITORIAL }}
                 />
+              ) : (
+                <span aria-hidden className="absolute inset-x-0 -bottom-px h-0.5 bg-foreground" />
               )
             ) : null}
           </Link>

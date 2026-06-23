@@ -4,12 +4,13 @@ import { useMemo, useState } from "react";
 
 import { SITE } from "@/constants/site";
 
+import { getEmailError, getRequiredError, isFormValid } from "@/lib/validation";
+
 import { Button } from "@/components/ui/button";
 import { FormField, getFieldDescribedBy } from "@/components/ui/form-field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-import { getEmailError, getRequiredError, isFormValid } from "@/lib/validation";
 import type { ContactFormProps } from "@/types";
 
 type ContactField = "name" | "email" | "message";

@@ -1,25 +1,27 @@
-"use client";
-
-import { useState } from "react";
-
 import Image from "next/image";
 
+import { IMAGE_QUALITY, IMAGE_SIZES } from "@/constants/layout";
+
 import { cn } from "@/lib/utils";
+
 import type { EditorialImageProps } from "@/types";
 
+/**
+ * EditorialImage component optimized for performance.
+ * Now a Server Component to reduce client-side JS.
+ * Uses CSS-only pulse and built-in Next.js blur placeholder.
+ */
 export function EditorialImage({
   image,
-  sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
+  sizes = IMAGE_SIZES.editorialDefault,
   className,
   imageClassName,
-  quality = 75,
+  quality = IMAGE_QUALITY.default,
   fill = true,
   priority,
 }: EditorialImageProps) {
-  const [loaded, setLoaded] = useState(false);
-
   return (
-    <div className={cn("relative overflow-hidden bg-border", !loaded && "animate-pulse", className)}>
+    <div className={cn("relative overflow-hidden bg-border", className)}>
       <Image
         src={image.src}
         alt={image.alt}
@@ -27,17 +29,11 @@ export function EditorialImage({
         height={fill ? undefined : image.height}
         fill={fill}
         sizes={sizes}
-        quality={priority || image.priority ? 85 : quality}
+        quality={priority || image.priority ? IMAGE_QUALITY.priority : quality}
         priority={priority ?? image.priority}
-        fetchPriority={priority || image.priority ? "high" : "auto"}
         placeholder="blur"
         blurDataURL={image.blurDataURL}
-        onLoad={() => setLoaded(true)}
-        className={cn(
-          "object-cover transition-opacity duration-500",
-          loaded ? "opacity-100" : "opacity-0",
-          imageClassName,
-        )}
+        className={cn("object-cover", imageClassName)}
       />
     </div>
   );

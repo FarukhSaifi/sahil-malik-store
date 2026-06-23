@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { SITE } from "@/constants/site";
 
+import { SiteLogo } from "@/components/layout/site-logo";
 import { Container } from "@/components/ui/container";
 
 export function SiteFooter() {
@@ -54,8 +55,9 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-14 border-t border-border pt-8 text-center">
-          <p className="text-xs text-muted">{SITE.copyright}</p>
+        <div className="mt-14 flex flex-col items-center gap-6 border-t border-border pt-8">
+          <SiteLogo className="max-w-40 opacity-90" />
+          <p className="text-center text-xs text-muted">{SITE.copyright}</p>
         </div>
       </Container>
     </footer>

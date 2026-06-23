@@ -2,12 +2,14 @@
 
 import { Pause, Play } from "lucide-react";
 
+import { LAYOUT } from "@/constants/layout";
 import { SITE } from "@/constants/site";
+
+import { cn } from "@/lib/utils";
 
 import { useHeroSlideshow } from "@/components/providers/hero-slideshow-provider";
 import { CtaLink } from "@/components/ui/cta-link";
 
-import { cn } from "@/lib/utils";
 import type { AnnouncementBarProps } from "@/types";
 
 export function AnnouncementBar({ overlay = false }: AnnouncementBarProps) {
@@ -35,7 +37,7 @@ export function AnnouncementBar({ overlay = false }: AnnouncementBarProps) {
 
         <div className="flex min-w-0 flex-1 items-center justify-center overflow-hidden">
           <div className="flex animate-marquee gap-12 whitespace-nowrap motion-reduce:animate-none">
-            {[...Array(4)].map((_, i) => (
+            {[...Array(LAYOUT.announcementRepeatCount)].map((_, i) => (
               <span key={i} className={cn("label-caps", overlay ? "text-background" : "text-foreground")}>
                 {SITE.announcement}
               </span>

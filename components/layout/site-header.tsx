@@ -2,15 +2,16 @@
 
 import { useEffect, useState } from "react";
 
-import { Menu, Search } from "lucide-react";
-import Link from "next/link";
+import { Menu } from "lucide-react";
 
 import { SITE } from "@/constants/site";
 
+import { cn } from "@/lib/utils";
+
 import { DesktopNav } from "./desktop-nav";
 import { MobileMenu } from "./mobile-menu";
+import { SiteLogo } from "./site-logo";
 
-import { cn } from "@/lib/utils";
 import type { SiteHeaderProps } from "@/types";
 
 export function SiteHeader({ overlay = false }: SiteHeaderProps) {
@@ -49,30 +50,25 @@ export function SiteHeader({ overlay = false }: SiteHeaderProps) {
             <DesktopNav overlay={overlay} side="left" />
           </div>
 
-          <Link
-            href={SITE.routes.home}
-            className={cn("site-logo shrink-0", overlay ? "text-background" : "text-foreground")}
-          >
-            {SITE.name}
-          </Link>
+          <SiteLogo overlay={overlay} />
 
           <div className="flex flex-1 items-center justify-end gap-1 sm:gap-2">
-            <button
+            {/* <button
               type="button"
               className="hidden min-h-11 min-w-11 items-center justify-center lg:flex"
               aria-label={SITE.a11y.search}
             >
               <Search className={iconClass} />
-            </button>
+            </button> */}
             <DesktopNav overlay={overlay} side="right" />
-            <button
+            {/* <button
               type="button"
               onClick={() => setMenuOpen(true)}
               className="hidden min-h-11 items-center justify-center lg:flex"
               aria-label={SITE.a11y.openNavigation}
             >
               <span className={cn("label-caps", overlay ? "nav-link-light" : "nav-link")}>{SITE.ui.menu}</span>
-            </button>
+            </button> */}
           </div>
         </div>
       </header>

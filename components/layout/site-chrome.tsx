@@ -4,16 +4,20 @@ import { usePathname } from "next/navigation";
 
 import { SITE } from "@/constants/site";
 
+import { useHeroOverlay } from "@/hooks/use-hero-overlay";
+import { useMounted } from "@/hooks/use-mounted";
+
 import { AnnouncementBar } from "./announcement-bar";
 import { SiteHeader } from "./site-header";
 
-import { useHeroOverlay } from "@/hooks/use-hero-overlay";
 
 export function SiteChrome() {
   const pathname = usePathname();
   const isHome = pathname === SITE.routes.home;
-  const overHero = useHeroOverlay(isHome);
-  const isOverlay = isHome && overHero;
+  const mounted = useMounted();
+  const overHero = useHeroOverlay(isHome && mounted);
+  // Before mount, keep the home hero overlay so SSR matches the first client paint.
+  const isOverlay = isHome && (!mounted || overHero);
 
   return (
     <div className="sticky top-0 z-50 w-full overflow-visible">

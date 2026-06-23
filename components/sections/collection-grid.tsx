@@ -2,15 +2,24 @@
 
 import { motion } from "framer-motion";
 
+import { TIMING } from "@/constants/timing";
+
+import { EASE_EDITORIAL } from "@/lib/animations/variants";
+
+import { useMounted } from "@/hooks/use-mounted";
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+
 import { CollectionCard } from "@/components/cards/collection-card";
 
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+
+
 import type { CollectionGridProps } from "@/types";
 
 export function CollectionGrid({ collections, categoryKey }: CollectionGridProps) {
+  const mounted = useMounted();
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  if (prefersReducedMotion) {
+  if (!mounted || prefersReducedMotion) {
     return (
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
         {collections.map((collection) => (
@@ -23,9 +32,9 @@ export function CollectionGrid({ collections, categoryKey }: CollectionGridProps
   return (
     <motion.div
       key={categoryKey}
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: TIMING.grid.enterOffsetY }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: TIMING.grid.enterDuration, ease: EASE_EDITORIAL }}
       className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6"
     >
       {collections.map((collection) => (

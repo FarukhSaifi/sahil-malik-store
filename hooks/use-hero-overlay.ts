@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from "react";
 
-const THRESHOLD_RATIO = 0.65;
+import { LAYOUT } from "@/constants/layout";
 
 function subscribe(callback: () => void) {
   window.addEventListener("scroll", callback, { passive: true });
@@ -12,7 +12,7 @@ function subscribe(callback: () => void) {
 }
 
 function getSnapshot() {
-  return window.scrollY < window.innerHeight * THRESHOLD_RATIO;
+  return window.scrollY < window.innerHeight * LAYOUT.heroOverlayThresholdRatio;
 }
 
 function getServerSnapshot() {

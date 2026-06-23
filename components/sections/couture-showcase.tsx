@@ -1,5 +1,9 @@
 import Link from "next/link";
 
+import { IMAGE_SIZES } from "@/constants/layout";
+import { couturePath } from "@/constants/routes";
+import { TIMING } from "@/constants/timing";
+
 import { EditorialImage } from "@/components/ui/editorial-image";
 import { Reveal } from "@/components/ui/reveal";
 
@@ -9,15 +13,15 @@ export function CoutureShowcase({ seasons }: CoutureShowcaseProps) {
   return (
     <section className="flex flex-col">
       {seasons.map((season, index) => (
-        <Reveal key={season.slug} delay={index * 0.08}>
+        <Reveal key={season.slug} delay={index * TIMING.revealStagger.discover}>
           <Link
-            href={`/couture/${season.slug}`}
+            href={couturePath(season.slug)}
             prefetch
             className="group relative block min-h-[70vh] overflow-hidden sm:min-h-[78vh]"
           >
             <EditorialImage
               image={season.heroImage}
-              sizes="100vw"
+              sizes={IMAGE_SIZES.hero}
               priority={index === 0}
               className="absolute inset-0 h-full w-full"
             />

@@ -1,11 +1,12 @@
 import { SITE } from "@/constants/site";
 
+import { getContactInfo } from "@/lib/contact";
+import { buildMetadata } from "@/lib/seo";
+
 import { ContactForm } from "@/components/sections/contact-form";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 
-import { getContactInfo } from "@/lib/contact";
-import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: `${SITE.pages.contact.metaTitle} | ${SITE.name}`,

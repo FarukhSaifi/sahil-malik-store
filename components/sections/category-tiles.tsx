@@ -1,6 +1,8 @@
 import Link from "next/link";
 
+import { IMAGE_SIZES } from "@/constants/layout";
 import { SITE } from "@/constants/site";
+import { TIMING } from "@/constants/timing";
 
 import { CtaText } from "@/components/ui/cta-link";
 import { EditorialImage } from "@/components/ui/editorial-image";
@@ -13,12 +15,12 @@ export function CategoryTiles({ categories }: CategoryTilesProps) {
     <section className="section-padding-tight">
       <div className="grid grid-cols-2 lg:grid-cols-4">
         {categories.map((category, index) => (
-          <Reveal key={category.slug} delay={index * 0.06}>
+          <Reveal key={category.slug} delay={index * TIMING.revealStagger.category}>
             <Link href={category.href} prefetch className="group block">
               <div className="relative aspect-4/5 overflow-hidden">
                 <EditorialImage
                   image={category.image}
-                  sizes="(max-width: 640px) 50vw, 25vw"
+                  sizes={IMAGE_SIZES.categoryTile}
                   className="image-hover-lift h-full w-full"
                 />
               </div>

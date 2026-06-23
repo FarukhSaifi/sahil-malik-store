@@ -27,13 +27,13 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: "lts/*"
+          cache: npm
 
       - name: Install dependencies
         run: npm install
 
       - name: Run lint
         run: npm run lint
-
 
   audit:
     name: Dependency audit
@@ -48,6 +48,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: "lts/*"
+          cache: npm
 
       - name: Install dependencies
         run: npm install
@@ -68,6 +69,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: "lts/*"
+          cache: npm
 
       - name: Install dependencies
         run: npm install
@@ -76,7 +78,6 @@ jobs:
         run: npm run build
         env:
           CONTACT_EMAIL: ci@example.com
-          CONTACT_PHONE: 
-          CONTACT_ADDRESS: 
+          CONTACT_PHONE:
+          CONTACT_ADDRESS:
           CONTACT_HOURS: By appointment only
-

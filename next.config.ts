@@ -49,10 +49,19 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: [{ key: "X-DNS-Prefetch-Control", value: "on" }],
       },
+      {
+        source: "/media/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
     ];
   },
 
-  allowedDevOrigins: ["localhost:3000", "*.localhost:3000", "192.168.1.34"],
+  allowedDevOrigins: ["localhost:3000", "*.localhost:3000"],
 };
 
 export default nextConfig;

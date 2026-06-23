@@ -3,6 +3,7 @@
 import { SITE } from "@/constants/site";
 
 import { cn, getWhatsAppUrl } from "@/lib/utils";
+
 import type { WhatsAppButtonProps } from "@/types";
 
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -38,7 +39,7 @@ export function WhatsAppButton({ phone, defaultMessage }: WhatsAppButtonProps) {
           "opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100",
         )}
       >
-        WhatsApp
+        {SITE.a11y.whatsappLabel}
       </span>
     </div>
   );

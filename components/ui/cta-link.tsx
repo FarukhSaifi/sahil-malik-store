@@ -1,9 +1,11 @@
 "use client";
 
-import { cva } from "class-variance-authority";
 import Link from "next/link";
 
+import { cva } from "class-variance-authority";
+
 import { cn } from "@/lib/utils";
+
 import type { CtaLinkProps, CtaTextProps } from "@/types";
 
 export const ctaLinkVariants = cva("", {
