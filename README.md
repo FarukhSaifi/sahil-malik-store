@@ -140,7 +140,7 @@ Visit [http://localhost:3000](http://localhost:3000).
 | `npm run lint:fix` | Run ESLint with auto-fix             |
 
 
-`package-lock.json` is committed so CI and local installs resolve the same dependency tree. After changing `package.json`, run `npm install` and commit the updated lockfile.
+`package-lock.json` is gitignored — `npm install` creates one locally but it is never committed.
 
 ---
 
