@@ -160,18 +160,21 @@ export const SITE = {
         "Order, payment, shipping, and exchange policies for Sahil Malik Couture — crafted with exceptional attention to detail.",
       title: "Our Policies",
       subtitle: "Client Care",
+      ogImageAlt: "Sahil Malik Couture — Our Policies",
     },
     terms: {
       metaTitle: "Terms of Service",
       metaDescription: "Terms of Service for Sahil Malik Couture website, orders, and bespoke services.",
       title: "Terms of Service",
       subtitle: "Legal",
+      ogImageAlt: "Sahil Malik Couture — Terms of Service",
     },
     privacy: {
       metaTitle: "Privacy Policy",
       metaDescription: "How Sahil Malik Couture collects, uses, and protects your personal information.",
       title: "Privacy Policy",
       subtitle: "Your Data",
+      ogImageAlt: "Sahil Malik Couture — Privacy Policy",
     },
     faq: {
       metaTitle: "FAQs",
@@ -231,12 +234,12 @@ export const SITE = {
     ],
   },
   social: {
-    instagram: "https://instagram.com",
-    facebook: "https://facebook.com",
+    instagram: "https://www.instagram.com/sahilmalikcouture",
+    facebook: "https://www.facebook.com/sahilmalikcouture",
   },
   socialLinks: [
-    { key: "instagram", label: "Instagram", href: "https://instagram.com" },
-    { key: "facebook", label: "Facebook", href: "https://facebook.com" },
+    { key: "instagram", label: "Instagram", href: "https://www.instagram.com/sahilmalikcouture" },
+    { key: "facebook", label: "Facebook", href: "https://www.facebook.com/sahilmalikcouture" },
   ],
   copyright: "© 2026 Sahil Malik. All rights reserved.",
 } as const;

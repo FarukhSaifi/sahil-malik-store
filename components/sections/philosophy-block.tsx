@@ -13,8 +13,8 @@ export function PhilosophyBlock({ title, subtitle, body, cta }: PhilosophyBlockP
             <h2 className="heading-section mb-3 uppercase tracking-[0.08em]">{title}</h2>
             <p className="mb-8 label-caps text-muted">{subtitle}</p>
             <div className="space-y-5 text-sm leading-[1.8] text-muted sm:text-base">
-              {body.split("\n\n").map((paragraph) => (
-                <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+              {body.split("\n\n").map((paragraph, index) => (
+                <p key={`philosophy-paragraph-${index}`}>{paragraph}</p>
               ))}
             </div>
             <CtaLink href={cta.href} className="mt-10">

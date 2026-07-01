@@ -13,7 +13,7 @@ export const metadata = buildMetadata({
   description: SITE.pages.terms.metaDescription,
   path: SITE.routes.terms,
   image: BRAND.ogDefault,
-  imageAlt: SITE.pages.about.ogImageAlt,
+  imageAlt: SITE.pages.terms.ogImageAlt,
 });
 
 export default function TermsPage() {

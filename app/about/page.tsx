@@ -10,7 +10,6 @@ import { BookAppointmentLink } from "@/components/ui/book-appointment-link";
 import { Container } from "@/components/ui/container";
 import { EditorialImage } from "@/components/ui/editorial-image";
 
-
 export const metadata = buildMetadata({
   title: `${SITE.pages.about.metaTitle} | ${SITE.name}`,
   description: SITE.pages.about.metaDescription,
@@ -50,8 +49,8 @@ export default function AboutPage() {
       <section className="section-padding">
         <Container>
           <div className="mx-auto max-w-3xl space-y-6 text-sm leading-relaxed text-muted sm:text-base">
-            {about.story.map((paragraph) => (
-              <p key={paragraph.slice(0, 32)}>{paragraph}</p>
+            {about.story.map((paragraph, index) => (
+              <p key={`story-${index}`}>{paragraph}</p>
             ))}
           </div>
 

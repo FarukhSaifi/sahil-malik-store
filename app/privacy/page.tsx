@@ -13,7 +13,7 @@ export const metadata = buildMetadata({
   description: SITE.pages.privacy.metaDescription,
   path: SITE.routes.privacy,
   image: BRAND.ogDefault,
-  imageAlt: SITE.pages.about.ogImageAlt,
+  imageAlt: SITE.pages.privacy.ogImageAlt,
 });
 
 export default function PrivacyPage() {
