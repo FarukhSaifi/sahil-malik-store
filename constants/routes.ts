@@ -6,6 +6,10 @@ export const ROUTES = {
   lookbook: "/lookbook",
   press: "/press",
   about: "/about",
+  policies: "/policies",
+  terms: "/terms",
+  privacy: "/privacy",
+  faq: "/faq",
 } as const;
 
 export function collectionPath(slug: string) {
@@ -32,4 +36,8 @@ export const SITEMAP_STATIC_ROUTES = [
   ROUTES.press,
   ROUTES.about,
   ROUTES.contact,
+  ROUTES.policies,
+  ROUTES.terms,
+  ROUTES.privacy,
+  ROUTES.faq,
 ] as const;

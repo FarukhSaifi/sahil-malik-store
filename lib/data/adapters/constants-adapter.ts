@@ -6,6 +6,7 @@ import { DISCOVER_ITEMS } from "@/constants/discover";
 import { HERO_SLIDES } from "@/constants/hero";
 import { LOOKBOOKS } from "@/constants/lookbook";
 import { ABOUT, PHILOSOPHY } from "@/constants/philosophy";
+import { FAQ_ITEMS, POLICIES_PAGE, PRIVACY_POLICY, TERMS_OF_SERVICE } from "@/constants/policies";
 import { PRESS_ITEMS } from "@/constants/press";
 
 import type { QueryOptions } from "@/types";
@@ -57,4 +58,8 @@ export const constantsAdapter = {
   getPhilosophy: () => PHILOSOPHY,
   getAbout: () => ABOUT,
   getDiscoverItems: () => DISCOVER_ITEMS,
+  getPolicies: () => POLICIES_PAGE,
+  getTerms: () => TERMS_OF_SERVICE,
+  getPrivacy: () => PRIVACY_POLICY,
+  getFaq: () => FAQ_ITEMS,
 };

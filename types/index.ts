@@ -82,6 +82,28 @@ export type DiscoverItem = {
   image: ImageAsset;
 };
 
+export type LegalSection = {
+  id: string;
+  title: string;
+  intro?: string;
+  items?: readonly string[];
+  paragraphs?: readonly string[];
+  footerNote?: string;
+};
+
+export type LegalDocument = {
+  title: string;
+  subtitle: string;
+  intro?: string;
+  sections: readonly LegalSection[];
+};
+
+export type FaqItem = {
+  id: string;
+  question: string;
+  answer: string;
+};
+
 export type QueryOptions = {
   featured?: boolean;
   limit?: number;
@@ -315,6 +337,21 @@ export type SectionHeadingProps = {
   subtitle?: string;
   align?: "left" | "center";
   className?: string;
+};
+
+export type LegalPageHeaderProps = {
+  title: string;
+  subtitle: string;
+};
+
+export type LegalDocumentProps = {
+  intro?: string;
+  sections: readonly LegalSection[];
+  showToc?: boolean;
+};
+
+export type FaqListProps = {
+  items: readonly FaqItem[];
 };
 
 export type SiteHeaderProps = {

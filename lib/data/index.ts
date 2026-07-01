@@ -13,3 +13,7 @@ export const getCelebrities = constantsAdapter.getCelebrities;
 export const getPhilosophy = constantsAdapter.getPhilosophy;
 export const getAbout = constantsAdapter.getAbout;
 export const getDiscoverItems = constantsAdapter.getDiscoverItems;
+export const getPolicies = constantsAdapter.getPolicies;
+export const getTerms = constantsAdapter.getTerms;
+export const getPrivacy = constantsAdapter.getPrivacy;
+export const getFaq = constantsAdapter.getFaq;

@@ -154,6 +154,32 @@ export const SITE = {
       title: "Press",
       subtitle: "In the media",
     },
+    policies: {
+      metaTitle: "Our Policies",
+      metaDescription:
+        "Order, payment, shipping, and exchange policies for Sahil Malik Couture — crafted with exceptional attention to detail.",
+      title: "Our Policies",
+      subtitle: "Client Care",
+    },
+    terms: {
+      metaTitle: "Terms of Service",
+      metaDescription: "Terms of Service for Sahil Malik Couture website, orders, and bespoke services.",
+      title: "Terms of Service",
+      subtitle: "Legal",
+    },
+    privacy: {
+      metaTitle: "Privacy Policy",
+      metaDescription: "How Sahil Malik Couture collects, uses, and protects your personal information.",
+      title: "Privacy Policy",
+      subtitle: "Your Data",
+    },
+    faq: {
+      metaTitle: "FAQs",
+      metaDescription:
+        "Frequently asked questions about orders, bespoke services, shipping, payments, and appointments at Sahil Malik Couture.",
+      title: "Frequently Asked Questions",
+      subtitle: "Support",
+    },
     notFound: {
       code: "404",
       title: "Page Not Found",
@@ -193,10 +219,10 @@ export const SITE = {
       followUs: "Follow Us",
     },
     support: [
-      { label: "Our Policies", href: ROUTES.about },
-      { label: "Terms of Service", href: ROUTES.about },
-      { label: "Privacy Policy", href: ROUTES.about },
-      { label: "FAQs", href: ROUTES.contact },
+      { label: "Our Policies", href: ROUTES.policies },
+      { label: "Terms of Service", href: ROUTES.terms },
+      { label: "Privacy Policy", href: ROUTES.privacy },
+      { label: "FAQs", href: ROUTES.faq },
     ],
     info: [
       { label: "About Us", href: ROUTES.about },
