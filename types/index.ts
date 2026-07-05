@@ -110,6 +110,60 @@ export type QueryOptions = {
   category?: Collection["category"];
 };
 
+export type SubCategory = {
+  slug: string;
+  title: string;
+  collectionSlug: string;
+  order: number;
+};
+
+export type Product = {
+  slug: string;
+  sku: string;
+  title: string;
+  collectionSlug: string;
+  folderSlug: string;
+  category: Collection["category"];
+  description?: string;
+  image: ImageAsset;
+  gallery: ImageAsset[];
+  featured?: boolean;
+  order: number;
+};
+
+export type ProductQueryOptions = {
+  collectionSlug?: string;
+  folderSlug?: string;
+  category?: Collection["category"];
+  featured?: boolean;
+  limit?: number;
+};
+
+export type EnquiryItem = {
+  productSlug: string;
+  sku: string;
+  title: string;
+  imageSrc: string;
+  collectionTitle: string;
+  addedAt: number;
+};
+
+export type EnquiryProductSummary = {
+  slug: string;
+  sku: string;
+  title: string;
+};
+
+export type EnquiryFormPayload = {
+  name: string;
+  email: string;
+  phone?: string;
+  message: string;
+  products: EnquiryProductSummary[];
+  idempotencyKey: string;
+  honeypot?: string;
+};
+
 // ─── Site ────────────────────────────────────────────────────────────────────
 
 export type CollectionFilter = {
@@ -167,6 +221,10 @@ export type CollectionDetailPageProps = {
   params: Promise<{ slug: string }>;
 };
 
+export type ProductDetailPageProps = {
+  params: Promise<{ slug: string }>;
+};
+
 export type CoutureDetailPageProps = {
   params: Promise<{ slug: string }>;
 };
@@ -210,6 +268,53 @@ export type CelebrityGridProps = {
 
 export type CollectionCardProps = {
   collection: Collection;
+};
+
+export type ProductCardProps = {
+  product: Product;
+  collectionTitle: string;
+};
+
+export type ProductGridProps = {
+  products: Product[];
+  collectionTitle: string;
+};
+
+export type SubCategoryFiltersProps = {
+  collectionSlug: string;
+  subCategories: SubCategory[];
+  activeSubCategory?: string;
+};
+
+export type AddToEnquiryButtonProps = {
+  product: Product;
+  collectionTitle: string;
+  variant?: "card" | "detail";
+  className?: string;
+};
+
+export type ProductGalleryProps = {
+  gallery: ImageAsset[];
+  title: string;
+};
+
+export type ProductInfoPanelProps = {
+  product: Product;
+  collectionTitle: string;
+};
+
+export type ProductDetailsAccordionProps = {
+  product: Product;
+  collectionTitle: string;
+};
+
+export type RelatedProductsProps = {
+  products: Product[];
+  collectionTitle: string;
+};
+
+export type EnquiryListProps = {
+  className?: string;
 };
 
 export type ContactFormProps = {
@@ -292,10 +397,6 @@ export type EditorialImageProps = {
   quality?: number;
   fill?: boolean;
   priority?: boolean;
-};
-
-export type FeaturedCollectionsProps = {
-  collections: Collection[];
 };
 
 export type HeroSliderProps = {

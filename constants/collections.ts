@@ -1,8 +1,8 @@
 import { galleryFromPaths, localImage } from "./images";
-import { MEDIA_MANIFEST  } from "./media-manifest";
+import { MEDIA_MANIFEST } from "./media-manifest";
 
-import type {MediaManifestSlug} from "./media-manifest";
 import type { Collection } from "@/types";
+import type { MediaManifestSlug } from "./media-manifest";
 
 type CollectionDef = {
   slug: MediaManifestSlug;
@@ -77,7 +77,7 @@ const COLLECTION_DEFS: CollectionDef[] = [
   },
   {
     slug: "womenswear-stock-clearance",
-    title: "Womenswear Stock Clearance",
+    title: "Womens Wear",
     category: "womenswear",
     season: "Womenswear",
     description:

@@ -1,6 +1,8 @@
 export const ROUTES = {
   home: "/",
   collections: "/collections",
+  products: "/products",
+  enquiry: "/enquiry",
   couture: "/couture",
   contact: "/contact",
   lookbook: "/lookbook",
@@ -14,6 +16,14 @@ export const ROUTES = {
 
 export function collectionPath(slug: string) {
   return `${ROUTES.collections}/${slug}`;
+}
+
+export function productPath(slug: string) {
+  return `${ROUTES.products}/${slug}`;
+}
+
+export function collectionSubCategoryPath(collectionSlug: string, subCategorySlug: string) {
+  return `${collectionPath(collectionSlug)}?sub=${subCategorySlug}`;
 }
 
 export function couturePath(slug: string) {
@@ -36,6 +46,7 @@ export const SITEMAP_STATIC_ROUTES = [
   ROUTES.press,
   ROUTES.about,
   ROUTES.contact,
+  ROUTES.enquiry,
   ROUTES.policies,
   ROUTES.terms,
   ROUTES.privacy,

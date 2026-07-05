@@ -13,7 +13,7 @@ export const metadata = buildMetadata({
   description: SITE.pages.policies.metaDescription,
   path: SITE.routes.policies,
   image: BRAND.ogDefault,
-  imageAlt: SITE.pages.about.ogImageAlt,
+  imageAlt: SITE.pages.policies.ogImageAlt,
 });
 
 export default function PoliciesPage() {

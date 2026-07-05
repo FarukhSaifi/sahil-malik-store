@@ -8,8 +8,9 @@ import { LOOKBOOKS } from "@/constants/lookbook";
 import { ABOUT, PHILOSOPHY } from "@/constants/philosophy";
 import { FAQ_ITEMS, POLICIES_PAGE, PRIVACY_POLICY, TERMS_OF_SERVICE } from "@/constants/policies";
 import { PRESS_ITEMS } from "@/constants/press";
+import { PRODUCTS } from "@/constants/products";
 
-import type { QueryOptions } from "@/types";
+import type { ProductQueryOptions, QueryOptions } from "@/types";
 
 function filterFeatured<T extends { featured?: boolean }>(items: T[], opts?: QueryOptions) {
   let result = [...items];
@@ -46,6 +47,33 @@ export const constantsAdapter = {
     return result;
   },
   getCollectionBySlug: (slug: string) => COLLECTIONS.find((c) => c.slug === slug) ?? null,
+  getSubCategories: () => [],
+  getProducts: (opts?: ProductQueryOptions) => {
+    let result = [...PRODUCTS].sort((a, b) => a.order - b.order);
+
+    if (opts?.collectionSlug) {
+      result = result.filter((p) => p.collectionSlug === opts.collectionSlug);
+    }
+
+    if (opts?.folderSlug) {
+      result = result.filter((p) => p.folderSlug === opts.folderSlug);
+    }
+
+    if (opts?.category) {
+      result = result.filter((p) => p.category === opts.category);
+    }
+
+    if (opts?.featured) {
+      result = result.filter((p) => p.featured);
+    }
+
+    if (opts?.limit) {
+      result = result.slice(0, opts.limit);
+    }
+
+    return result;
+  },
+  getProductBySlug: (slug: string) => PRODUCTS.find((p) => p.slug === slug) ?? null,
   getCoutureSeasons: (opts?: QueryOptions) => filterFeatured(COUTURE_SEASONS, opts),
   getCoutureBySlug: (slug: string) => COUTURE_SEASONS.find((c) => c.slug === slug) ?? null,
   getLookbooks: () => LOOKBOOKS,

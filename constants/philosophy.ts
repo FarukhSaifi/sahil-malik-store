@@ -31,9 +31,9 @@ export const ABOUT = {
     "From bespoke ensembles to couture collections, Sahil Malik Couture creates timeless garments for men who value authenticity, elegance, and enduring style.",
   ],
   studio: {
-    label: "The Couture Studio",
-    title: "Shahpur Jat, New Delhi",
-    body: "In August 2025, the brand opened its couture studio in the heart of Shahpur Jat — a space where craftsmanship, couture, and personalized experiences come together.",
+    label: "The Couture Store",
+    title: "Flagship Store - Shahpur Jat, New Delhi",
+    body: "253, Ground Floor, Opposite Govindam Sweets, Shahpur Jat, New Delhi 110049.",
   },
   tagline: "Where heritage inspires, craftsmanship endures, and modern luxury comes to life.",
   designerNote: {

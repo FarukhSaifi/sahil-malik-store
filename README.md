@@ -23,25 +23,25 @@ constants/*.ts    →  lib/data                     →  Server Components  → 
 
 ## Site map
 
-
-| Route                 | What visitors see                                                                                                          |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `/`                   | Hero slideshow, category tiles, couture spotlight, As Seen On, discover tiles, philosophy, press carousel, appointment CTA |
-| `/collections`        | Product archive with category filters (`menswear`, `womenswear`)                                                           |
-| `/collections/[slug]` | Collection story + image gallery + related items                                                                           |
-| `/couture`            | Paris Haute Couture archive                                                                                                |
-| `/couture/[slug]`     | Couture season detail                                                                                                      |
-| `/lookbook`           | Editorial lookbook index                                                                                                   |
-| `/lookbook/[slug]`    | Lookbook story + masonry gallery                                                                                           |
-| `/press`              | Press quotes and media coverage                                                                                            |
-| `/about`              | Brand story, studio details, designer note, philosophy                                                                     |
-| `/contact`            | Atelier info, validated inquiry form, appointment path                                                                     |
-
+| Route | What visitors see |
+| --- | --- |
+| `/` | Hero slideshow, category tiles, couture spotlight, As Seen On, discover tiles, philosophy, press carousel, appointment CTA |
+| `/collections` | Product archive with category filters (`menswear`, `womenswear`) |
+| `/collections/[slug]` | Collection story + sub-category filters + product grid (+ legacy lookbook) |
+| `/collections/[slug]?sub=[subSlug]` | Filter products by sub-category |
+| `/products/[slug]` | Named product detail with “Add to enquiry” |
+| `/enquiry` | Shortlist review + product enquiry form (Resend) |
+| `/couture` | Paris Haute Couture archive |
+| `/couture/[slug]` | Couture season detail |
+| `/lookbook` | Editorial lookbook index |
+| `/lookbook/[slug]` | Lookbook story + masonry gallery |
+| `/press` | Press quotes and media coverage |
+| `/about` | Brand story, studio details, designer note, philosophy |
+| `/contact` | Atelier info, validated inquiry form, appointment path |
 
 All `[slug]` routes use `generateStaticParams` — new entries in constants are picked up on the next build.
 
 ### Product collections (current)
-
 
 | Slug                         | Category   |
 | ---------------------------- | ---------- |
@@ -53,6 +53,15 @@ All `[slug]` routes use `generateStaticParams` — new entries in constants are 
 | `shirts`                     | Menswear   |
 | `womenswear-stock-clearance` | Womenswear |
 
+### Sherwani pilot products
+
+| SKU       | Title                        | Sub-category | URL                             |
+| --------- | ---------------------------- | ------------ | ------------------------------- |
+| SM-SH-001 | Ivory Threadwork Sherwani    | Royal Edit   | `/products/ivory-threadwork`    |
+| SM-SH-002 | Gold Brocade Sherwani        | Royal Edit   | `/products/gold-brocade`        |
+| SM-SH-003 | Crimson Embroidered Sherwani | Festive      | `/products/crimson-embroidered` |
+| SM-SH-004 | Pearl Ivory Sherwani         | Festive      | `/products/pearl-ivory`         |
+| SM-SH-005 | Charcoal Ceremonial Sherwani | Royal Edit   | `/products/charcoal-ceremonial` |
 
 ---
 
@@ -77,7 +86,10 @@ All `[slug]` routes use `generateStaticParams` — new entries in constants are 
 **Forms**
 
 - `ContactForm` — required-field and email validation, inline errors, disabled submit until valid
-- Opens `mailto:` to `CONTACT_EMAIL` — no API route or database required
+- Opens `mailto:` to `CONTACT_EMAIL` — general appointments only
+- `EnquiryForm` — product-led enquiries via `POST /api/enquiry` (Resend)
+- `EnquiryProvider` — client shortlist persisted in `localStorage` (`sahil-malik-enquiry-v1`)
+- `EnquiryBar` — floating chip when shortlist has items → `/enquiry`
 
 **SEO & performance**
 
@@ -85,7 +97,7 @@ All `[slug]` routes use `generateStaticParams` — new entries in constants are 
 - Per-page OG images on collection, couture, and lookbook detail routes
 - Dynamic `sitemap.ts` driven by `SITEMAP_STATIC_ROUTES` and path helpers
 - `robots.ts`, AVIF/WebP images, blur placeholders
-- Local assets under `/media/`* with long-lived `Cache-Control` headers
+- Local assets under `/media/`\* with long-lived `Cache-Control` headers
 - `EditorialImage` as a Server Component (no client-side load state)
 - Cormorant Garamond + Inter via `next/font`, Turbopack dev/build caching, tree-shaken icon imports
 
@@ -100,7 +112,6 @@ All `[slug]` routes use `generateStaticParams` — new entries in constants are 
 
 ## Tech stack
 
-
 | Layer      | Technology                                                        |
 | ---------- | ----------------------------------------------------------------- |
 | Framework  | Next.js 16 — App Router, Server Components, Turbopack             |
@@ -110,7 +121,6 @@ All `[slug]` routes use `generateStaticParams` — new entries in constants are 
 | Primitives | Radix UI Dialog (sheet), class-variance-authority, tailwind-merge |
 | Icons      | Lucide React                                                      |
 | Images     | `next/image` + local files in `public/media/` via `localImage()`  |
-
 
 Legacy Unsplash helpers remain in `constants/images.ts` for couture, lookbook, and celebrity placeholders.
 
@@ -130,15 +140,15 @@ npm run dev
 
 Visit [http://localhost:3000](http://localhost:3000).
 
-
-| Command            | Purpose                              |
-| ------------------ | ------------------------------------ |
-| `npm run dev`      | Dev server (Turbopack)               |
-| `npm run build`    | Production build + static generation |
-| `npm run start`    | Serve production build               |
-| `npm run lint`     | Run ESLint                           |
-| `npm run lint:fix` | Run ESLint with auto-fix             |
-
+| Command                  | Purpose                                                    |
+| ------------------------ | ---------------------------------------------------------- |
+| `npm run dev`            | Dev server (Turbopack)                                     |
+| `npm run build`          | Production build + static generation                       |
+| `npm run start`          | Serve production build                                     |
+| `npm run lint`           | Run ESLint                                                 |
+| `npm run lint:fix`       | Run ESLint with auto-fix                                   |
+| `npm run generate:media` | Regenerate `constants/media-manifest.ts` from disk         |
+| `npm run migrate:media`  | Dry-run product media migration (add `--apply` to execute) |
 
 `package-lock.json` is gitignored — `npm install` creates one locally but it is never committed.
 
@@ -150,17 +160,17 @@ Visit [http://localhost:3000](http://localhost:3000).
 
 Copy `.env.example` → `.env.local`. Mirror these in Vercel (Production + Preview).
 
-
-| Variable                   | Purpose                                                  |
-| -------------------------- | -------------------------------------------------------- |
-| `CONTACT_EMAIL`            | Contact form inbox (`mailto:` target)                    |
-| `CONTACT_PHONE`            | Phone on contact page                                    |
-| `CONTACT_ADDRESS`          | Atelier address                                          |
-| `CONTACT_HOURS`            | Hours text (default: `By appointment only`)              |
-| `WHATSAPP_PHONE`           | WhatsApp floating button (falls back to `CONTACT_PHONE`) |
-| `WHATSAPP_MESSAGE`         | Pre-filled WhatsApp message                              |
-| `WHATSAPP_DEFAULT_MESSAGE` | Alias for `WHATSAPP_MESSAGE`                             |
-
+| Variable                   | Purpose                                                      |
+| -------------------------- | ------------------------------------------------------------ |
+| `CONTACT_EMAIL`            | Contact form inbox (`mailto:` target)                        |
+| `CONTACT_PHONE`            | Phone on contact page                                        |
+| `CONTACT_ADDRESS`          | Atelier address                                              |
+| `CONTACT_HOURS`            | Hours text (default: `By appointment only`)                  |
+| `WHATSAPP_PHONE`           | WhatsApp floating button (falls back to `CONTACT_PHONE`)     |
+| `WHATSAPP_MESSAGE`         | Pre-filled WhatsApp message                                  |
+| `WHATSAPP_DEFAULT_MESSAGE` | Alias for `WHATSAPP_MESSAGE`                                 |
+| `RESEND_API_KEY`           | Resend API key for `/api/enquiry`                            |
+| `RESEND_FROM_EMAIL`        | Verified sender, e.g. `Enquiries <enquiries@sahilmalik.com>` |
 
 Read server-side via `getContactInfo()` in `lib/contact.ts` (marked `server-only`).
 
@@ -186,10 +196,12 @@ components/
                 mobile-menu, announcement-bar, footer, whatsapp-button
   sections/     hero-slider, category-tiles, collection-filters/grid,
                 contact-form, press-carousel, …
-  cards/        collection-card, lookbook-tile, press-card
+  cards/        collection-card, product-card, lookbook-tile, press-card
+  enquiry/      add-to-enquiry-button, enquiry-bar, enquiry-form, enquiry-list
+  products/     product-grid
   ui/           button, cta-link, book-appointment-link, form-field,
                 input, textarea, sheet, reveal, editorial-image, container
-  providers/    hero-slideshow-provider
+  providers/    hero-slideshow-provider, enquiry-provider
 
 constants/      ← primary content + app configuration (see table below)
 hooks/          useHeroOverlay, useMounted, usePrefersReducedMotion
@@ -212,32 +224,31 @@ All site copy, media references, routes, and tunable UI values live in `constant
 
 ### Content (edit for copy & catalog)
 
-
-| File                | What to edit                                                                                                        |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `site.ts`           | Brand name, `SITE.url`, navigation, mega menus, footer links, page titles, UI labels, a11y strings, homepage limits |
-| `hero.ts`           | Homepage slideshow slides                                                                                           |
-| `categories.ts`     | Homepage category tiles (derived from featured collections)                                                         |
-| `collections.ts`    | Product line metadata — slug, category, description, featured flag                                                  |
-| `media-manifest.ts` | Image paths per collection slug (gallery source of truth)                                                           |
-| `couture.ts`        | Haute couture seasons                                                                                               |
-| `lookbook.ts`       | Editorial lookbook entries                                                                                          |
-| `press.ts`          | Press quotes                                                                                                        |
-| `celebrities.ts`    | As Seen On grid                                                                                                     |
-| `philosophy.ts`     | Homepage philosophy block, About page copy, `ABOUT_HERO` image                                                      |
-| `discover.ts`       | Discover More section tiles                                                                                         |
-
+| File | What to edit |
+| --- | --- |
+| `site.ts` | Brand name, `SITE.url`, navigation, mega menus, footer links, page titles, UI labels, a11y strings, homepage limits |
+| `hero.ts` | Homepage slideshow slides |
+| `categories.ts` | Homepage category tiles (derived from featured collections) |
+| `collections.ts` | Product line metadata — slug, category, description, featured flag |
+| `product-catalog.overlay.json` | Human metadata for products (SKU, title, description) keyed by folder path |
+| `product-catalog.generated.ts` | Auto-generated product defs from disk (do not edit) |
+| `products.ts` | Builds runtime `Product[]` from generated catalog |
+| `media-manifest.ts` | Image paths per collection (auto-generated; legacy lookbook fallback) |
+| `couture.ts` | Haute couture seasons |
+| `lookbook.ts` | Editorial lookbook entries |
+| `press.ts` | Press quotes |
+| `celebrities.ts` | As Seen On grid |
+| `philosophy.ts` | Homepage philosophy block, About page copy, `ABOUT_HERO` image |
+| `discover.ts` | Discover More section tiles |
 
 ### Configuration (edit for behavior & consistency)
 
-
-| File        | What to edit                                                                                                        |
-| ----------- | ------------------------------------------------------------------------------------------------------------------- |
+| File | What to edit |
+| --- | --- |
 | `routes.ts` | `ROUTES`, `collectionPath()`, `couturePath()`, `lookbookPath()`, `collectionsCategoryPath()`, sitemap static routes |
-| `layout.ts` | Scroll thresholds, image quality, `IMAGE_SIZES`, motion layout IDs, sitemap priorities                              |
-| `timing.ts` | Hero interval, animation durations, reveal stagger multipliers                                                      |
-| `images.ts` | `BRAND` assets, `localImage()` / `galleryFromPaths()`, Unsplash helpers                                             |
-
+| `layout.ts` | Scroll thresholds, image quality, `IMAGE_SIZES`, motion layout IDs, sitemap priorities |
+| `timing.ts` | Hero interval, animation durations, reveal stagger multipliers |
+| `images.ts` | `BRAND` assets, `localImage()` / `galleryFromPaths()`, Unsplash helpers |
 
 ### Import conventions
 
@@ -258,13 +269,56 @@ import { TIMING } from "@/constants/timing";
 
 ## Editing content
 
+### Folder-based product catalog
+
+Products are discovered from disk — **one folder = one product**. Collections remain authored in `constants/collections.ts`.
+
+**Media layout**
+
+```
+public/media/{menswear|womenswear}/{collection}/{product-folder}/*.jpg
+```
+
+- **Product folder** — e.g. `kurta-1/`, `ivory-threadwork/`; all images in the folder become the product gallery.
+- **Lookbook-only folders** — every file must be named `lookbook-*` (e.g. `classic/lookbook-dsc-0540-copy.jpg`). These appear in the collection “Full Lookbook” grid, not as products.
+- **Loose files** at the collection root also appear in the lookbook grid.
+
+**Workflow**
+
+1. Create a folder under the collection and add images.
+2. Run `npm run generate:media` — refreshes `constants/media-manifest.ts` and `constants/product-catalog.generated.ts`.
+3. Optionally edit **`constants/product-catalog.overlay.json`** to set SKU, slug, title, description, `featured`, and `order`. Key format: `{category}/{collection}/{folder}` (e.g. `menswear/sherwani/ivory-threadwork`).
+4. Run `npm run generate:media` again (overlay is merged at generation time), then `npm run build`.
+
+**Overlay fallbacks** (when a key is missing): slug and title from folder name; SKU auto-assigned as `SM-{ABBREV}-{NNN}` per collection.
+
+**Sherwani example**
+
+```
+menswear/sherwani/ivory-threadwork/sm-sh-001-ivory-threadwork.jpg
+menswear/sherwani/classic/lookbook-dsc-0540-copy.jpg   ← lookbook only
+```
+
 ### Add a new product collection
 
-1. Add JPEG/PNG files under `public/media/{menswear|womenswear}/{slug}/` using **lowercase, hyphenated** filenames (web-safe paths).
-2. Add the slug and file paths to `MEDIA_MANIFEST` in `constants/media-manifest.ts`.
+1. Add product folders under `public/media/{menswear|womenswear}/{slug}/`.
+2. Run `npm run generate:media`.
 3. Add a `COLLECTION_DEFS` entry in `constants/collections.ts` (title, category, description, `featured`, `order`).
-4. Link it in `SITE.menswearMenu` or `SITE.womenswearMenu` inside `constants/site.ts` if it should appear in navigation.
-5. Run `npm run build` — the new `/collections/[slug]` page is generated automatically.
+4. Add overlay entries in `constants/product-catalog.overlay.json` for titles and SKUs.
+5. Link it in `SITE.menswearMenu` or `SITE.womenswearMenu` inside `constants/site.ts` if it should appear in navigation.
+6. Run `npm run build` — `/collections/[slug]` and `/products/[slug]` pages are generated automatically.
+
+### Add a product to an existing collection
+
+1. Create `public/media/{category}/{collection}/{folder}/` and add images.
+2. Add or update the matching key in `constants/product-catalog.overlay.json`.
+3. Run `npm run generate:media` and `npm run build`.
+
+### Legacy migration (flat gallery → folder catalog)
+
+Use `scripts/product-media-map.csv` and `npm run migrate:media` / `migrate:media:apply` to rename and move files into product folders. Then run `npm run generate:media`.
+
+**SKU codes:** `SM-{ABBREV}-{NNN}` — Sherwani `SH`, Kurta Sets `KS`, Suits `SU`, Jawahar `JJ`, Bandhgala `BI`, Shirts `ST`, Womenswear Clearance `WC`.
 
 ### Update About page copy
 
@@ -276,7 +330,7 @@ Replace files under `public/media/brand/` and update paths in `BRAND` inside `co
 
 ### Swap a collection image
 
-Update the path in `constants/media-manifest.ts` for that slug, or add/remove paths in the array. Cover image is always the first manifest entry.
+Run `npm run generate:media` after adding or renaming files on disk. Cover image is the first manifest entry for each collection.
 
 ---
 
@@ -311,7 +365,7 @@ Flat config in `eslint.config.mjs` extends `eslint-config-next` (core-web-vitals
 
 1. React / Next.js
 2. External packages
-3. `@/constants/`**
+3. `@/constants/`\*\*
 4. `@/types/**`
 5. `@/lib/**`
 6. `@/hooks/**`

@@ -1,17 +1,18 @@
 import { notFound } from "next/navigation";
 
 import { IMAGE_SIZES, LAYOUT } from "@/constants/layout";
+import { productFolderPrefix } from "@/constants/product-catalog";
 import { collectionPath } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 
-import { getCollectionBySlug, getCollections } from "@/lib/data";
+import { getCollectionBySlug, getCollections, getProducts } from "@/lib/data";
 import { buildMetadata } from "@/lib/seo";
 
 import { CollectionCard } from "@/components/cards/collection-card";
+import { ProductGrid } from "@/components/products/product-grid";
 import { Container } from "@/components/ui/container";
 import { CtaLink } from "@/components/ui/cta-link";
 import { EditorialImage } from "@/components/ui/editorial-image";
-
 
 import type { CollectionDetailPageProps } from "@/types";
 
@@ -41,6 +42,13 @@ export default async function CollectionDetailPage({ params }: CollectionDetailP
 
   if (!collection) notFound();
 
+  const products = getProducts({ collectionSlug: slug });
+  const hasProducts = products.length > 0;
+  const productFolderPrefixes = new Set(products.map((product) => productFolderPrefix(product)));
+  const legacyGallery = collection.gallery.filter(
+    (image) => !Array.from(productFolderPrefixes).some((prefix) => image.src.startsWith(prefix)),
+  );
+
   const related = getCollections()
     .filter((c) => c.slug !== collection.slug && c.category === collection.category)
     .slice(0, SITE.pages.collections.relatedLimit);
@@ -67,18 +75,33 @@ export default async function CollectionDetailPage({ params }: CollectionDetailP
             {collection.description}
           </p>
 
-          <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-2 lg:gap-4 [content-visibility:auto]">
-            {collection.gallery.map((image, index) => (
-              <div key={image.src} className="relative aspect-3/4 overflow-hidden">
-                <EditorialImage
-                  image={image}
-                  sizes={IMAGE_SIZES.collectionGallery}
-                  className="h-full w-full"
-                  priority={index < LAYOUT.collectionGalleryPriorityCount}
-                />
+          {hasProducts ? (
+            <div className="mt-12">
+              <ProductGrid products={products} collectionTitle={collection.title} />
+            </div>
+          ) : null}
+
+          {legacyGallery.length > 0 ? (
+            <div className={hasProducts ? "mt-16" : "mt-12"}>
+              {hasProducts ? (
+                <h2 className="heading-section mb-8 text-center text-2xl sm:text-3xl">
+                  {SITE.enquiry.lookbookHeading}
+                </h2>
+              ) : null}
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-2 lg:gap-4 [content-visibility:auto]">
+                {legacyGallery.map((image, index) => (
+                  <div key={image.src} className="relative aspect-3/4 overflow-hidden">
+                    <EditorialImage
+                      image={image}
+                      sizes={IMAGE_SIZES.collectionGallery}
+                      className="h-full w-full"
+                      priority={index < LAYOUT.collectionGalleryPriorityCount}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ) : null}
 
           {related.length > 0 ? (
             <div className="mt-16">

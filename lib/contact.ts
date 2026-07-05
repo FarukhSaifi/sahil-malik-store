@@ -1,5 +1,7 @@
 import "server-only";
 
+import { SITE } from "@/constants/site";
+
 import type { ContactInfo } from "@/types";
 
 /** Reads contact details from environment variables (Vercel Production/Preview or .env.local). */
@@ -9,7 +11,7 @@ export function getContactInfo(): ContactInfo {
   return {
     email: process.env.CONTACT_EMAIL?.trim() ?? "",
     phone,
-    address: process.env.CONTACT_ADDRESS?.trim() ?? "",
+    address: process.env.CONTACT_ADDRESS?.trim() || SITE.contact.address,
     hours: process.env.CONTACT_HOURS?.trim() || "By appointment only",
     whatsapp: {
       phone: process.env.WHATSAPP_PHONE?.trim() || phone,

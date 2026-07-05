@@ -5,12 +5,13 @@ import { SITE } from "@/constants/site";
 import { getContactInfo } from "@/lib/contact";
 import { buildMetadata, rootMetadata } from "@/lib/seo";
 
+import { EnquiryBar } from "@/components/enquiry/enquiry-bar";
 import { BackToTop } from "@/components/layout/back-to-top";
 import { SiteChrome } from "@/components/layout/site-chrome";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { WhatsAppButton } from "@/components/layout/whatsapp-button";
+import { EnquiryProvider } from "@/components/providers/enquiry-provider";
 import { HeroSlideshowProvider } from "@/components/providers/hero-slideshow-provider";
-
 
 import type { Metadata, Viewport } from "next";
 
@@ -56,21 +57,24 @@ export default function RootLayout({
     <html lang="en" className={`${cormorant.variable} ${inter.variable} h-full`}>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <HeroSlideshowProvider>
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-60 focus:bg-background focus:px-4 focus:py-2 focus:text-foreground"
-          >
-            {SITE.ui.skipToContent}
-          </a>
-          <SiteChrome />
-          <main id="main-content" className="flex-1">
-            {children}
-          </main>
-          <SiteFooter />
-          {contact.whatsapp.phone ? (
-            <WhatsAppButton phone={contact.whatsapp.phone} defaultMessage={contact.whatsapp.defaultMessage} />
-          ) : null}
-          <BackToTop />
+          <EnquiryProvider>
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-60 focus:bg-background focus:px-4 focus:py-2 focus:text-foreground"
+            >
+              {SITE.ui.skipToContent}
+            </a>
+            <SiteChrome />
+            <main id="main-content" className="flex-1">
+              {children}
+            </main>
+            <SiteFooter />
+            {contact.whatsapp.phone ? (
+              <WhatsAppButton phone={contact.whatsapp.phone} defaultMessage={contact.whatsapp.defaultMessage} />
+            ) : null}
+            <EnquiryBar />
+            <BackToTop />
+          </EnquiryProvider>
         </HeroSlideshowProvider>
       </body>
     </html>

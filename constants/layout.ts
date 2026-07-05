@@ -15,7 +15,8 @@ export const IMAGE_SIZES = {
   aboutHero: "(max-width: 1024px) 100vw, 42vw",
   collectionGallery: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw",
   editorialDefault: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
-  featuredCollection: "(max-width: 640px) 100vw, 50vw",
+  productCard: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
+  productDetail: "(max-width: 1024px) 100vw, 50vw",
   categoryTile: "(max-width: 640px) 50vw, 25vw",
   celebrity: "(max-width: 640px) 42vw, (max-width: 1024px) 33vw, 16vw",
   discoverMore: "(max-width: 640px) 100vw, 33vw",
@@ -27,6 +28,7 @@ export const IMAGE_SIZES = {
 
 export const MOTION_LAYOUT_IDS = {
   collectionFilterUnderline: "collection-filter-underline",
+  subCategoryFilterUnderline: "sub-category-filter-underline",
 } as const;
 
 export const SITEMAP = {

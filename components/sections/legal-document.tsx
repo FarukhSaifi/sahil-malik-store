@@ -31,16 +31,19 @@ export function LegalDocument({ intro, sections, showToc = false }: LegalDocumen
               <p className="mb-4 text-sm leading-relaxed text-muted sm:text-base">{section.intro}</p>
             ) : null}
 
-            {section.paragraphs?.map((paragraph) => (
-              <p key={paragraph.slice(0, 32)} className="text-sm leading-relaxed text-muted sm:text-base">
+            {section.paragraphs?.map((paragraph, paragraphIndex) => (
+              <p
+                key={`${section.id}-paragraph-${paragraphIndex}`}
+                className="text-sm leading-relaxed text-muted sm:text-base"
+              >
                 {paragraph}
               </p>
             ))}
 
             {section.items ? (
               <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted sm:text-base">
-                {section.items.map((item) => (
-                  <li key={item.slice(0, 40)}>{item}</li>
+                {section.items.map((item, itemIndex) => (
+                  <li key={`${section.id}-item-${itemIndex}`}>{item}</li>
                 ))}
               </ul>
             ) : null}

@@ -78,3 +78,7 @@ jobs:
           CONTACT_PHONE:
           CONTACT_ADDRESS:
           CONTACT_HOURS: By appointment only
+          RESEND_API_KEY: re_ci_dummy_key_for_build
+          RESEND_FROM_EMAIL: CI <ci@example.com>
+          RESEND_API_KEY: re_ci_build_placeholder
+          RESEND_FROM_EMAIL: Enquiries <onboarding@resend.dev>

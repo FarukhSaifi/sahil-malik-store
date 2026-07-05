@@ -1,9 +1,9 @@
 
 import { SITEMAP } from "@/constants/layout";
-import { collectionPath, couturePath, lookbookPath, SITEMAP_STATIC_ROUTES } from "@/constants/routes";
+import { collectionPath, couturePath, lookbookPath, productPath, SITEMAP_STATIC_ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 
-import { getCollections, getCoutureSeasons, getLookbooks } from "@/lib/data";
+import { getCollections, getCoutureSeasons, getLookbooks, getProducts } from "@/lib/data";
 
 import type { MetadataRoute } from "next";
 
@@ -38,5 +38,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: SITEMAP.detailPriority,
   }));
 
-  return [...staticRoutes, ...collectionRoutes, ...coutureRoutes, ...lookbookRoutes];
+  const productRoutes = getProducts().map((product) => ({
+    url: `${base}${productPath(product.slug)}`,
+    lastModified: new Date(),
+    changeFrequency: SITEMAP.dynamicChangeFrequency,
+    priority: SITEMAP.detailPriority,
+  }));
+
+  return [...staticRoutes, ...collectionRoutes, ...coutureRoutes, ...lookbookRoutes, ...productRoutes];
 }

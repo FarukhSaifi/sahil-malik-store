@@ -6,7 +6,6 @@ import { SITE } from "@/constants/site";
 import { getAbout } from "@/lib/data";
 import { buildMetadata } from "@/lib/seo";
 
-import { BookAppointmentLink } from "@/components/ui/book-appointment-link";
 import { Container } from "@/components/ui/container";
 import { EditorialImage } from "@/components/ui/editorial-image";
 
@@ -78,7 +77,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="section-padding">
+      {/* <section className="section-padding">
         <Container>
           <div className="mx-auto max-w-3xl border border-border p-8 text-center sm:p-12">
             <p className="mb-3 uppercase tracking-[0.2em] text-xs text-muted">{about.philosophy.subtitle}</p>
@@ -90,7 +89,7 @@ export default function AboutPage() {
             <BookAppointmentLink />
           </div>
         </Container>
-      </section>
+      </section> */}
     </>
   );
 }

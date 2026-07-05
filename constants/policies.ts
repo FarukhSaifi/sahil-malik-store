@@ -1,3 +1,5 @@
+import { SITE } from "./site";
+
 import type { FaqItem, LegalDocument, LegalSection } from "@/types";
 
 export const POLICIES_PAGE: LegalDocument = {
@@ -212,7 +214,7 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
   {
     id: "studio-location",
     question: "Where is your studio located?",
-    answer: "Our couture studio is located in Shahpur Jat, New Delhi.",
+    answer: `Our couture studio is located at ${SITE.contact.address}.`,
   },
   {
     id: "customization",
@@ -227,7 +229,7 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
   {
     id: "contact",
     question: "How can I contact Sahil Malik Couture?",
-    answer: "You may contact us via email, phone, Instagram, or by visiting our Shahpur Jat studio.",
+    answer: `You may contact us via email, phone, Instagram, or by visiting our studio at ${SITE.contact.address}.`,
   },
   {
     id: "ready-to-wear-vs-bespoke",

@@ -6,8 +6,10 @@ import { collectionPath, collectionsCategoryPath, couturePath, ROUTES } from "./
 export {
   collectionPath,
   collectionsCategoryPath,
+  collectionSubCategoryPath,
   couturePath,
   lookbookPath,
+  productPath,
   ROUTES,
   SITEMAP_STATIC_ROUTES,
 } from "./routes";
@@ -20,6 +22,11 @@ export const UI = {
   menu: "Menu",
   related: "Related",
   sendInquiry: "Send Inquiry",
+  addToEnquiry: "Add to Enquiry",
+  addedToEnquiry: "Added",
+  removeFromEnquiry: "Remove",
+  viewEnquiry: "Review Enquiry",
+  browseCollections: "Browse Collections",
   skipToContent: "Skip to content",
 } as const;
 
@@ -36,6 +43,14 @@ export const A11Y = {
   navigationMenu: "Navigation Menu",
   home: (name: string) => `${name} — Home`,
   goToSlide: (index: number) => `Go to slide ${index}`,
+  addToEnquiry: (title: string) => `Add ${title} to enquiry`,
+  removeFromEnquiry: (title: string) => `Remove ${title} from enquiry`,
+  enquiryPieces: (count: number) => `${count} piece${count === 1 ? "" : "s"} selected`,
+} as const;
+
+const SOCIAL_URLS = {
+  instagram: "https://www.instagram.com/sahilmalikcouture",
+  facebook: "https://www.facebook.com/sahilmalikcouture",
 } as const;
 
 export const SITE = {
@@ -44,8 +59,6 @@ export const SITE = {
   url: "https://sahilmalik.com",
   announcement: "Special prices live now",
   heroPromo: "Special Prices",
-  heroQuote: "We don't simply fall in love, we become it.",
-  heroAttribution: "— Sahil Malik, Becoming Love",
   meta: {
     homeDescription:
       "Sahil Malik — luxury fashion designer. Discover sherwanis, kurta sets, suits, bandhgalas, and womenswear from the atelier.",
@@ -112,7 +125,6 @@ export const SITE = {
       metaDescription:
         "Discover Sahil Malik Couture — from NIFT to Shahpur Jat, a journey of heritage craftsmanship and contemporary menswear.",
       subtitle: "Our Story",
-      heroImageAlt: "Sahil Malik in Shahpur Jat couture studio",
       ogImageAlt: "Sahil Malik Couture — Shahpur Jat atelier",
     },
     contact: {
@@ -183,6 +195,13 @@ export const SITE = {
       title: "Frequently Asked Questions",
       subtitle: "Support",
     },
+    enquiry: {
+      metaTitle: "Product Enquiry",
+      metaDescription: "Review your selected Sahil Malik Couture pieces and send an enquiry to the atelier.",
+      title: "Product Enquiry",
+      subtitle: "Your Selection",
+      ogImageAlt: "Sahil Malik Couture — Product Enquiry",
+    },
     notFound: {
       code: "404",
       title: "Page Not Found",
@@ -208,6 +227,7 @@ export const SITE = {
       `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
   },
   contact: {
+    address: "253, Ground Floor, Opposite Govindam Sweets, Shahpur Jat, New Delhi 110049, Delhi, India",
     headings: {
       atelier: "Atelier",
       hours: "Hours",
@@ -233,15 +253,69 @@ export const SITE = {
       // { label: "Find Us", href: ROUTES.contact },
     ],
   },
-  social: {
-    instagram: "https://www.instagram.com/sahilmalikcouture",
-    facebook: "https://www.facebook.com/sahilmalikcouture",
-  },
   socialLinks: [
-    { key: "instagram", label: "Instagram", href: "https://www.instagram.com/sahilmalikcouture" },
-    { key: "facebook", label: "Facebook", href: "https://www.facebook.com/sahilmalikcouture" },
+    { key: "instagram", label: "Instagram", href: SOCIAL_URLS.instagram },
+    { key: "facebook", label: "Facebook", href: SOCIAL_URLS.facebook },
   ],
   copyright: "© 2026 Sahil Malik. All rights reserved.",
+  product: {
+    styleCodeLabel: "Style Code",
+    madeToOrder: "Made to order: 8–10 weeks",
+    customisePrompt: "Want to customise your outfit?",
+    customiseCta: "Book an appointment",
+    viewEnquiry: "Review your enquiry",
+    relatedTitle: "You May Also Like",
+    galleryCounter: (current: number, total: number) => `${current} / ${total}`,
+    sections: {
+      productDetails: "Product Details",
+      shipping: "Shipping, Packaging & Returns",
+      disclaimer: "Disclaimer",
+    },
+    shippingItems: [
+      "Complimentary shipping within India on confirmed orders.",
+      "International deliveries — shipping calculated at enquiry.",
+      "Bespoke and made-to-order pieces require additional production time.",
+    ],
+    disclaimer:
+      "Subtle variations in product colours may occur due to lighting and screen settings. For bespoke customisations or assistance, kindly reach us through our contact page.",
+    policiesLink: "View policies",
+  },
+  enquiry: {
+    maxItems: 20,
+    storageKey: "sahil-malik-enquiry-v1",
+    barLabel: (count: number) =>
+      count === 1 ? "1 piece selected · Review enquiry" : `${count} pieces selected · Review enquiry`,
+    emptyTitle: "No pieces selected",
+    emptyDescription: "Browse our collections and add pieces to your enquiry shortlist.",
+    emptyCta: "Browse Collections",
+    pageTitle: "Your Enquiry",
+    pageSubtitle: "Selected Pieces",
+    metaTitle: "Enquiry",
+    metaDescription: "Review your selected Sahil Malik pieces and send an enquiry to the atelier.",
+    selectedHeading: "Selected Pieces",
+    formHeading: "Send Enquiry",
+    formDescription: "Share your details and our atelier team will respond shortly.",
+    submitLabel: "Send Enquiry",
+    submitSuccess: "Thank you — your enquiry has been sent.",
+    submitError: "Something went wrong. Please try again or contact us directly.",
+    productSummaryLabel: "Pieces in this enquiry",
+    labels: {
+      name: "Name",
+      email: "Email",
+      phone: "Phone (optional)",
+      message: "Message",
+    },
+    errors: {
+      nameRequired: "Name is required",
+      emailRequired: "Email is required",
+      emailInvalid: "Enter a valid email address",
+      messageRequired: "Message is required",
+      noProducts: "Add at least one piece to your enquiry",
+      maxProducts: "You can select up to 20 pieces",
+    },
+    lookbookHeading: "Full Lookbook",
+    allSubCategories: "All",
+  },
 } as const;
 
 const LEFT_NAV_KEYS = new Set(["menswear", "womenswear", "couture"]);
