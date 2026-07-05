@@ -1,7 +1,7 @@
 export const BLUR_DATA_URL =
   "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAr/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q==";
 
-import { collectionPath, collectionsCategoryPath, couturePath, ROUTES } from "./routes";
+import { collectionPath, collectionsCategoryPath, couturePath, ROUTES } from "@/constants/routes";
 
 export {
   collectionPath,
@@ -12,7 +12,7 @@ export {
   productPath,
   ROUTES,
   SITEMAP_STATIC_ROUTES,
-} from "./routes";
+} from "@/constants/routes";
 
 export const UI = {
   discoverNow: "Discover Now",
@@ -227,7 +227,15 @@ export const SITE = {
       `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
   },
   contact: {
-    address: "253, Ground Floor, Opposite Govindam Sweets, Shahpur Jat, New Delhi 110049, Delhi, India",
+    storeTitle: "Flagship Store - Shahpur Jat, New Delhi",
+    address: "253, Ground Floor, Opposite Govindam Sweets, Shahpur Jat, New Delhi 110049.",
+    phone: "+91 99992 70640",
+    email: "atelier@sahilmalik.com",
+    map: {
+      query: "Sahil Malik Couture, 253, Ground Floor, Opposite Govindam Sweets, Shahpur Jat, New Delhi 110049",
+      title: "Sahil Malik Couture atelier on Google Maps",
+      openLabel: "Open in Maps",
+    },
     headings: {
       atelier: "Atelier",
       hours: "Hours",

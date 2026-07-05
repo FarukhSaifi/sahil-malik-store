@@ -1,5 +1,7 @@
 "use client";
 
+import { BookmarkCheck, BookmarkPlus } from "lucide-react";
+
 import { SITE } from "@/constants/site";
 
 import { cn } from "@/lib/utils";
@@ -12,8 +14,12 @@ import type { AddToEnquiryButtonProps } from "@/types";
 export function AddToEnquiryButton({ product, collectionTitle, variant = "card", className }: AddToEnquiryButtonProps) {
   const { isSelected, addProduct, removeProduct } = useEnquiry();
   const selected = isSelected(product.slug);
+  const isCard = variant === "card";
 
-  const handleClick = () => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+
     if (selected) {
       removeProduct(product.slug);
       return;
@@ -22,17 +28,33 @@ export function AddToEnquiryButton({ product, collectionTitle, variant = "card",
     addProduct(product, collectionTitle);
   };
 
+  const ariaLabel = selected ? SITE.a11y.removeFromEnquiry(product.title) : SITE.a11y.addToEnquiry(product.title);
+
   return (
     <Button
       type="button"
-      variant={variant === "detail" ? "default" : "outlineInvert"}
-      size={variant === "detail" ? "lg" : "sm"}
-      className={cn("label-caps", className)}
+      variant={isCard ? "outlineInvert" : "default"}
+      size={isCard ? "sm" : "lg"}
+      className={cn(
+        isCard ? "h-10 w-10 shrink-0 bg-background/90 p-0 backdrop-blur-sm cursor-pointer" : "label-caps",
+        className,
+      )}
       onClick={handleClick}
       aria-pressed={selected}
-      aria-label={selected ? SITE.a11y.removeFromEnquiry(product.title) : SITE.a11y.addToEnquiry(product.title)}
+      aria-label={ariaLabel}
+      title={ariaLabel}
     >
-      {selected ? SITE.ui.removeFromEnquiry : SITE.ui.addToEnquiry}
+      {isCard ? (
+        selected ? (
+          <BookmarkCheck className="h-4 w-4" aria-hidden />
+        ) : (
+          <BookmarkPlus className="h-4 w-4" aria-hidden />
+        )
+      ) : selected ? (
+        SITE.ui.removeFromEnquiry
+      ) : (
+        SITE.ui.addToEnquiry
+      )}
     </Button>
   );
 }

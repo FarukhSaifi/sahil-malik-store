@@ -1,4 +1,4 @@
-import { BLUR_DATA_URL } from "./site";
+import { BLUR_DATA_URL } from "@/constants/site";
 
 import type { ImageAsset, ImageOptions } from "@/types";
 

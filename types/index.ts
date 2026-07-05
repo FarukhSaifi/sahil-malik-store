@@ -203,8 +203,13 @@ export type PageMeta = {
 export type ContactInfo = {
   email: string;
   phone: string;
+  storeTitle: string;
   address: string;
   hours: string;
+  map: {
+    embedSrc: string;
+    openUrl: string;
+  };
   whatsapp: {
     phone: string;
     defaultMessage: string;

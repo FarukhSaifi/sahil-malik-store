@@ -46,11 +46,10 @@ export function validateEnquiryPayload(payload: EnquiryFormPayload): string | nu
     return SITE.enquiry.errors.nameRequired;
   }
 
-  if (
-    !payload.email.trim() ||
-    getEmailError(payload.email, SITE.enquiry.errors.emailRequired, SITE.enquiry.errors.emailInvalid)
-  ) {
-    return SITE.enquiry.errors.emailInvalid;
+  const emailError = getEmailError(payload.email, SITE.enquiry.errors.emailRequired, SITE.enquiry.errors.emailInvalid);
+
+  if (emailError) {
+    return emailError;
   }
 
   if (!payload.message.trim()) {

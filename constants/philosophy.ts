@@ -1,5 +1,6 @@
-import { BRAND, localImage } from "./images";
-import { ROUTES } from "./routes";
+import { BRAND, localImage } from "@/constants/images";
+import { ROUTES } from "@/constants/routes";
+import { SITE } from "@/constants/site";
 
 export const PHILOSOPHY = {
   title: "Empowering Craft Communities",
@@ -32,8 +33,8 @@ export const ABOUT = {
   ],
   studio: {
     label: "The Couture Store",
-    title: "Flagship Store - Shahpur Jat, New Delhi",
-    body: "253, Ground Floor, Opposite Govindam Sweets, Shahpur Jat, New Delhi 110049.",
+    title: SITE.contact.storeTitle,
+    body: SITE.contact.address,
   },
   tagline: "Where heritage inspires, craftsmanship endures, and modern luxury comes to life.",
   designerNote: {

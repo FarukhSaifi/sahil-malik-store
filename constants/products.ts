@@ -1,6 +1,6 @@
-import { galleryFromPaths, localImage } from "./images";
-import { getProductGalleryPaths } from "./product-catalog";
-import { GENERATED_PRODUCT_DEFS } from "./product-catalog.generated";
+import { galleryFromPaths, localImage } from "@/constants/images";
+import { getProductGalleryPaths } from "@/constants/product-catalog";
+import { GENERATED_PRODUCT_DEFS } from "@/constants/product-catalog.generated";
 
 import type { Product } from "@/types";
 

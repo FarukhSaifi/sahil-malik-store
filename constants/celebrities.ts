@@ -1,4 +1,4 @@
-import { IMAGE_IDS, unsplash } from "./images";
+import { IMAGE_IDS, unsplash } from "@/constants/images";
 
 import type { Celebrity } from "@/types";
 

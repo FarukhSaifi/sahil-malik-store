@@ -1,4 +1,4 @@
-import { SITE } from "./site";
+import { SITE } from "@/constants/site";
 
 import type { FaqItem, LegalDocument, LegalSection } from "@/types";
 

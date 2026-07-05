@@ -1,5 +1,5 @@
-import { COLLECTIONS } from "./collections";
-import { collectionPath } from "./routes";
+import { COLLECTIONS } from "@/constants/collections";
+import { collectionPath } from "@/constants/routes";
 
 import type { Category } from "@/types";
 

@@ -1,4 +1,4 @@
-import { IMAGE_IDS, galleryFromIds, unsplash } from "./images";
+import { IMAGE_IDS, galleryFromIds, unsplash } from "@/constants/images";
 
 import type { CoutureSeason } from "@/types";
 

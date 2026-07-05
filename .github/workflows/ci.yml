@@ -75,10 +75,8 @@ jobs:
         run: npm run build
         env:
           CONTACT_EMAIL: ci@example.com
-          CONTACT_PHONE:
-          CONTACT_ADDRESS:
+          CONTACT_PHONE: +91 99992 70640
+          CONTACT_ADDRESS: 253, Ground Floor, Opposite Govindam Sweets, Shahpur Jat, New Delhi 110049.
           CONTACT_HOURS: By appointment only
-          RESEND_API_KEY: re_ci_dummy_key_for_build
-          RESEND_FROM_EMAIL: CI <ci@example.com>
           RESEND_API_KEY: re_ci_build_placeholder
           RESEND_FROM_EMAIL: Enquiries <onboarding@resend.dev>

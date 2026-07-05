@@ -1,6 +1,6 @@
-import { COLLECTIONS } from "./collections";
-import { localImage } from "./images";
-import { collectionPath, ROUTES } from "./routes";
+import { COLLECTIONS } from "@/constants/collections";
+import { localImage } from "@/constants/images";
+import { collectionPath, ROUTES } from "@/constants/routes";
 
 import type { DiscoverItem } from "@/types";
 
