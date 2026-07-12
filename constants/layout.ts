@@ -2,7 +2,6 @@ export const LAYOUT = {
   backToTopScrollThreshold: 600,
   heroOverlayThresholdRatio: 0.65,
   announcementRepeatCount: 4,
-  collectionGalleryPriorityCount: 2,
 } as const;
 
 export const IMAGE_QUALITY = {
@@ -13,7 +12,6 @@ export const IMAGE_QUALITY = {
 export const IMAGE_SIZES = {
   logo: "(max-width: 640px) 140px, 180px",
   aboutHero: "(max-width: 1024px) 100vw, 42vw",
-  collectionGallery: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw",
   editorialDefault: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
   productCard: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
   productDetail: "(max-width: 1024px) 100vw, 50vw",
@@ -28,7 +26,6 @@ export const IMAGE_SIZES = {
 
 export const MOTION_LAYOUT_IDS = {
   collectionFilterUnderline: "collection-filter-underline",
-  subCategoryFilterUnderline: "sub-category-filter-underline",
 } as const;
 
 export const SITEMAP = {

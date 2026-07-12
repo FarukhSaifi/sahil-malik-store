@@ -41,15 +41,6 @@ export type CoutureSeason = {
   gallery: ImageAsset[];
 };
 
-export type Lookbook = {
-  slug: string;
-  title: string;
-  subtitle?: string;
-  coverImage: ImageAsset;
-  description: string;
-  gallery: ImageAsset[];
-};
-
 export type PressItem = {
   slug: string;
   quote: string;
@@ -110,13 +101,6 @@ export type QueryOptions = {
   category?: Collection["category"];
 };
 
-export type SubCategory = {
-  slug: string;
-  title: string;
-  collectionSlug: string;
-  order: number;
-};
-
 export type Product = {
   slug: string;
   sku: string;
@@ -133,7 +117,6 @@ export type Product = {
 
 export type ProductQueryOptions = {
   collectionSlug?: string;
-  folderSlug?: string;
   category?: Collection["category"];
   featured?: boolean;
   limit?: number;
@@ -234,10 +217,6 @@ export type CoutureDetailPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export type LookbookDetailPageProps = {
-  params: Promise<{ slug: string }>;
-};
-
 // ─── Providers ───────────────────────────────────────────────────────────────
 
 export type HeroSlideshowContextValue = {
@@ -283,12 +262,6 @@ export type ProductCardProps = {
 export type ProductGridProps = {
   products: Product[];
   collectionTitle: string;
-};
-
-export type SubCategoryFiltersProps = {
-  collectionSlug: string;
-  subCategories: SubCategory[];
-  activeSubCategory?: string;
 };
 
 export type AddToEnquiryButtonProps = {
@@ -406,10 +379,6 @@ export type EditorialImageProps = {
 
 export type HeroSliderProps = {
   slides: HeroSlide[];
-};
-
-export type LookbookTileProps = {
-  lookbook: Lookbook;
 };
 
 export type MobileMenuProps = {

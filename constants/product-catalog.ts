@@ -24,10 +24,6 @@ export type GeneratedProductDef = {
   primaryImagePath: string;
 };
 
-export function productFolderPrefix(def: Pick<GeneratedProductDef, "category" | "collectionSlug" | "folderSlug">) {
-  return `/media/${def.category}/${def.collectionSlug}/${def.folderSlug}/`;
-}
-
 export function getProductGalleryPaths(def: Pick<GeneratedProductDef, "imagePaths" | "primaryImagePath">) {
   const withoutPrimary = def.imagePaths.filter((path) => path !== def.primaryImagePath);
   return [def.primaryImagePath, ...withoutPrimary];

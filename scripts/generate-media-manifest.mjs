@@ -101,24 +101,6 @@ function collectImagesInFolderOnly(dir, urlPrefix) {
   return files.sort((a, b) => a.localeCompare(b));
 }
 
-function isLookbookOnlyFolder(imagePaths) {
-  if (imagePaths.length === 0) {
-    return true;
-  }
-
-  return imagePaths.every((imagePath) => {
-    const filename = path.basename(imagePath).toLowerCase();
-    return filename.startsWith("lookbook-");
-  });
-}
-
-function titleizeFolder(slug) {
-  return slug
-    .split("-")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
-}
-
 function extractSetNumber(folderSlug) {
   const setMatch = folderSlug.match(/^set-(\d+)$/);
   if (setMatch) {
@@ -216,7 +198,7 @@ function collectManifestAndCatalog() {
         const folderPrefix = `${collectionPrefix}/${folderSlug}`;
         const imagePaths = collectImagesInFolderOnly(folderDir, folderPrefix);
 
-        if (imagePaths.length === 0 || isLookbookOnlyFolder(imagePaths)) {
+        if (imagePaths.length === 0) {
           continue;
         }
 

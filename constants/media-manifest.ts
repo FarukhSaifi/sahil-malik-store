@@ -36,17 +36,17 @@ export const MEDIA_MANIFEST = {
   "jawahar-jacket-set": [
     "/media/menswear/jawahar-jacket-set/set-1/dsc-0321-copy.jpg",
     "/media/menswear/jawahar-jacket-set/set-1/dsc-0333-copy.jpg",
-    "/media/menswear/jawahar-jacket-set/set-2/dsc-0342-copy.jpg",
+    "/media/menswear/jawahar-jacket-set/set-1/dsc-0342-copy.jpg",
     "/media/menswear/jawahar-jacket-set/set-2/dsc-9457-copy.jpg",
-    "/media/menswear/jawahar-jacket-set/set-3/dsc-9483-copy.jpg",
-    "/media/menswear/jawahar-jacket-set/set-3/dsc-9491-copy.jpg",
-    "/media/menswear/jawahar-jacket-set/set-4/dsc-9492-copy.jpg",
-    "/media/menswear/jawahar-jacket-set/set-4/dsc-9612.jpg",
-    "/media/menswear/jawahar-jacket-set/set-5/dsc-9619.jpg",
-    "/media/menswear/jawahar-jacket-set/set-5/dsc-9621.jpg",
-    "/media/menswear/jawahar-jacket-set/set-6/dsc-9980.jpg",
-    "/media/menswear/jawahar-jacket-set/set-6/dsc-9986.jpg",
-    "/media/menswear/jawahar-jacket-set/set-7/dsc-9988.jpg"
+    "/media/menswear/jawahar-jacket-set/set-2/dsc-9483-copy.jpg",
+    "/media/menswear/jawahar-jacket-set/set-2/dsc-9491-copy.jpg",
+    "/media/menswear/jawahar-jacket-set/set-2/dsc-9492-copy.jpg",
+    "/media/menswear/jawahar-jacket-set/set-3/dsc-9612.jpg",
+    "/media/menswear/jawahar-jacket-set/set-3/dsc-9619.jpg",
+    "/media/menswear/jawahar-jacket-set/set-3/dsc-9621.jpg",
+    "/media/menswear/jawahar-jacket-set/set-4/dsc-9980.jpg",
+    "/media/menswear/jawahar-jacket-set/set-4/dsc-9986.jpg",
+    "/media/menswear/jawahar-jacket-set/set-4/dsc-9988.jpg"
   ],
   "kurta-sets": [
     "/media/menswear/kurta-sets/set-1/dsc-0365-copy-copy.jpg",

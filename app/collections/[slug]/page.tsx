@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { IMAGE_SIZES, LAYOUT } from "@/constants/layout";
-import { productFolderPrefix } from "@/constants/product-catalog";
+import { IMAGE_SIZES } from "@/constants/layout";
 import { collectionPath } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 
@@ -44,10 +43,6 @@ export default async function CollectionDetailPage({ params }: CollectionDetailP
 
   const products = getProducts({ collectionSlug: slug });
   const hasProducts = products.length > 0;
-  const productFolderPrefixes = new Set(products.map((product) => productFolderPrefix(product)));
-  const legacyGallery = collection.gallery.filter(
-    (image) => !Array.from(productFolderPrefixes).some((prefix) => image.src.startsWith(prefix)),
-  );
 
   const related = getCollections()
     .filter((c) => c.slug !== collection.slug && c.category === collection.category)
@@ -78,28 +73,6 @@ export default async function CollectionDetailPage({ params }: CollectionDetailP
           {hasProducts ? (
             <div className="mt-12">
               <ProductGrid products={products} collectionTitle={collection.title} />
-            </div>
-          ) : null}
-
-          {legacyGallery.length > 0 ? (
-            <div className={hasProducts ? "mt-16" : "mt-12"}>
-              {hasProducts ? (
-                <h2 className="heading-section mb-8 text-center text-2xl sm:text-3xl">
-                  {SITE.enquiry.lookbookHeading}
-                </h2>
-              ) : null}
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-2 lg:gap-4 [content-visibility:auto]">
-                {legacyGallery.map((image, index) => (
-                  <div key={image.src} className="relative aspect-3/4 overflow-hidden">
-                    <EditorialImage
-                      image={image}
-                      sizes={IMAGE_SIZES.collectionGallery}
-                      className="h-full w-full"
-                      priority={index < LAYOUT.collectionGalleryPriorityCount}
-                    />
-                  </div>
-                ))}
-              </div>
             </div>
           ) : null}
 

@@ -6,9 +6,7 @@ import { collectionPath, collectionsCategoryPath, couturePath, ROUTES } from "@/
 export {
   collectionPath,
   collectionsCategoryPath,
-  collectionSubCategoryPath,
   couturePath,
-  lookbookPath,
   productPath,
   ROUTES,
   SITEMAP_STATIC_ROUTES,
@@ -74,7 +72,6 @@ export const SITE = {
     { key: "womenswear", label: "Womenswear", href: collectionsCategoryPath("womenswear"), mega: "womenswear" },
     { key: "couture", label: "Paris Haute Couture", href: ROUTES.couture, mega: "couture" },
     // { key: "findUs", label: "Find Us", href: ROUTES.contact },
-    { key: "lookbook", label: "Lookbook", href: ROUTES.lookbook },
   ],
   navSecondary: [
     { key: "press", label: "Press", href: ROUTES.press },
@@ -155,13 +152,6 @@ export const SITE = {
       title: "Paris Haute Couture",
       subtitle: "Archive",
       detailMetaSuffix: "Couture",
-    },
-    lookbook: {
-      metaTitle: "Lookbook",
-      metaDescription: "Editorial lookbooks and photo stories by Sahil Malik.",
-      title: "Lookbook",
-      subtitle: "Editorial",
-      detailMetaSuffix: "Lookbook",
     },
     press: {
       metaTitle: "Press",
@@ -324,8 +314,6 @@ export const SITE = {
       noProducts: "Add at least one piece to your enquiry",
       maxProducts: "You can select up to 20 pieces",
     },
-    lookbookHeading: "Full Lookbook",
-    allSubCategories: "All",
   },
 } as const;
 
