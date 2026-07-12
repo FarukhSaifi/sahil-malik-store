@@ -22,6 +22,49 @@ const COLLECTION_SKU_ABBREV = {
   "womenswear-stock-clearance": "WC",
 };
 
+/** Display title prefix per collection — products become "{label} 1", "{label} 2", … */
+const COLLECTION_SET_LABELS = {
+  sherwani: "Sherwani Set",
+  "kurta-sets": "Kurta Set",
+  suits: "Suit Set",
+  "jawahar-jacket-set": "Jawahar Jacket Set",
+  "bandhgala-indo-western": "Bandhgala Set",
+  shirts: "Shirt Set",
+  "womenswear-stock-clearance": "Womens Wear Set",
+};
+
+/** URL slug prefix per collection — products become "{prefix}-set-1", "{prefix}-set-2", … */
+const COLLECTION_SET_SLUG_PREFIX = {
+  sherwani: "sherwani",
+  "kurta-sets": "kurta",
+  suits: "suit",
+  "jawahar-jacket-set": "jawahar",
+  "bandhgala-indo-western": "bandhgala",
+  shirts: "shirt",
+  "womenswear-stock-clearance": "womenswear",
+};
+
+/** Legacy on-disk folder names → canonical collection slugs used in constants/collections.ts */
+const COLLECTION_SLUG_ALIASES = {
+  "Kurta Set": "kurta-sets",
+  Sherwani: "sherwani",
+  Suits: "suits",
+  "Jawahar Jacket Set": "jawahar-jacket-set",
+  "Jawahar Jacket Sets": "jawahar-jacket-set",
+  "Bandhgala & Indo-western": "bandhgala-indo-western",
+  Shirts: "shirts",
+};
+
+const CANONICAL_COLLECTION_SLUGS = new Set(Object.keys(COLLECTION_SKU_ABBREV));
+
+function resolveCollectionSlug(folderName) {
+  return COLLECTION_SLUG_ALIASES[folderName] ?? folderName;
+}
+
+function isCanonicalCollectionSlug(slug) {
+  return CANONICAL_COLLECTION_SLUGS.has(slug);
+}
+
 function isImageFile(name) {
   return IMAGE_EXTENSIONS.has(path.extname(name).toLowerCase());
 }
@@ -76,6 +119,39 @@ function titleizeFolder(slug) {
     .join(" ");
 }
 
+function extractSetNumber(folderSlug) {
+  const setMatch = folderSlug.match(/^set-(\d+)$/);
+  if (setMatch) {
+    return Number(setMatch[1]);
+  }
+
+  const trailingMatch = folderSlug.match(/-(\d+)$/);
+  if (trailingMatch) {
+    return Number(trailingMatch[1]);
+  }
+
+  return null;
+}
+
+function defaultProductTitle(collectionSlug, setNumber) {
+  const label = COLLECTION_SET_LABELS[collectionSlug] ?? "Set";
+  return `${label} ${setNumber}`;
+}
+
+function defaultProductSlug(collectionSlug, setNumber) {
+  const prefix = COLLECTION_SET_SLUG_PREFIX[collectionSlug] ?? collectionSlug;
+  return `${prefix}-set-${setNumber}`;
+}
+
+function sortProductFolders(folderSlugs) {
+  return [...folderSlugs].sort((a, b) => {
+    const aNum = extractSetNumber(a) ?? Number.MAX_SAFE_INTEGER;
+    const bNum = extractSetNumber(b) ?? Number.MAX_SAFE_INTEGER;
+
+    return aNum - bNum || a.localeCompare(b, undefined, { numeric: true });
+  });
+}
+
 function loadOverlay() {
   if (!fs.existsSync(overlayPath)) {
     return {};
@@ -92,6 +168,8 @@ function collectManifestAndCatalog() {
   const overlay = loadOverlay();
   /** @type {Record<string, number>} */
   const skuCounters = {};
+  /** @type {Set<string>} */
+  const seenCanonicalSlugs = new Set();
 
   for (const category of CATEGORIES) {
     const categoryDir = path.join(mediaRoot, category);
@@ -100,28 +178,40 @@ function collectManifestAndCatalog() {
       continue;
     }
 
-    for (const collectionSlug of fs.readdirSync(categoryDir).sort()) {
-      const collectionDir = path.join(categoryDir, collectionSlug);
+    for (const folderName of fs.readdirSync(categoryDir).sort()) {
+      const collectionDir = path.join(categoryDir, folderName);
 
       if (!fs.statSync(collectionDir).isDirectory()) {
         continue;
       }
 
-      const collectionPrefix = `/media/${category}/${collectionSlug}`;
+      const collectionSlug = resolveCollectionSlug(folderName);
+
+      if (!isCanonicalCollectionSlug(collectionSlug)) {
+        continue;
+      }
+
+      const slugKey = `${category}/${collectionSlug}`;
+      if (seenCanonicalSlugs.has(slugKey)) {
+        continue;
+      }
+      seenCanonicalSlugs.add(slugKey);
+
+      const collectionPrefix = `/media/${category}/${folderName}`;
       const files = collectImagesInDir(collectionDir, collectionPrefix);
 
       if (files.length > 0) {
-        manifest[collectionSlug] = files;
+        manifest[collectionSlug] = [...(manifest[collectionSlug] ?? []), ...files].sort((a, b) => a.localeCompare(b));
       }
 
       let folderOrder = 0;
 
-      for (const folderSlug of fs.readdirSync(collectionDir).sort()) {
-        const folderDir = path.join(collectionDir, folderSlug);
+      const productFolders = sortProductFolders(
+        fs.readdirSync(collectionDir).filter((entry) => fs.statSync(path.join(collectionDir, entry)).isDirectory()),
+      );
 
-        if (!fs.statSync(folderDir).isDirectory()) {
-          continue;
-        }
+      for (const folderSlug of productFolders) {
+        const folderDir = path.join(collectionDir, folderSlug);
 
         const folderPrefix = `${collectionPrefix}/${folderSlug}`;
         const imagePaths = collectImagesInFolderOnly(folderDir, folderPrefix);
@@ -131,6 +221,7 @@ function collectManifestAndCatalog() {
         }
 
         folderOrder += 1;
+        const setNumber = extractSetNumber(folderSlug) ?? folderOrder;
         const key = `${category}/${collectionSlug}/${folderSlug}`;
         const overlayEntry = overlay[key] ?? {};
         const abbrev = COLLECTION_SKU_ABBREV[collectionSlug] ?? collectionSlug.slice(0, 2).toUpperCase();
@@ -142,12 +233,12 @@ function collectManifestAndCatalog() {
           category,
           collectionSlug,
           folderSlug,
-          slug: overlayEntry.slug ?? folderSlug,
+          slug: overlayEntry.slug ?? defaultProductSlug(collectionSlug, setNumber),
           sku: overlayEntry.sku ?? autoSku,
-          title: overlayEntry.title ?? titleizeFolder(folderSlug),
+          title: overlayEntry.title ?? defaultProductTitle(collectionSlug, setNumber),
           description: overlayEntry.description,
           featured: overlayEntry.featured ?? false,
-          order: overlayEntry.order ?? folderOrder,
+          order: overlayEntry.order ?? setNumber,
           imagePaths,
           primaryImagePath: imagePaths[0],
         });

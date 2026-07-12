@@ -90,6 +90,12 @@ const COLLECTION_DEFS: CollectionDef[] = [
 function buildCollection(def: CollectionDef): Collection {
   const paths = MEDIA_MANIFEST[def.slug];
 
+  if (!paths?.length) {
+    throw new Error(
+      `No media manifest images for collection "${def.slug}". Run npm run normalize:media:apply && npm run generate:media.`,
+    );
+  }
+
   return {
     slug: def.slug,
     title: def.title,

@@ -9,6 +9,8 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "generate:media-manifest": "node scripts/generate-media-manifest.mjs",
+    "normalize:media": "node scripts/normalize-media-paths.mjs",
+    "normalize:media:apply": "node scripts/normalize-media-paths.mjs --apply",
     "migrate:media": "node scripts/migrate-product-media.mjs",
     "migrate:media:apply": "node scripts/migrate-product-media.mjs --apply",
     "generate:media": "node scripts/generate-media-manifest.mjs"

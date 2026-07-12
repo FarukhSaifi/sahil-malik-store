@@ -60,6 +60,16 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
+  async redirects() {
+    return [
+      {
+        source: "/lookbook/:path*",
+        destination: "/collections",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

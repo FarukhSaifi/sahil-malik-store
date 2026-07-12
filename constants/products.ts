@@ -20,7 +20,7 @@ function buildProduct(def: (typeof GENERATED_PRODUCT_DEFS)[number]): Product {
     collectionSlug: def.collectionSlug,
     folderSlug: def.folderSlug,
     category: def.category,
-    description: def.description,
+    description: (def as { description?: string }).description,
     featured: def.featured,
     order: def.order,
     image,
