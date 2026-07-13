@@ -1,6 +1,8 @@
 import { galleryFromPaths, localImage } from "@/constants/images";
-import { getProductGalleryPaths } from "@/constants/product-catalog";
-import { GENERATED_PRODUCT_DEFS } from "@/constants/product-catalog.generated";
+
+import { GENERATED_PRODUCT_DEFS } from "@/generated/product-catalog.generated";
+
+import { getProductGalleryPaths } from "@/lib/catalog";
 
 import type { Product } from "@/types";
 

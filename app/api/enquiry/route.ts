@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 import { getContactInfo } from "@/lib/contact";
-import { buildEnquiryEmailHtml, validateEnquiryPayload } from "@/lib/validation";
+import { buildEnquiryEmailHtml } from "@/lib/email/enquiry";
+import { validateEnquiryPayload } from "@/lib/validation";
 
 import type { EnquiryFormPayload } from "@/types";
 

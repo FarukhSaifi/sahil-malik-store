@@ -6,7 +6,8 @@ import { SITE } from "@/constants/site";
 
 import { cn } from "@/lib/utils";
 
-import { useEnquiry } from "@/components/providers/enquiry-provider";
+import { useEnquiry } from "@/context/enquiry-provider";
+
 import { Button } from "@/components/ui/button";
 
 import type { AddToEnquiryButtonProps } from "@/types";

@@ -7,7 +7,7 @@ import { SITE } from "@/constants/site";
 
 import { useMounted } from "@/hooks/use-mounted";
 
-import { useEnquiry } from "@/components/providers/enquiry-provider";
+import { useEnquiry } from "@/context/enquiry-provider";
 
 export function EnquiryBar() {
   const { count } = useEnquiry();

@@ -1,5 +1,6 @@
 import { localImage } from "@/constants/images";
-import { MEDIA_MANIFEST } from "@/constants/media-manifest";
+
+import { MEDIA_MANIFEST } from "@/generated/media-manifest";
 
 import type { HeroSlide } from "@/types";
 

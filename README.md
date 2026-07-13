@@ -12,8 +12,8 @@ A production-ready editorial website for **Sahil Malik**, luxury fashion designe
 This is a static-first marketing and portfolio site — not an e-commerce backend. Product collections, couture seasons, and press are authored in TypeScript constant files, served through a thin data adapter, and pre-rendered at build time. Contact flows use client-side validation and a `mailto:` handoff; atelier details come from environment variables.
 
 ```
-public/media/     →  constants/media-manifest.ts  →  constants/collections.ts
-constants/*.ts    →  lib/data                     →  Server Components  →  static HTML
+public/media/     →  generated/media-manifest.ts  →  constants/collections.ts
+constants/*.ts  →  lib/data                     →  Server Components  →  static HTML
 .env.local        →  lib/contact.ts               →  Contact page / WhatsApp / mailto
 ```
 
@@ -129,14 +129,14 @@ npm run dev
 
 Visit [http://localhost:3000](http://localhost:3000).
 
-| Command                   | Purpose                                                      |
-| ------------------------- | ------------------------------------------------------------ |
-| `npm run dev`             | Dev server (Turbopack)                                       |
-| `npm run build`           | Production build + static generation                         |
-| `npm run start`           | Serve production build                                       |
-| `npm run lint`            | Run ESLint                                                   |
-| `npm run lint:fix`        | Run ESLint with auto-fix                                     |
-| `npm run generate:media`  | Regenerate `constants/media-manifest.ts` from disk           |
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Dev server (Turbopack) |
+| `npm run build` | Production build + static generation |
+| `npm run start` | Serve production build |
+| `npm run lint` | Run ESLint |
+| `npm run lint:fix` | Run ESLint with auto-fix |
+| `npm run generate:media` | Regenerate `generated/media-manifest.ts` and `generated/product-catalog.generated.ts` from disk |
 | `npm run normalize:media` | Dry-run media folder normalization (add `:apply` to execute) |
 
 `package-lock.json` is gitignored — `npm install` creates one locally but it is never committed.
@@ -173,34 +173,24 @@ Set `SITE.url` in `constants/site.ts` to your production domain. This drives can
 
 ```
 app/
-  page.tsx                    # Homepage (composes all homepage sections)
-  layout.tsx                  # Root layout, fonts, metadata, chrome, footer
-  globals.css                 # Design tokens, CTA/filter animations, utilities
-  collections/ couture/             # Index + [slug] detail routes
-  press/ about/ contact/
-  sitemap.ts  robots.ts
+  layout.tsx, providers.tsx, globals.css   ← root shell + client providers
+  (site)/          ← marketing + catalog routes (URLs unchanged)
+    page.tsx, about/, collections/, products/, couture/, contact/, press/, enquiry/
+  (legal)/         ← faq/, policies/, privacy/, terms/
+  api/enquiry/     ← route handler
+  sitemap.ts, robots.ts, not-found.tsx
 
-components/
-  layout/       site-chrome, site-header, site-logo, desktop-nav, nav-dropdown,
-                mobile-menu, announcement-bar, footer, whatsapp-button
-  sections/     hero-slider, category-tiles, collection-filters/grid,
-                contact-form, press-carousel, …
-  cards/        collection-card, product-card, press-card
-  enquiry/      add-to-enquiry-button, enquiry-bar, enquiry-form, enquiry-list
-  products/     product-grid
-  ui/           button, cta-link, book-appointment-link, form-field,
-                input, textarea, sheet, reveal, editorial-image, container
-  providers/    hero-slideshow-provider, enquiry-provider
-
-constants/      ← primary content + app configuration (see table below)
+components/     layout/, sections/, cards/, enquiry/, products/, ui/, providers/
+constants/      hand-authored content + site configuration
+generated/      build output from `npm run generate:media` (do not edit)
+data/           product-catalog.overlay.json (human metadata for catalog script)
 hooks/          useHeroOverlay, useMounted, usePrefersReducedMotion
 lib/
   data/         constants adapter + public getters
-  contact.ts    env-based contact info
-  seo.ts        metadata builder (rootMetadata, buildMetadata, siteIcons)
-  validation.ts form helpers
-  animations/   shared motion variants (EASE_EDITORIAL, fadeUp)
-types/          shared TypeScript interfaces
+  catalog/      product catalog types + helpers
+  email/        transactional email templates
+  contact.ts, seo.ts, validation.ts, animations/
+types/          data.ts (domain models), components.ts (prop types), index.ts
 public/media/   brand assets + menswear/womenswear product photography
 .github/        workflows/ci.yml, dependabot.yml, SECURITY.md
 ```
@@ -219,8 +209,8 @@ All site copy, media references, routes, and tunable UI values live in `constant
 | `hero.ts` | Homepage slideshow slides |
 | `categories.ts` | Homepage category tiles (derived from featured collections) |
 | `collections.ts` | Product line metadata — slug, category, description, featured flag |
-| `product-catalog.overlay.json` | Human metadata for products (SKU, title, description) keyed by folder path |
-| `product-catalog.generated.ts` | Auto-generated product defs from disk (do not edit) |
+| `product-catalog.overlay.json` | Human metadata for products (in `data/`) keyed by folder path |
+| `product-catalog.generated.ts` | Auto-generated product defs in `generated/` (do not edit) |
 | `products.ts` | Builds runtime `Product[]` from generated catalog |
 | `media-manifest.ts` | Image paths per collection (auto-generated) |
 | `couture.ts` | Haute couture seasons |
@@ -272,8 +262,8 @@ public/media/{menswear|womenswear}/{collection}/{product-folder}/*.jpg
 **Workflow**
 
 1. Create a folder under the collection and add images.
-2. Run `npm run generate:media` — refreshes `constants/media-manifest.ts` and `constants/product-catalog.generated.ts`.
-3. Optionally edit **`constants/product-catalog.overlay.json`** to set SKU, slug, title, description, `featured`, and `order`. Key format: `{category}/{collection}/{folder}` (e.g. `menswear/sherwani/set-1`).
+2. Run `npm run generate:media` — refreshes `generated/media-manifest.ts` and `generated/product-catalog.generated.ts`.
+3. Optionally edit **`data/product-catalog.overlay.json`** to set SKU, slug, title, description, `featured`, and `order`. Key format: `{category}/{collection}/{folder}` (e.g. `menswear/sherwani/set-1`).
 4. Run `npm run generate:media` again (overlay is merged at generation time), then `npm run build`.
 
 **Overlay fallbacks** (when a key is missing): slug and title are generated from the collection and set number; SKU is auto-assigned as `SM-{ABBREV}-{NNN}` per collection.
@@ -290,14 +280,14 @@ menswear/sherwani/set-1/dsc-0143-copy.jpg
 1. Add product folders under `public/media/{menswear|womenswear}/{slug}/`.
 2. Run `npm run generate:media`.
 3. Add a `COLLECTION_DEFS` entry in `constants/collections.ts` (title, category, description, `featured`, `order`).
-4. Add overlay entries in `constants/product-catalog.overlay.json` for titles and SKUs.
+4. Add overlay entries in `data/product-catalog.overlay.json` for titles and SKUs.
 5. Link it in `SITE.menswearMenu` or `SITE.womenswearMenu` inside `constants/site.ts` if it should appear in navigation.
 6. Run `npm run build` — `/collections/[slug]` and `/products/[slug]` pages are generated automatically.
 
 ### Add a product to an existing collection
 
 1. Create `public/media/{category}/{collection}/{folder}/` and add images.
-2. Add or update the matching key in `constants/product-catalog.overlay.json`.
+2. Add or update the matching key in `data/product-catalog.overlay.json`.
 3. Run `npm run generate:media` and `npm run build`.
 
 **SKU codes:** `SM-{ABBREV}-{NNN}` — Sherwani `SH`, Kurta Sets `KS`, Suits `SU`, Jawahar `JJ`, Bandhgala `BI`, Shirts `ST`, Womenswear Clearance `WC`.

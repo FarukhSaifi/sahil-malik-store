@@ -9,7 +9,8 @@ import { SITE } from "@/constants/site";
 
 import { getEmailError, getRequiredError, isFormValid, validateEnquiryPayload } from "@/lib/validation";
 
-import { useEnquiry } from "@/components/providers/enquiry-provider";
+import { useEnquiry } from "@/context/enquiry-provider";
+
 import { Button } from "@/components/ui/button";
 import { FormField, getFieldDescribedBy } from "@/components/ui/form-field";
 import { Input } from "@/components/ui/input";

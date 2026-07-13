@@ -13,11 +13,10 @@ import { EASE_IN_OUT } from "@/lib/animations/variants";
 import { useMounted } from "@/hooks/use-mounted";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
-import { useHeroSlideshow } from "@/components/providers/hero-slideshow-provider";
+import { useHeroSlideshow } from "@/context/hero-slideshow-provider";
+
 import { CtaLink } from "@/components/ui/cta-link";
 import { EditorialImage } from "@/components/ui/editorial-image";
-
-
 
 import type { HeroSliderProps } from "@/types";
 

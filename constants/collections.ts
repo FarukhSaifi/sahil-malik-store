@@ -1,7 +1,8 @@
 import { galleryFromPaths, localImage } from "@/constants/images";
-import { MEDIA_MANIFEST } from "@/constants/media-manifest";
 
-import type { MediaManifestSlug } from "@/constants/media-manifest";
+import { MEDIA_MANIFEST } from "@/generated/media-manifest";
+
+import type { MediaManifestSlug } from "@/generated/media-manifest";
 import type { Collection } from "@/types";
 
 type CollectionDef = {

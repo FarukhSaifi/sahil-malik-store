@@ -7,7 +7,8 @@ import { SITE } from "@/constants/site";
 
 import { cn } from "@/lib/utils";
 
-import { useHeroSlideshow } from "@/components/providers/hero-slideshow-provider";
+import { useHeroSlideshow } from "@/context/hero-slideshow-provider";
+
 import { CtaLink } from "@/components/ui/cta-link";
 
 import type { AnnouncementBarProps } from "@/types";

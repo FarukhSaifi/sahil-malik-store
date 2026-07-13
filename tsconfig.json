@@ -24,13 +24,7 @@
     ],
     "paths": {
       "@/*": [
-        "./*",
-        "./constants/*",
-        "./types/*",
-        "./lib/*",
-        "./hooks/*",
-        "./components/*",
-        "./public/*"
+        "./*"
       ]
     }
   },

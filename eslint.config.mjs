@@ -1,7 +1,7 @@
-import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import importX from "eslint-plugin-import-x";
+import { defineConfig, globalIgnores } from "eslint/config";
 
 const importOrderRule = [
   "error",
@@ -29,6 +29,11 @@ const importOrderRule = [
         position: "before",
       },
       {
+        pattern: "@/generated/**",
+        group: "internal",
+        position: "before",
+      },
+      {
         pattern: "@/types/**",
         group: "internal",
         position: "before",
@@ -40,6 +45,11 @@ const importOrderRule = [
       },
       {
         pattern: "@/hooks/**",
+        group: "internal",
+        position: "before",
+      },
+      {
+        pattern: "@/context/**",
         group: "internal",
         position: "before",
       },

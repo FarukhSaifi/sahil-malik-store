@@ -4,7 +4,8 @@ import Image from "next/image";
 
 import { SITE } from "@/constants/site";
 
-import { useEnquiry } from "@/components/providers/enquiry-provider";
+import { useEnquiry } from "@/context/enquiry-provider";
+
 import { Button } from "@/components/ui/button";
 
 import type { EnquiryListProps } from "@/types";
