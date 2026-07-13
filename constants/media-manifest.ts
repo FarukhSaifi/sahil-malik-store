@@ -44,7 +44,6 @@ export const MEDIA_MANIFEST = {
   "kurta-sets": [
     "/media/menswear/kurta-sets/set-1/dsc-0365-copy-copy.jpg",
     "/media/menswear/kurta-sets/set-1/dsc-0372-copy-copy.jpg",
-    "/media/menswear/kurta-sets/set-10/dsc-9591-copy.jpg",
     "/media/menswear/kurta-sets/set-10/dsc-9599.jpg",
     "/media/menswear/kurta-sets/set-10/dsc-9604.jpg",
     "/media/menswear/kurta-sets/set-10/dsc-9606.jpg",
@@ -95,7 +94,8 @@ export const MEDIA_MANIFEST = {
     "/media/menswear/kurta-sets/set-8/dsc-9570-copy.jpg",
     "/media/menswear/kurta-sets/set-9/dsc-9577-copy.jpg",
     "/media/menswear/kurta-sets/set-9/dsc-9586-copy.jpg",
-    "/media/menswear/kurta-sets/set-9/dsc-9589-copy.jpg"
+    "/media/menswear/kurta-sets/set-9/dsc-9589-copy.jpg",
+    "/media/menswear/kurta-sets/set-9/dsc-9591-copy.jpg"
   ],
   "sherwani": [
     "/media/menswear/sherwani/set-1/dsc-0140-copy.jpg",

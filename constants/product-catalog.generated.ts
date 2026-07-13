@@ -17,7 +17,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/bandhgala-indo-western/set-1/dsc-0060-copy.jpg",
       "/media/menswear/bandhgala-indo-western/set-1/dsc-0063-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-1/dsc-0064-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-1/dsc-0064-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/bandhgala-indo-western/set-1/dsc-0060-copy.jpg",
   },
@@ -34,7 +34,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/bandhgala-indo-western/set-2/dsc-0074-copy.jpg",
       "/media/menswear/bandhgala-indo-western/set-2/dsc-0080-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-2/dsc-0082-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-2/dsc-0082-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/bandhgala-indo-western/set-2/dsc-0074-copy.jpg",
   },
@@ -51,7 +51,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/bandhgala-indo-western/set-3/dsc-0100-copy.jpg",
       "/media/menswear/bandhgala-indo-western/set-3/dsc-0103-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-3/dsc-0107-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-3/dsc-0107-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/bandhgala-indo-western/set-3/dsc-0100-copy.jpg",
   },
@@ -68,7 +68,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/bandhgala-indo-western/set-4/sunil-mehra-9435-1.jpg",
       "/media/menswear/bandhgala-indo-western/set-4/sunil-mehra-9453.jpg",
-      "/media/menswear/bandhgala-indo-western/set-4/sunil-mehra-9479.jpg",
+      "/media/menswear/bandhgala-indo-western/set-4/sunil-mehra-9479.jpg"
     ],
     primaryImagePath: "/media/menswear/bandhgala-indo-western/set-4/sunil-mehra-9435-1.jpg",
   },
@@ -86,7 +86,7 @@ export const GENERATED_PRODUCT_DEFS = [
       "/media/menswear/bandhgala-indo-western/set-5/dsc-0121-copy.jpg",
       "/media/menswear/bandhgala-indo-western/set-5/dsc-0123-copy.jpg",
       "/media/menswear/bandhgala-indo-western/set-5/dsc-0124-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-5/dsc-0131-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-5/dsc-0131-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/bandhgala-indo-western/set-5/dsc-0121-copy.jpg",
   },
@@ -102,7 +102,7 @@ export const GENERATED_PRODUCT_DEFS = [
     order: 6,
     imagePaths: [
       "/media/menswear/bandhgala-indo-western/set-6/dsc-0594-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-6/dsc-0602-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-6/dsc-0602-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/bandhgala-indo-western/set-6/dsc-0594-copy.jpg",
   },
@@ -119,7 +119,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/bandhgala-indo-western/set-7/untitled-session16697-copy.jpg",
       "/media/menswear/bandhgala-indo-western/set-7/untitled-session16702-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-7/untitled-session16706-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-7/untitled-session16706-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/bandhgala-indo-western/set-7/untitled-session16697-copy.jpg",
   },
@@ -135,7 +135,7 @@ export const GENERATED_PRODUCT_DEFS = [
     order: 8,
     imagePaths: [
       "/media/menswear/bandhgala-indo-western/set-8/untitled-session16800-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-8/untitled-session16803-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-8/untitled-session16803-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/bandhgala-indo-western/set-8/untitled-session16800-copy.jpg",
   },
@@ -152,7 +152,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/jawahar-jacket-set/set-1/dsc-0321-copy.jpg",
       "/media/menswear/jawahar-jacket-set/set-1/dsc-0333-copy.jpg",
-      "/media/menswear/jawahar-jacket-set/set-1/dsc-0342-copy.jpg",
+      "/media/menswear/jawahar-jacket-set/set-1/dsc-0342-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/jawahar-jacket-set/set-1/dsc-0321-copy.jpg",
   },
@@ -169,7 +169,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/jawahar-jacket-set/set-2/dsc-9483-copy.jpg",
       "/media/menswear/jawahar-jacket-set/set-2/dsc-9491-copy.jpg",
-      "/media/menswear/jawahar-jacket-set/set-2/dsc-9492-copy.jpg",
+      "/media/menswear/jawahar-jacket-set/set-2/dsc-9492-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/jawahar-jacket-set/set-2/dsc-9483-copy.jpg",
   },
@@ -186,7 +186,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/jawahar-jacket-set/set-3/dsc-9612.jpg",
       "/media/menswear/jawahar-jacket-set/set-3/dsc-9619.jpg",
-      "/media/menswear/jawahar-jacket-set/set-3/dsc-9621.jpg",
+      "/media/menswear/jawahar-jacket-set/set-3/dsc-9621.jpg"
     ],
     primaryImagePath: "/media/menswear/jawahar-jacket-set/set-3/dsc-9612.jpg",
   },
@@ -203,7 +203,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/jawahar-jacket-set/set-4/dsc-9980.jpg",
       "/media/menswear/jawahar-jacket-set/set-4/dsc-9986.jpg",
-      "/media/menswear/jawahar-jacket-set/set-4/dsc-9988.jpg",
+      "/media/menswear/jawahar-jacket-set/set-4/dsc-9988.jpg"
     ],
     primaryImagePath: "/media/menswear/jawahar-jacket-set/set-4/dsc-9980.jpg",
   },
@@ -219,7 +219,7 @@ export const GENERATED_PRODUCT_DEFS = [
     order: 1,
     imagePaths: [
       "/media/menswear/kurta-sets/set-1/dsc-0365-copy-copy.jpg",
-      "/media/menswear/kurta-sets/set-1/dsc-0372-copy-copy.jpg",
+      "/media/menswear/kurta-sets/set-1/dsc-0372-copy-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/kurta-sets/set-1/dsc-0365-copy-copy.jpg",
   },
@@ -235,7 +235,7 @@ export const GENERATED_PRODUCT_DEFS = [
     order: 2,
     imagePaths: [
       "/media/menswear/kurta-sets/set-2/dsc-0654-copy-copy.jpg",
-      "/media/menswear/kurta-sets/set-2/dsc-0657-copy-copy.jpg",
+      "/media/menswear/kurta-sets/set-2/dsc-0657-copy-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/kurta-sets/set-2/dsc-0654-copy-copy.jpg",
   },
@@ -252,7 +252,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/kurta-sets/set-3/dsc-0410-copy-copy.jpg",
       "/media/menswear/kurta-sets/set-3/dsc-0413-copy-copy.jpg",
-      "/media/menswear/kurta-sets/set-3/dsc-0416-copy-copy.jpg",
+      "/media/menswear/kurta-sets/set-3/dsc-0416-copy-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/kurta-sets/set-3/dsc-0410-copy-copy.jpg",
   },
@@ -269,7 +269,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/kurta-sets/set-4/dsc-0434-copy-copy.jpg",
       "/media/menswear/kurta-sets/set-4/dsc-0445-copy-copy.jpg",
-      "/media/menswear/kurta-sets/set-4/dsc-0447-copy-copy.jpg",
+      "/media/menswear/kurta-sets/set-4/dsc-0447-copy-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/kurta-sets/set-4/dsc-0434-copy-copy.jpg",
   },
@@ -288,7 +288,7 @@ export const GENERATED_PRODUCT_DEFS = [
       "/media/menswear/kurta-sets/set-5/dsc-9507-copy.jpg",
       "/media/menswear/kurta-sets/set-5/dsc-9508-copy.jpg",
       "/media/menswear/kurta-sets/set-5/dsc-9509-copy.jpg",
-      "/media/menswear/kurta-sets/set-5/dsc-9511-copy.jpg",
+      "/media/menswear/kurta-sets/set-5/dsc-9511-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/kurta-sets/set-5/dsc-9498-copy.jpg",
   },
@@ -307,7 +307,7 @@ export const GENERATED_PRODUCT_DEFS = [
       "/media/menswear/kurta-sets/set-6/dsc-9526-copy.jpg",
       "/media/menswear/kurta-sets/set-6/dsc-9528-copy.jpg",
       "/media/menswear/kurta-sets/set-6/dsc-9529-copy.jpg",
-      "/media/menswear/kurta-sets/set-6/dsc-9536-copy.jpg",
+      "/media/menswear/kurta-sets/set-6/dsc-9536-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/kurta-sets/set-6/dsc-9520-copy.jpg",
   },
@@ -324,7 +324,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/kurta-sets/set-7/dsc-9540-copy.jpg",
       "/media/menswear/kurta-sets/set-7/dsc-9548-copy.jpg",
-      "/media/menswear/kurta-sets/set-7/dsc-9549-copy.jpg",
+      "/media/menswear/kurta-sets/set-7/dsc-9549-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/kurta-sets/set-7/dsc-9540-copy.jpg",
   },
@@ -342,7 +342,7 @@ export const GENERATED_PRODUCT_DEFS = [
       "/media/menswear/kurta-sets/set-8/dsc-9554-copy.jpg",
       "/media/menswear/kurta-sets/set-8/dsc-9563-copy.jpg",
       "/media/menswear/kurta-sets/set-8/dsc-9564-copy.jpg",
-      "/media/menswear/kurta-sets/set-8/dsc-9570-copy.jpg",
+      "/media/menswear/kurta-sets/set-8/dsc-9570-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/kurta-sets/set-8/dsc-9554-copy.jpg",
   },
@@ -360,6 +360,7 @@ export const GENERATED_PRODUCT_DEFS = [
       "/media/menswear/kurta-sets/set-9/dsc-9577-copy.jpg",
       "/media/menswear/kurta-sets/set-9/dsc-9586-copy.jpg",
       "/media/menswear/kurta-sets/set-9/dsc-9589-copy.jpg",
+      "/media/menswear/kurta-sets/set-9/dsc-9591-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/kurta-sets/set-9/dsc-9577-copy.jpg",
   },
@@ -374,12 +375,11 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 10,
     imagePaths: [
-      "/media/menswear/kurta-sets/set-10/dsc-9591-copy.jpg",
       "/media/menswear/kurta-sets/set-10/dsc-9599.jpg",
       "/media/menswear/kurta-sets/set-10/dsc-9604.jpg",
-      "/media/menswear/kurta-sets/set-10/dsc-9606.jpg",
+      "/media/menswear/kurta-sets/set-10/dsc-9606.jpg"
     ],
-    primaryImagePath: "/media/menswear/kurta-sets/set-10/dsc-9591-copy.jpg",
+    primaryImagePath: "/media/menswear/kurta-sets/set-10/dsc-9599.jpg",
   },
   {
     key: "menswear/kurta-sets/set-11",
@@ -394,7 +394,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/kurta-sets/set-11/sunil-mehra-9363.jpg",
       "/media/menswear/kurta-sets/set-11/sunil-mehra-9368.jpg",
-      "/media/menswear/kurta-sets/set-11/sunil-mehra-9394.jpg",
+      "/media/menswear/kurta-sets/set-11/sunil-mehra-9394.jpg"
     ],
     primaryImagePath: "/media/menswear/kurta-sets/set-11/sunil-mehra-9363.jpg",
   },
@@ -411,7 +411,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/kurta-sets/set-12/untitled-session16847-copy.jpg",
       "/media/menswear/kurta-sets/set-12/untitled-session16853-copy.jpg",
-      "/media/menswear/kurta-sets/set-12/untitled-session16856-copy.jpg",
+      "/media/menswear/kurta-sets/set-12/untitled-session16856-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/kurta-sets/set-12/untitled-session16847-copy.jpg",
   },
@@ -428,7 +428,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/kurta-sets/set-13/untitled-session16858-copy.jpg",
       "/media/menswear/kurta-sets/set-13/untitled-session16865-copy.jpg",
-      "/media/menswear/kurta-sets/set-13/untitled-session16872-copy.jpg",
+      "/media/menswear/kurta-sets/set-13/untitled-session16872-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/kurta-sets/set-13/untitled-session16858-copy.jpg",
   },
@@ -445,7 +445,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/kurta-sets/set-14/untitled-session16908-copy.jpg",
       "/media/menswear/kurta-sets/set-14/untitled-session16912-copy.jpg",
-      "/media/menswear/kurta-sets/set-14/untitled-session16925-copy.jpg",
+      "/media/menswear/kurta-sets/set-14/untitled-session16925-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/kurta-sets/set-14/untitled-session16908-copy.jpg",
   },
@@ -462,7 +462,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/kurta-sets/set-15/untitled-session16927-copy.jpg",
       "/media/menswear/kurta-sets/set-15/untitled-session16936-copy.jpg",
-      "/media/menswear/kurta-sets/set-15/untitled-session16937-copy.jpg",
+      "/media/menswear/kurta-sets/set-15/untitled-session16937-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/kurta-sets/set-15/untitled-session16927-copy.jpg",
   },
@@ -479,7 +479,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/kurta-sets/set-16/untitled-session16947-copy.jpg",
       "/media/menswear/kurta-sets/set-16/untitled-session16950-copy.jpg",
-      "/media/menswear/kurta-sets/set-16/untitled-session16954-copy.jpg",
+      "/media/menswear/kurta-sets/set-16/untitled-session16954-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/kurta-sets/set-16/untitled-session16947-copy.jpg",
   },
@@ -495,7 +495,7 @@ export const GENERATED_PRODUCT_DEFS = [
     order: 17,
     imagePaths: [
       "/media/menswear/kurta-sets/set-17/untitled-session16992-copy.jpg",
-      "/media/menswear/kurta-sets/set-17/untitled-session16998-copy.jpg",
+      "/media/menswear/kurta-sets/set-17/untitled-session16998-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/kurta-sets/set-17/untitled-session16992-copy.jpg",
   },
@@ -512,7 +512,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/sherwani/set-1/dsc-0140-copy.jpg",
       "/media/menswear/sherwani/set-1/dsc-0143-copy.jpg",
-      "/media/menswear/sherwani/set-1/dsc-0144-copy.jpg",
+      "/media/menswear/sherwani/set-1/dsc-0144-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/sherwani/set-1/dsc-0140-copy.jpg",
   },
@@ -529,7 +529,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/sherwani/set-2/dsc-0506-copy.jpg",
       "/media/menswear/sherwani/set-2/dsc-0509-copy.jpg",
-      "/media/menswear/sherwani/set-2/dsc-0517-copy.jpg",
+      "/media/menswear/sherwani/set-2/dsc-0517-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/sherwani/set-2/dsc-0506-copy.jpg",
   },
@@ -546,7 +546,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/sherwani/set-3/dsc-0540-copy.jpg",
       "/media/menswear/sherwani/set-3/dsc-0546-copy.jpg",
-      "/media/menswear/sherwani/set-3/dsc-0558-copy.jpg",
+      "/media/menswear/sherwani/set-3/dsc-0558-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/sherwani/set-3/dsc-0540-copy.jpg",
   },
@@ -563,7 +563,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/sherwani/set-4/untitled-session16709-copy.jpg",
       "/media/menswear/sherwani/set-4/untitled-session16714-copy.jpg",
-      "/media/menswear/sherwani/set-4/untitled-session16768-copy.jpg",
+      "/media/menswear/sherwani/set-4/untitled-session16768-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/sherwani/set-4/untitled-session16709-copy.jpg",
   },
@@ -580,7 +580,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/shirts/set-1/dsc-0631-copy-copy.jpg",
       "/media/menswear/shirts/set-1/dsc-0642-copy-copy.jpg",
-      "/media/menswear/shirts/set-1/dsc-0649-copy.jpg",
+      "/media/menswear/shirts/set-1/dsc-0649-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/shirts/set-1/dsc-0631-copy-copy.jpg",
   },
@@ -597,7 +597,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/shirts/set-2/dsc-9639.jpg",
       "/media/menswear/shirts/set-2/dsc-9641.jpg",
-      "/media/menswear/shirts/set-2/dsc-9646.jpg",
+      "/media/menswear/shirts/set-2/dsc-9646.jpg"
     ],
     primaryImagePath: "/media/menswear/shirts/set-2/dsc-9639.jpg",
   },
@@ -615,7 +615,7 @@ export const GENERATED_PRODUCT_DEFS = [
       "/media/menswear/shirts/set-3/dsc-9662.jpg",
       "/media/menswear/shirts/set-3/dsc-9668.jpg",
       "/media/menswear/shirts/set-3/dsc-9669.jpg",
-      "/media/menswear/shirts/set-3/dsc-9670.jpg",
+      "/media/menswear/shirts/set-3/dsc-9670.jpg"
     ],
     primaryImagePath: "/media/menswear/shirts/set-3/dsc-9662.jpg",
   },
@@ -629,7 +629,10 @@ export const GENERATED_PRODUCT_DEFS = [
     title: "Suit Set 1",
     featured: false,
     order: 1,
-    imagePaths: ["/media/menswear/suits/set-1/dsc-0577-copy.jpg", "/media/menswear/suits/set-1/dsc-0584-copy.jpg"],
+    imagePaths: [
+      "/media/menswear/suits/set-1/dsc-0577-copy.jpg",
+      "/media/menswear/suits/set-1/dsc-0584-copy.jpg"
+    ],
     primaryImagePath: "/media/menswear/suits/set-1/dsc-0577-copy.jpg",
   },
   {
@@ -645,7 +648,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/suits/set-2/dsc-9372-copy.jpg",
       "/media/menswear/suits/set-2/dsc-9388-copy.jpg",
-      "/media/menswear/suits/set-2/dsc-9389-copy.jpg",
+      "/media/menswear/suits/set-2/dsc-9389-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/suits/set-2/dsc-9372-copy.jpg",
   },
@@ -662,7 +665,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/suits/set-3/dsc-9400-copy.jpg",
       "/media/menswear/suits/set-3/dsc-9408-copy.jpg",
-      "/media/menswear/suits/set-3/dsc-9410-copy.jpg",
+      "/media/menswear/suits/set-3/dsc-9410-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/suits/set-3/dsc-9400-copy.jpg",
   },
@@ -679,7 +682,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/suits/set-4/dsc-9418-copy.jpg",
       "/media/menswear/suits/set-4/dsc-9427-copy.jpg",
-      "/media/menswear/suits/set-4/dsc-9428-copy.jpg",
+      "/media/menswear/suits/set-4/dsc-9428-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/suits/set-4/dsc-9418-copy.jpg",
   },
@@ -696,7 +699,7 @@ export const GENERATED_PRODUCT_DEFS = [
     imagePaths: [
       "/media/menswear/suits/set-5/dsc-9436-copy.jpg",
       "/media/menswear/suits/set-5/dsc-9441-copy.jpg",
-      "/media/menswear/suits/set-5/dsc-9446-copy.jpg",
+      "/media/menswear/suits/set-5/dsc-9446-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/suits/set-5/dsc-9436-copy.jpg",
   },
@@ -710,7 +713,9 @@ export const GENERATED_PRODUCT_DEFS = [
     title: "Womens Wear Set 1",
     featured: false,
     order: 1,
-    imagePaths: ["/media/womenswear/womenswear-stock-clearance/set-1/dsc-0345-copy.jpg"],
+    imagePaths: [
+      "/media/womenswear/womenswear-stock-clearance/set-1/dsc-0345-copy.jpg"
+    ],
     primaryImagePath: "/media/womenswear/womenswear-stock-clearance/set-1/dsc-0345-copy.jpg",
   },
   {
@@ -723,7 +728,9 @@ export const GENERATED_PRODUCT_DEFS = [
     title: "Womens Wear Set 2",
     featured: false,
     order: 2,
-    imagePaths: ["/media/womenswear/womenswear-stock-clearance/set-2/dsc-0357-copy.jpg"],
+    imagePaths: [
+      "/media/womenswear/womenswear-stock-clearance/set-2/dsc-0357-copy.jpg"
+    ],
     primaryImagePath: "/media/womenswear/womenswear-stock-clearance/set-2/dsc-0357-copy.jpg",
   },
   {
@@ -736,7 +743,9 @@ export const GENERATED_PRODUCT_DEFS = [
     title: "Womens Wear Set 3",
     featured: false,
     order: 3,
-    imagePaths: ["/media/womenswear/womenswear-stock-clearance/set-3/dsc-0425-copy.jpg"],
+    imagePaths: [
+      "/media/womenswear/womenswear-stock-clearance/set-3/dsc-0425-copy.jpg"
+    ],
     primaryImagePath: "/media/womenswear/womenswear-stock-clearance/set-3/dsc-0425-copy.jpg",
   },
   {
@@ -749,7 +758,9 @@ export const GENERATED_PRODUCT_DEFS = [
     title: "Womens Wear Set 4",
     featured: false,
     order: 4,
-    imagePaths: ["/media/womenswear/womenswear-stock-clearance/set-4/dsc-0428-copy.jpg"],
+    imagePaths: [
+      "/media/womenswear/womenswear-stock-clearance/set-4/dsc-0428-copy.jpg"
+    ],
     primaryImagePath: "/media/womenswear/womenswear-stock-clearance/set-4/dsc-0428-copy.jpg",
   },
   {
@@ -762,7 +773,9 @@ export const GENERATED_PRODUCT_DEFS = [
     title: "Womens Wear Set 5",
     featured: false,
     order: 5,
-    imagePaths: ["/media/womenswear/womenswear-stock-clearance/set-5/dsc-0433-copy.jpg"],
+    imagePaths: [
+      "/media/womenswear/womenswear-stock-clearance/set-5/dsc-0433-copy.jpg"
+    ],
     primaryImagePath: "/media/womenswear/womenswear-stock-clearance/set-5/dsc-0433-copy.jpg",
   },
   {
@@ -775,7 +788,9 @@ export const GENERATED_PRODUCT_DEFS = [
     title: "Womens Wear Set 6",
     featured: false,
     order: 6,
-    imagePaths: ["/media/womenswear/womenswear-stock-clearance/set-6/dsc-0462-copy.jpg"],
+    imagePaths: [
+      "/media/womenswear/womenswear-stock-clearance/set-6/dsc-0462-copy.jpg"
+    ],
     primaryImagePath: "/media/womenswear/womenswear-stock-clearance/set-6/dsc-0462-copy.jpg",
   },
   {
@@ -788,7 +803,9 @@ export const GENERATED_PRODUCT_DEFS = [
     title: "Womens Wear Set 7",
     featured: false,
     order: 7,
-    imagePaths: ["/media/womenswear/womenswear-stock-clearance/set-7/dsc-0481-copy.jpg"],
+    imagePaths: [
+      "/media/womenswear/womenswear-stock-clearance/set-7/dsc-0481-copy.jpg"
+    ],
     primaryImagePath: "/media/womenswear/womenswear-stock-clearance/set-7/dsc-0481-copy.jpg",
   },
   {
@@ -801,7 +818,9 @@ export const GENERATED_PRODUCT_DEFS = [
     title: "Womens Wear Set 8",
     featured: false,
     order: 8,
-    imagePaths: ["/media/womenswear/womenswear-stock-clearance/set-8/dsc-0498-copy.jpg"],
+    imagePaths: [
+      "/media/womenswear/womenswear-stock-clearance/set-8/dsc-0498-copy.jpg"
+    ],
     primaryImagePath: "/media/womenswear/womenswear-stock-clearance/set-8/dsc-0498-copy.jpg",
   },
   {
@@ -814,7 +833,9 @@ export const GENERATED_PRODUCT_DEFS = [
     title: "Womens Wear Set 9",
     featured: false,
     order: 9,
-    imagePaths: ["/media/womenswear/womenswear-stock-clearance/set-9/dsc-0526-copy.jpg"],
+    imagePaths: [
+      "/media/womenswear/womenswear-stock-clearance/set-9/dsc-0526-copy.jpg"
+    ],
     primaryImagePath: "/media/womenswear/womenswear-stock-clearance/set-9/dsc-0526-copy.jpg",
   },
   {
@@ -827,7 +848,9 @@ export const GENERATED_PRODUCT_DEFS = [
     title: "Womens Wear Set 10",
     featured: false,
     order: 10,
-    imagePaths: ["/media/womenswear/womenswear-stock-clearance/set-10/dsc-0530-copy.jpg"],
+    imagePaths: [
+      "/media/womenswear/womenswear-stock-clearance/set-10/dsc-0530-copy.jpg"
+    ],
     primaryImagePath: "/media/womenswear/womenswear-stock-clearance/set-10/dsc-0530-copy.jpg",
   },
   {
@@ -840,7 +863,9 @@ export const GENERATED_PRODUCT_DEFS = [
     title: "Womens Wear Set 11",
     featured: false,
     order: 11,
-    imagePaths: ["/media/womenswear/womenswear-stock-clearance/set-11/dsc-0572-copy.jpg"],
+    imagePaths: [
+      "/media/womenswear/womenswear-stock-clearance/set-11/dsc-0572-copy.jpg"
+    ],
     primaryImagePath: "/media/womenswear/womenswear-stock-clearance/set-11/dsc-0572-copy.jpg",
-  },
+  }
 ] satisfies GeneratedProductDef[];
