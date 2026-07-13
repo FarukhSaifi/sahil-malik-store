@@ -24,6 +24,8 @@
 
 # misc
 .DS_Store
+**/.DS_Store
+._*
 *.pem
 
 # debug
