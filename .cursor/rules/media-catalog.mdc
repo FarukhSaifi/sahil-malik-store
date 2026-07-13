@@ -1,0 +1,30 @@
+---
+description: Product media and catalog generation workflow
+globs: "{generated/**,scripts/**,constants/collections.ts,constants/products.ts,public/media/**}"
+alwaysApply: false
+---
+
+# Media and catalog
+
+## On-disk layout
+
+```
+public/media/{menswear|womenswear}/{collection-slug}/set-{n}/*.jpg
+```
+
+## Generated vs hand-authored
+
+| Path                                     | Edit?                                         |
+| ---------------------------------------- | --------------------------------------------- |
+| `generated/media-manifest.ts`            | Never — run `npm run generate:media`          |
+| `generated/product-catalog.generated.ts` | Never — run `npm run generate:media`          |
+| `constants/collections.ts`               | Yes — collection metadata (`COLLECTION_DEFS`) |
+
+## Workflow
+
+1. Add/rename folders under `public/media/`.
+2. Run `npm run normalize:media:apply` if folder names need slug normalization.
+3. Run `npm run generate:media`.
+4. Run `npm run build`.
+
+Product folders use sequential names: `set-1`, `set-2`, … Auto titles: "Kurta Set 1", "Sherwani Set 1", etc.

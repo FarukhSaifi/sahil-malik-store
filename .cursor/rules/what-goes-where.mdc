@@ -1,0 +1,50 @@
+---
+description: Where types, interfaces, constants, and static data belong
+alwaysApply: true
+---
+
+# What goes where
+
+**Types/interfaces and static content live in different places. Do not mix them.**
+
+## Types and interfaces → `types/` (or `lib/` for module-specific)
+
+| Kind                     | File                   | Example                                       |
+| ------------------------ | ---------------------- | --------------------------------------------- |
+| Domain models            | `types/data.ts`        | `Product`, `Collection`, `EnquiryFormPayload` |
+| Component props          | `types/components.ts`  | `ProductCardProps`, `HeroSliderProps`         |
+| Page params/searchParams | `types/data.ts`        | `CollectionDetailPageProps`                   |
+| Catalog pipeline types   | `lib/catalog/index.ts` | `GeneratedProductDef`                         |
+
+- Import shared types via `@/types` (barrel in `types/index.ts`).
+- **Do not** add `export type` / `export interface` to `constants/`.
+- File-private types (not reused) may stay inline in the file that uses them only.
+- New reusable interface → add to `types/data.ts` or `types/components.ts`, not a new top-level `interfaces/` folder.
+
+## Static content and config → `constants/`
+
+| Kind | File | Example |
+| --- | --- | --- |
+| Site copy, nav, labels | `constants/site.ts` | `SITE`, menus, page titles |
+| Routes | `constants/routes.ts` | `ROUTES`, `collectionPath()` |
+| Collection metadata | `constants/collections.ts` | `COLLECTION_DEFS`, `COLLECTIONS` |
+| Layout / image sizes / motion IDs | `constants/layout.ts`, `timing.ts` | `IMAGE_SIZES`, `TIMING` |
+| Editorial content arrays | `constants/hero.ts`, `press.ts`, `couture.ts`, … | slides, press quotes |
+
+- **Hand-authored** strings, numbers, arrays, and image path helpers belong here.
+- Pages/components read config from `constants/` or via `lib/data` getters — never hardcode in JSX.
+
+## Other locations (not `constants/` or `types/`)
+
+| Kind                                     | Location                                        |
+| ---------------------------------------- | ----------------------------------------------- |
+| Auto-generated from disk                 | `generated/` — never edit                       |
+| Env-based values (email, phone)          | `lib/contact.ts`                                |
+| Pure logic (validation, SEO, email HTML) | `lib/validation.ts`, `lib/seo.ts`, `lib/email/` |
+| Runtime content access                   | `lib/data/` getters                             |
+
+## Quick decision
+
+- **Shape of data** (interface/type) → `types/` or `lib/catalog/`
+- **Actual copy, routes, flags, image lists** → `constants/`
+- **Built from folders by script** → `generated/`

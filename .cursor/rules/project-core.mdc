@@ -1,0 +1,28 @@
+---
+description: Core workflow and coding principles for Sahil Malik portfolio
+alwaysApply: true
+---
+
+# Project core rules
+
+- Minimize scope: smallest correct diff; do not change unrelated code.
+- Match existing patterns before introducing new abstractions.
+- Only commit or push when the user explicitly asks.
+- Do not edit markdown files the user did not request (except rules/docs when asked).
+- Run `npm run build` and `npm run lint` after structural or import changes.
+- Prefer `@/` imports; never hardcode routes, copy, image sizes, or timing in components.
+
+## Data flow
+
+```
+public/media/ → generated/ → constants/ → lib/data/ → app/(site)/**/page.tsx
+```
+
+- **Content** (collections, products, copy): `lib/data` getters in Server Components.
+- **Config** (routes, labels, layout tokens): `constants/`.
+- **Do not** import `generated/` from components; only constants/lib consume it.
+
+## Git
+
+- Never amend pushed commits or use destructive git commands unless explicitly requested.
+- Use `gh` for GitHub PR/issue tasks when asked.

@@ -1,0 +1,38 @@
+---
+description: Import order and TypeScript type conventions
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Imports and types
+
+## Import order (ESLint enforced)
+
+1. React / Next
+2. External packages
+3. `@/constants/**`
+4. `@/generated/**`
+5. `@/types/**`
+6. `@/lib/**`
+7. `@/hooks/**`
+8. `@/context/**`
+9. `@/components/**`
+10. Relative imports
+
+- Use `import type` separately (`consistent-type-imports`).
+- Blank lines between groups; alphabetize within groups.
+
+## Types
+
+- Domain models → `types/data.ts`
+- Component props → `types/components.ts`
+- Re-export from `types/index.ts`; import via `@/types` in app code.
+- Catalog types/helpers → `lib/catalog/` (not `constants/`).
+- **Never** put `export type` / `export interface` in `constants/` — types and static data are separate.
+
+See `.cursor/rules/what-goes-where.mdc` for the full placement table.
+
+## Components
+
+- UI in `components/` by role: `layout/`, `sections/`, `cards/`, `enquiry/`, `products/`, `ui/`.
+- Do not put React context providers in `components/` — use `context/`.

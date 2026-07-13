@@ -1,14 +1,5 @@
 import type { Collection } from "@/types";
 
-export type ProductCatalogOverlayEntry = {
-  sku?: string;
-  slug?: string;
-  title?: string;
-  description?: string;
-  featured?: boolean;
-  order?: number;
-};
-
 export type GeneratedProductDef = {
   key: string;
   category: Collection["category"];

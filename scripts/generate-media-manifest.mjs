@@ -7,7 +7,6 @@ const root = path.join(__dirname, "..");
 const mediaRoot = path.join(root, "public", "media");
 const manifestOutputPath = path.join(root, "generated", "media-manifest.ts");
 const catalogOutputPath = path.join(root, "generated", "product-catalog.generated.ts");
-const overlayPath = path.join(root, "data", "product-catalog.overlay.json");
 
 const IMAGE_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
 const CATEGORIES = ["menswear", "womenswear"];
@@ -134,20 +133,11 @@ function sortProductFolders(folderSlugs) {
   });
 }
 
-function loadOverlay() {
-  if (!fs.existsSync(overlayPath)) {
-    return {};
-  }
-
-  return JSON.parse(fs.readFileSync(overlayPath, "utf8"));
-}
-
 function collectManifestAndCatalog() {
   /** @type {Record<string, string[]>} */
   const manifest = {};
   /** @type {Array<Record<string, unknown>>} */
   const catalog = [];
-  const overlay = loadOverlay();
   /** @type {Record<string, number>} */
   const skuCounters = {};
   /** @type {Set<string>} */
@@ -205,22 +195,20 @@ function collectManifestAndCatalog() {
         folderOrder += 1;
         const setNumber = extractSetNumber(folderSlug) ?? folderOrder;
         const key = `${category}/${collectionSlug}/${folderSlug}`;
-        const overlayEntry = overlay[key] ?? {};
         const abbrev = COLLECTION_SKU_ABBREV[collectionSlug] ?? collectionSlug.slice(0, 2).toUpperCase();
         skuCounters[collectionSlug] = (skuCounters[collectionSlug] ?? 0) + 1;
-        const autoSku = `SM-${abbrev}-${String(skuCounters[collectionSlug]).padStart(3, "0")}`;
+        const sku = `SM-${abbrev}-${String(skuCounters[collectionSlug]).padStart(3, "0")}`;
 
         catalog.push({
           key,
           category,
           collectionSlug,
           folderSlug,
-          slug: overlayEntry.slug ?? defaultProductSlug(collectionSlug, setNumber),
-          sku: overlayEntry.sku ?? autoSku,
-          title: overlayEntry.title ?? defaultProductTitle(collectionSlug, setNumber),
-          description: overlayEntry.description,
-          featured: overlayEntry.featured ?? false,
-          order: overlayEntry.order ?? setNumber,
+          slug: defaultProductSlug(collectionSlug, setNumber),
+          sku,
+          title: defaultProductTitle(collectionSlug, setNumber),
+          featured: false,
+          order: setNumber,
           imagePaths,
           primaryImagePath: imagePaths[0],
         });

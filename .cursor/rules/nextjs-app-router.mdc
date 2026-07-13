@@ -1,0 +1,29 @@
+---
+description: Next.js 16 App Router structure and patterns
+globs: app/**/*
+alwaysApply: false
+---
+
+# App Router conventions
+
+Read `node_modules/next/dist/docs/` before changing routing, metadata, or data APIs — this project uses Next.js 16 with breaking differences.
+
+## Folder layout
+
+```
+app/
+  layout.tsx, providers.tsx, globals.css
+  (site)/     → marketing + catalog routes
+  (legal)/    → faq, policies, privacy, terms
+  api/        → route handlers only
+```
+
+- Route groups `(site)` and `(legal)` organize files only; URLs stay flat (`/about`, not `/(site)/about`).
+- New pages go inside `(site)` or `(legal)`, not at `app/` root (except layout, api, sitemap, robots).
+- Client providers live in `app/providers.tsx`; context implementations in `context/`.
+- Pages are Server Components by default; add `"use client"` only when needed.
+
+## Metadata
+
+- Use `buildMetadata()` from `lib/seo` for page metadata.
+- Use `generateStaticParams` for `[slug]` routes backed by `lib/data`.

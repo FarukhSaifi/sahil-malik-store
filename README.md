@@ -180,10 +180,10 @@ app/
   api/enquiry/     ← route handler
   sitemap.ts, robots.ts, not-found.tsx
 
-components/     layout/, sections/, cards/, enquiry/, products/, ui/, providers/
+components/     layout/, sections/, cards/, enquiry/, products/, ui/
+context/        enquiry-provider, hero-slideshow-provider (client state)
 constants/      hand-authored content + site configuration
 generated/      build output from `npm run generate:media` (do not edit)
-data/           product-catalog.overlay.json (human metadata for catalog script)
 hooks/          useHeroOverlay, useMounted, usePrefersReducedMotion
 lib/
   data/         constants adapter + public getters
@@ -209,10 +209,7 @@ All site copy, media references, routes, and tunable UI values live in `constant
 | `hero.ts` | Homepage slideshow slides |
 | `categories.ts` | Homepage category tiles (derived from featured collections) |
 | `collections.ts` | Product line metadata — slug, category, description, featured flag |
-| `product-catalog.overlay.json` | Human metadata for products (in `data/`) keyed by folder path |
-| `product-catalog.generated.ts` | Auto-generated product defs in `generated/` (do not edit) |
 | `products.ts` | Builds runtime `Product[]` from generated catalog |
-| `media-manifest.ts` | Image paths per collection (auto-generated) |
 | `couture.ts` | Haute couture seasons |
 | `press.ts` | Press quotes |
 | `celebrities.ts` | As Seen On grid |
@@ -243,6 +240,13 @@ import { TIMING } from "@/constants/timing";
 
 `constants/site.ts` re-exports `ROUTES` and path helpers for convenience (`SITE.routes`, etc.).
 
+### Generated (not in `constants/`)
+
+| Path                                     | What to edit                                  |
+| ---------------------------------------- | --------------------------------------------- |
+| `generated/media-manifest.ts`            | Auto-generated — run `npm run generate:media` |
+| `generated/product-catalog.generated.ts` | Auto-generated — run `npm run generate:media` |
+
 ---
 
 ## Editing content
@@ -263,10 +267,9 @@ public/media/{menswear|womenswear}/{collection}/{product-folder}/*.jpg
 
 1. Create a folder under the collection and add images.
 2. Run `npm run generate:media` — refreshes `generated/media-manifest.ts` and `generated/product-catalog.generated.ts`.
-3. Optionally edit **`data/product-catalog.overlay.json`** to set SKU, slug, title, description, `featured`, and `order`. Key format: `{category}/{collection}/{folder}` (e.g. `menswear/sherwani/set-1`).
-4. Run `npm run generate:media` again (overlay is merged at generation time), then `npm run build`.
+3. Run `npm run build`.
 
-**Overlay fallbacks** (when a key is missing): slug and title are generated from the collection and set number; SKU is auto-assigned as `SM-{ABBREV}-{NNN}` per collection.
+**Auto-generated product metadata:** slug and title come from the collection and set number (e.g. "Sherwani Set 1", `sherwani-set-1`); SKU is assigned as `SM-{ABBREV}-{NNN}` per collection.
 
 **Sherwani example**
 
@@ -280,15 +283,13 @@ menswear/sherwani/set-1/dsc-0143-copy.jpg
 1. Add product folders under `public/media/{menswear|womenswear}/{slug}/`.
 2. Run `npm run generate:media`.
 3. Add a `COLLECTION_DEFS` entry in `constants/collections.ts` (title, category, description, `featured`, `order`).
-4. Add overlay entries in `data/product-catalog.overlay.json` for titles and SKUs.
-5. Link it in `SITE.menswearMenu` or `SITE.womenswearMenu` inside `constants/site.ts` if it should appear in navigation.
-6. Run `npm run build` — `/collections/[slug]` and `/products/[slug]` pages are generated automatically.
+4. Link it in `SITE.menswearMenu` or `SITE.womenswearMenu` inside `constants/site.ts` if it should appear in navigation.
+5. Run `npm run build` — `/collections/[slug]` and `/products/[slug]` pages are generated automatically.
 
 ### Add a product to an existing collection
 
 1. Create `public/media/{category}/{collection}/{folder}/` and add images.
-2. Add or update the matching key in `data/product-catalog.overlay.json`.
-3. Run `npm run generate:media` and `npm run build`.
+2. Run `npm run generate:media` and `npm run build`.
 
 **SKU codes:** `SM-{ABBREV}-{NNN}` — Sherwani `SH`, Kurta Sets `KS`, Suits `SU`, Jawahar `JJ`, Bandhgala `BI`, Shirts `ST`, Womenswear Clearance `WC`.
 
