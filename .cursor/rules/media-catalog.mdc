@@ -9,7 +9,11 @@ alwaysApply: false
 ## On-disk layout
 
 ```
-public/media/{menswear|womenswear}/{collection-slug}/set-{n}/*.jpg
+# Menswear — nested by collection
+public/media/menswear/{collection-slug}/set-{n}/*.jpg
+
+# Womenswear — product sets live directly under the category (no nested collection folder)
+public/media/womenswear/set-{n}/*.jpg
 ```
 
 ## Generated vs hand-authored

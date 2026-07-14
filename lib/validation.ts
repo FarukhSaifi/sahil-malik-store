@@ -1,6 +1,6 @@
 import { SITE } from "@/constants/site";
 
-import type { EnquiryFormPayload } from "@/types";
+import type { ContactFormPayload, EnquiryFormPayload } from "@/types";
 
 export function getRequiredError(value: string, message: string): string | undefined {
   if (!value.trim()) {
@@ -56,9 +56,35 @@ export function validateEnquiryPayload(payload: EnquiryFormPayload): string | nu
   }
 
   for (const product of payload.products) {
-    if (!product.slug?.trim() || !product.sku?.trim() || !product.title?.trim()) {
+    if (!product.slug?.trim() || !product.sku?.trim() || !product.title?.trim() || !product.imageSrc?.trim()) {
       return "Invalid product data";
     }
+  }
+
+  if (!payload.idempotencyKey?.trim()) {
+    return "Missing request id";
+  }
+
+  return null;
+}
+
+export function validateContactPayload(payload: ContactFormPayload): string | null {
+  if (payload.honeypot?.trim()) {
+    return "Invalid submission";
+  }
+
+  if (!payload.name.trim()) {
+    return SITE.form.errors.nameRequired;
+  }
+
+  const emailError = getEmailError(payload.email, SITE.form.errors.emailRequired, SITE.form.errors.emailInvalid);
+
+  if (emailError) {
+    return emailError;
+  }
+
+  if (!payload.message.trim()) {
+    return SITE.form.errors.messageRequired;
   }
 
   if (!payload.idempotencyKey?.trim()) {

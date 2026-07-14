@@ -20,6 +20,9 @@ const COLLECTION_RENAMES = {
 
 const WOMENSWEAR_COLLECTION = "womenswear-stock-clearance";
 
+/** Categories where product sets live directly under the category root (no nested collection folder). */
+const FLAT_CATEGORIES = new Set(["womenswear"]);
+
 /** Legacy folder names → sequence index before renaming to set-N */
 const FOLDER_SORT_INDEX = {
   sherwani: {
@@ -101,9 +104,7 @@ function folderSortIndex(collectionSlug, folderSlug) {
   return Number.MAX_SAFE_INTEGER;
 }
 
-function renameProductFoldersToGenericSets(category, collectionSlug) {
-  const collectionDir = path.join(mediaRoot, category, collectionSlug);
-
+function renameProductFoldersToGenericSets(collectionDir, collectionSlug) {
   if (!fs.existsSync(collectionDir)) {
     return;
   }
@@ -120,8 +121,8 @@ function renameProductFoldersToGenericSets(category, collectionSlug) {
     folderSlug,
   }));
 
-  for (const [index, move] of tempMoves.entries()) {
-    const targetName = `set-${index + 1}`;
+  for (const move of tempMoves) {
+    const targetName = path.basename(move.final);
     if (move.folderSlug === targetName) {
       continue;
     }
@@ -134,8 +135,8 @@ function renameProductFoldersToGenericSets(category, collectionSlug) {
     }
   }
 
-  for (const [index, move] of tempMoves.entries()) {
-    const targetName = `set-${index + 1}`;
+  for (const move of tempMoves) {
+    const targetName = path.basename(move.final);
     if (move.folderSlug === targetName) {
       continue;
     }
@@ -199,11 +200,17 @@ function renameCollectionFolders(categoryDir) {
 }
 
 function renameProductFolders(category, collectionSlug) {
-  renameProductFoldersToGenericSets(category, collectionSlug);
+  const collectionDir = FLAT_CATEGORIES.has(category)
+    ? path.join(mediaRoot, category)
+    : path.join(mediaRoot, category, collectionSlug);
+
+  renameProductFoldersToGenericSets(collectionDir, collectionSlug);
 }
 
 function distributeLooseFiles(category, collectionSlug) {
-  const collectionDir = path.join(mediaRoot, category, collectionSlug);
+  const collectionDir = FLAT_CATEGORIES.has(category)
+    ? path.join(mediaRoot, category)
+    : path.join(mediaRoot, category, collectionSlug);
 
   if (!fs.existsSync(collectionDir)) {
     return;
@@ -260,26 +267,23 @@ function distributeLooseFiles(category, collectionSlug) {
   }
 }
 
-function normalizeWomenswear() {
+function flattenWomenswear() {
   const categoryDir = path.join(mediaRoot, "womenswear");
-  const collectionDir = path.join(categoryDir, WOMENSWEAR_COLLECTION);
+  const nestedDir = path.join(categoryDir, WOMENSWEAR_COLLECTION);
 
-  if (!fs.existsSync(categoryDir)) {
+  if (!fs.existsSync(categoryDir) || !fs.existsSync(nestedDir)) {
     return;
   }
 
-  ensureDir(collectionDir);
+  const entries = fs.readdirSync(nestedDir);
 
-  const productDirs = fs
-    .readdirSync(categoryDir)
-    .filter((entry) => {
-      const fullPath = path.join(categoryDir, entry);
-      return fs.statSync(fullPath).isDirectory() && entry !== WOMENSWEAR_COLLECTION;
-    })
-    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  for (const entry of entries) {
+    movePath(path.join(nestedDir, entry), path.join(categoryDir, entry));
+  }
 
-  for (const folderSlug of productDirs) {
-    movePath(path.join(categoryDir, folderSlug), path.join(collectionDir, folderSlug));
+  if (apply && fs.existsSync(nestedDir) && fs.readdirSync(nestedDir).length === 0) {
+    log(`RMDIR ${path.relative(mediaRoot, nestedDir)}`);
+    fs.rmdirSync(nestedDir);
   }
 }
 
@@ -312,7 +316,7 @@ function normalizeMediaPaths() {
   const menswearDir = path.join(mediaRoot, "menswear");
 
   renameCollectionFolders(menswearDir);
-  normalizeWomenswear();
+  flattenWomenswear();
 
   for (const collectionSlug of Object.values(COLLECTION_RENAMES)) {
     renameProductFolders("menswear", collectionSlug);
@@ -323,7 +327,7 @@ function normalizeMediaPaths() {
 
   renameProductFolders("womenswear", WOMENSWEAR_COLLECTION);
   distributeLooseFiles("womenswear", WOMENSWEAR_COLLECTION);
-  normalizeFilenamesInDir(path.join(mediaRoot, "womenswear", WOMENSWEAR_COLLECTION));
+  normalizeFilenamesInDir(path.join(mediaRoot, "womenswear"));
   renameProductFolders("womenswear", WOMENSWEAR_COLLECTION);
 
   if (apply) {

@@ -7,19 +7,22 @@ alwaysApply: true
 
 **Types/interfaces and static content live in different places. Do not mix them.**
 
-## Types and interfaces → `types/` (or `lib/` for module-specific)
+## Types and interfaces → `types/index.ts` only
 
-| Kind                     | File                   | Example                                       |
-| ------------------------ | ---------------------- | --------------------------------------------- |
-| Domain models            | `types/data.ts`        | `Product`, `Collection`, `EnquiryFormPayload` |
-| Component props          | `types/components.ts`  | `ProductCardProps`, `HeroSliderProps`         |
-| Page params/searchParams | `types/data.ts`        | `CollectionDetailPageProps`                   |
-| Catalog pipeline types   | `lib/catalog/index.ts` | `GeneratedProductDef`                         |
+All shared domain models, payloads, context values, and component/provider props live in **`types/index.ts`**. Import via `@/types`.
 
-- Import shared types via `@/types` (barrel in `types/index.ts`).
-- **Do not** add `export type` / `export interface` to `constants/`.
-- File-private types (not reused) may stay inline in the file that uses them only.
-- New reusable interface → add to `types/data.ts` or `types/components.ts`, not a new top-level `interfaces/` folder.
+| Kind                       | Example                                                    |
+| -------------------------- | ---------------------------------------------------------- |
+| Domain models              | `Product`, `Collection`, `EnquiryFormPayload`              |
+| Component / provider props | `ProductCardProps`, `ContactMapProps`, `AppProvidersProps` |
+| Page params                | `CollectionDetailPageProps`                                |
+| Catalog / email            | `GeneratedProductDef`, `TransactionalEmailInput`           |
+| Context values             | `EnquiryContextValue`, `HeroSlideshowContextValue`         |
+
+- **Do not** add `export type` / `export interface` to `constants/`, `components/`, `context/`, or `app/`.
+- **Do not** split into `types/data.ts` / `types/components.ts` or create an `interfaces/` folder.
+- New reusable type → add to `types/index.ts`.
+- `lib/catalog` may re-export catalog types from `@/types` for generate-script convenience.
 
 ## Static content and config → `constants/`
 
@@ -27,12 +30,12 @@ alwaysApply: true
 | --- | --- | --- |
 | Site copy, nav, labels | `constants/site.ts` | `SITE`, menus, page titles |
 | Routes | `constants/routes.ts` | `ROUTES`, `collectionPath()` |
-| Collection metadata | `constants/collections.ts` | `COLLECTION_DEFS`, `COLLECTIONS` |
+| Collection metadata | `constants/collections.ts`, `collection-keys.ts` | `COLLECTION_DEFS`, category keys, slugs |
 | Layout / image sizes / motion IDs | `constants/layout.ts`, `timing.ts` | `IMAGE_SIZES`, `TIMING` |
 | Editorial content arrays | `constants/hero.ts`, `press.ts`, `couture.ts`, … | slides, press quotes |
 
 - **Hand-authored** strings, numbers, arrays, and image path helpers belong here.
-- Pages/components read config from `constants/` or via `lib/data` getters — never hardcode in JSX.
+- Pages/components read config from `constants/` or via `lib/data` getters — **never hardcode** copy, routes, category keys, or layout tokens in JSX/page files.
 
 ## Other locations (not `constants/` or `types/`)
 
@@ -45,6 +48,6 @@ alwaysApply: true
 
 ## Quick decision
 
-- **Shape of data** (interface/type) → `types/` or `lib/catalog/`
+- **Shape of data** (interface/type) → `types/index.ts`
 - **Actual copy, routes, flags, image lists** → `constants/`
 - **Built from folders by script** → `generated/`

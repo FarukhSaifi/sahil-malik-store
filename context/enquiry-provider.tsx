@@ -4,16 +4,7 @@ import { createContext, useCallback, useContext, useMemo, useSyncExternalStore }
 
 import { SITE } from "@/constants/site";
 
-import type { EnquiryItem, Product } from "@/types";
-
-type EnquiryContextValue = {
-  items: EnquiryItem[];
-  count: number;
-  isSelected: (productSlug: string) => boolean;
-  addProduct: (product: Product, collectionTitle: string) => void;
-  removeProduct: (productSlug: string) => void;
-  clearAll: () => void;
-};
+import type { EnquiryContextValue, EnquiryItem, Product } from "@/types";
 
 const EnquiryContext = createContext<EnquiryContextValue | null>(null);
 

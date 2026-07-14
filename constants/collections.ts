@@ -1,25 +1,18 @@
+import { COLLECTION_CATEGORIES, WOMENSWEAR_COLLECTION_SLUG } from "@/constants/collection-keys";
 import { galleryFromPaths, localImage } from "@/constants/images";
 
 import { MEDIA_MANIFEST } from "@/generated/media-manifest";
 
 import type { MediaManifestSlug } from "@/generated/media-manifest";
-import type { Collection } from "@/types";
+import type { Collection, CollectionDefinition } from "@/types";
 
-type CollectionDef = {
-  slug: MediaManifestSlug;
-  title: string;
-  category: Collection["category"];
-  season: string;
-  description: string;
-  featured: boolean;
-  order: number;
-};
+export { COLLECTION_CATEGORIES, WOMENSWEAR_COLLECTION_SLUG } from "@/constants/collection-keys";
 
-const COLLECTION_DEFS: CollectionDef[] = [
+const COLLECTION_DEFS: Array<CollectionDefinition & { slug: MediaManifestSlug }> = [
   {
     slug: "sherwani",
     title: "Sherwani",
-    category: "menswear",
+    category: COLLECTION_CATEGORIES.menswear,
     season: "Menswear",
     description:
       "Architectural sherwanis in heritage textiles, elevated with tonal threadwork, hand embroidery, and ceremonial refinement.",
@@ -29,7 +22,7 @@ const COLLECTION_DEFS: CollectionDef[] = [
   {
     slug: "kurta-sets",
     title: "Kurta Sets",
-    category: "menswear",
+    category: COLLECTION_CATEGORIES.menswear,
     season: "Menswear",
     description:
       "Festive and occasion kurta sets crafted with artisanal surface ornamentation, fluid silhouettes, and conscious luxury.",
@@ -39,7 +32,7 @@ const COLLECTION_DEFS: CollectionDef[] = [
   {
     slug: "suits",
     title: "Suits",
-    category: "menswear",
+    category: COLLECTION_CATEGORIES.menswear,
     season: "Menswear",
     description:
       "Tailored suits that balance modern structure with Sahil Malik's signature embroidery and refined Indian craft.",
@@ -49,7 +42,7 @@ const COLLECTION_DEFS: CollectionDef[] = [
   {
     slug: "jawahar-jacket-set",
     title: "Jawahar Jacket Set",
-    category: "menswear",
+    category: COLLECTION_CATEGORIES.menswear,
     season: "Menswear",
     description:
       "Jawahar jacket sets rendered in rich weaves and meticulous hand-finish — occasion wear with quiet authority.",
@@ -59,7 +52,7 @@ const COLLECTION_DEFS: CollectionDef[] = [
   {
     slug: "bandhgala-indo-western",
     title: "Bandhgala & Indo-Western",
-    category: "menswear",
+    category: COLLECTION_CATEGORIES.menswear,
     season: "Menswear",
     description:
       "Bandhgalas and Indo-western silhouettes that merge classic Indian tailoring with contemporary global restraint.",
@@ -69,7 +62,7 @@ const COLLECTION_DEFS: CollectionDef[] = [
   {
     slug: "shirts",
     title: "Shirts",
-    category: "menswear",
+    category: COLLECTION_CATEGORIES.menswear,
     season: "Menswear",
     description:
       "Elevated shirts with embroidered detail and precise cut — versatile pieces from the Sahil Malik atelier.",
@@ -77,9 +70,9 @@ const COLLECTION_DEFS: CollectionDef[] = [
     order: 6,
   },
   {
-    slug: "womenswear-stock-clearance",
+    slug: WOMENSWEAR_COLLECTION_SLUG,
     title: "Womens Wear",
-    category: "womenswear",
+    category: COLLECTION_CATEGORIES.womenswear,
     season: "Womenswear",
     description:
       "A curated selection of womenswear pieces from the atelier — limited availability, signature Sahil Malik craft.",
@@ -88,7 +81,7 @@ const COLLECTION_DEFS: CollectionDef[] = [
   },
 ];
 
-function buildCollection(def: CollectionDef): Collection {
+function buildCollection(def: CollectionDefinition & { slug: MediaManifestSlug }): Collection {
   const paths = MEDIA_MANIFEST[def.slug];
 
   if (!paths?.length) {

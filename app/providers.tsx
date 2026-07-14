@@ -3,11 +3,7 @@
 import { EnquiryProvider } from "@/context/enquiry-provider";
 import { HeroSlideshowProvider } from "@/context/hero-slideshow-provider";
 
-import type { ReactNode } from "react";
-
-type AppProvidersProps = {
-  children: ReactNode;
-};
+import type { AppProvidersProps } from "@/types";
 
 export function AppProviders({ children }: AppProvidersProps) {
   return (

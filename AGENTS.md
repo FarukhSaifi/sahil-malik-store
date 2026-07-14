@@ -24,7 +24,7 @@ lib/data/                   →  adapter + getters for pages
 ## Quick reference
 
 - Import content via `lib/data`, config via `constants/`.
-- **Types/interfaces** → `types/data.ts` or `types/components.ts` (not `constants/`).
+- **Types/interfaces** → `types/index.ts` only (not split files, not `constants/`, not components, not an `interfaces/` folder).
 - **Static copy, routes, labels, content arrays** → `constants/*.ts`.
 - **Generated catalog** → `generated/`.
 - Providers: `app/providers.tsx` wraps `context/*`.

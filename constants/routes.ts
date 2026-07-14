@@ -1,3 +1,5 @@
+import type { Collection } from "@/types";
+
 export const ROUTES = {
   home: "/",
   collections: "/collections",
@@ -25,7 +27,7 @@ export function couturePath(slug: string) {
   return `${ROUTES.couture}/${slug}`;
 }
 
-export function collectionsCategoryPath(category: "menswear" | "womenswear") {
+export function collectionsCategoryPath(category: Collection["category"]) {
   return `${ROUTES.collections}?category=${category}`;
 }
 

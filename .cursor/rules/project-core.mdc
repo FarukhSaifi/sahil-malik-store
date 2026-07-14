@@ -10,7 +10,9 @@ alwaysApply: true
 - Only commit or push when the user explicitly asks.
 - Do not edit markdown files the user did not request (except rules/docs when asked).
 - Run `npm run build` and `npm run lint` after structural or import changes.
-- Prefer `@/` imports; never hardcode routes, copy, image sizes, or timing in components.
+- Prefer `@/` imports; never hardcode routes, copy, image sizes, timing, category keys, or collection slugs in pages/components — put them in `constants/` and import.
+- Static labels, filter values, and feature flags for page behavior (e.g. which categories show a product grid or hide a hero) belong in `constants/site.ts` or the relevant `constants/*.ts` module.
+- All shared TypeScript types/interfaces live in `types/index.ts` — never define them in components, context, or constants.
 
 ## Data flow
 

@@ -2,11 +2,7 @@ import { ExternalLink } from "lucide-react";
 
 import { SITE } from "@/constants/site";
 
-import type { ContactInfo } from "@/types";
-
-type ContactMapProps = {
-  map: ContactInfo["map"];
-};
+import type { ContactMapProps } from "@/types";
 
 export function ContactMap({ map }: ContactMapProps) {
   return (

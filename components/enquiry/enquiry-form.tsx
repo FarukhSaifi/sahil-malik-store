@@ -16,7 +16,7 @@ import { FormField, getFieldDescribedBy } from "@/components/ui/form-field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-type EnquiryField = "name" | "email" | "phone" | "message";
+import type { EnquiryFormField } from "@/types";
 
 export function EnquiryForm() {
   const { items, clearAll } = useEnquiry();
@@ -25,7 +25,7 @@ export function EnquiryForm() {
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   const [honeypot, setHoneypot] = useState("");
-  const [touched, setTouched] = useState<Record<EnquiryField, boolean>>({
+  const [touched, setTouched] = useState<Record<EnquiryFormField, boolean>>({
     name: false,
     email: false,
     phone: false,
@@ -52,9 +52,9 @@ export function EnquiryForm() {
 
   const canSubmit = isFormValid(errors) && status !== "loading";
 
-  const showError = (field: EnquiryField) => (touched[field] || submitAttempted ? errors[field] : undefined);
+  const showError = (field: EnquiryFormField) => (touched[field] || submitAttempted ? errors[field] : undefined);
 
-  const markTouched = (field: EnquiryField) => {
+  const markTouched = (field: EnquiryFormField) => {
     setTouched((current) => ({ ...current, [field]: true }));
   };
 
@@ -75,6 +75,8 @@ export function EnquiryForm() {
         slug: item.productSlug,
         sku: item.sku,
         title: item.title,
+        imageSrc: item.imageSrc,
+        collectionTitle: item.collectionTitle,
       })),
       idempotencyKey: crypto.randomUUID(),
       honeypot,
@@ -133,6 +135,7 @@ export function EnquiryForm() {
           {items.map((item) => (
             <li key={item.productSlug}>
               <span className="text-muted">{item.sku}</span> — {item.title}
+              {item.collectionTitle ? <span className="text-muted"> · {item.collectionTitle}</span> : null}
             </li>
           ))}
         </ul>

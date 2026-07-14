@@ -1,6 +1,7 @@
 export const BLUR_DATA_URL =
   "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAr/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q==";
 
+import { COLLECTION_CATEGORIES, WOMENSWEAR_COLLECTION_SLUG } from "@/constants/collection-keys";
 import { collectionPath, collectionsCategoryPath, couturePath, ROUTES } from "@/constants/routes";
 
 export {
@@ -68,8 +69,18 @@ export const SITE = {
   ui: UI,
   a11y: A11Y,
   nav: [
-    { key: "menswear", label: "Menswear", href: collectionsCategoryPath("menswear"), mega: "menswear" },
-    { key: "womenswear", label: "Womenswear", href: collectionsCategoryPath("womenswear"), mega: "womenswear" },
+    {
+      key: COLLECTION_CATEGORIES.menswear,
+      label: "Menswear",
+      href: collectionsCategoryPath(COLLECTION_CATEGORIES.menswear),
+      mega: COLLECTION_CATEGORIES.menswear,
+    },
+    {
+      key: COLLECTION_CATEGORIES.womenswear,
+      label: "Womenswear",
+      href: collectionPath(WOMENSWEAR_COLLECTION_SLUG),
+      mega: COLLECTION_CATEGORIES.womenswear,
+    },
     { key: "couture", label: "Paris Haute Couture", href: ROUTES.couture, mega: "couture" },
     // { key: "findUs", label: "Find Us", href: ROUTES.contact },
   ],
@@ -77,7 +88,7 @@ export const SITE = {
     { key: "press", label: "Press", href: ROUTES.press },
     { key: "about", label: "About", href: ROUTES.about },
   ],
-  navMegaKeys: ["menswear", "womenswear", "couture"] as const,
+  navMegaKeys: [COLLECTION_CATEGORIES.menswear, COLLECTION_CATEGORIES.womenswear, "couture"] as const,
   menswearMenu: [
     { label: "Sherwani", href: collectionPath("sherwani") },
     { label: "Kurta Sets", href: collectionPath("kurta-sets") },
@@ -86,7 +97,7 @@ export const SITE = {
     { label: "Bandhgala & Indo-Western", href: collectionPath("bandhgala-indo-western") },
     { label: "Shirts", href: collectionPath("shirts") },
   ],
-  womenswearMenu: [{ label: "Stock Clearance", href: collectionPath("womenswear-stock-clearance") }],
+  womenswearMenu: [{ label: "Stock Clearance", href: collectionPath(WOMENSWEAR_COLLECTION_SLUG) }],
   coutureMenu: [
     { label: "Alchemy — Spring '26", href: couturePath("alchemy-spring-2026") },
     { label: "Becoming Love — Fall '25", href: couturePath("becoming-love-fall-2025") },
@@ -141,9 +152,14 @@ export const SITE = {
       subtitle: "Menswear & Womenswear",
       filters: [
         { label: "All", value: undefined },
-        { label: "Menswear", value: "menswear" },
-        { label: "Womenswear", value: "womenswear" },
+        { label: "Menswear", value: COLLECTION_CATEGORIES.menswear },
+        { label: "Womenswear", value: COLLECTION_CATEGORIES.womenswear },
       ],
+      /** Categories that render a product grid on `/collections?category=` instead of collection cards. */
+      productGridCategories: [COLLECTION_CATEGORIES.womenswear] as const,
+      /** Categories whose collection detail page omits the hero image. */
+      hideHeroCategories: [COLLECTION_CATEGORIES.womenswear] as const,
+      allCategoryKey: "all",
       relatedLimit: 3,
     },
     couture: {
@@ -215,9 +231,9 @@ export const SITE = {
       messageRequired: "Message is required",
     },
     submitLabel: UI.sendInquiry,
-    mailtoSubject: (name: string) => `Appointment Inquiry from ${name}`,
-    mailtoBody: (name: string, email: string, message: string) =>
-      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+    submitSuccess: "Thank you — your message has been sent.",
+    submitError: "Something went wrong. Please try again or email us directly.",
+    emailSubject: (name: string) => `Appointment Inquiry from ${name}`,
   },
   contact: {
     storeTitle: "Flagship Store - Shahpur Jat, New Delhi",
@@ -317,7 +333,7 @@ export const SITE = {
   },
 } as const;
 
-const LEFT_NAV_KEYS = new Set(["menswear", "womenswear", "couture"]);
+const LEFT_NAV_KEYS = new Set([COLLECTION_CATEGORIES.menswear, COLLECTION_CATEGORIES.womenswear, "couture"]);
 const MEGA_NAV_KEYS = new Set(SITE.navMegaKeys);
 
 export function getNavBySide(side: "left" | "right") {

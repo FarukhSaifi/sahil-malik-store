@@ -43,6 +43,7 @@ export default async function CollectionDetailPage({ params }: CollectionDetailP
 
   const products = getProducts({ collectionSlug: slug });
   const hasProducts = products.length > 0;
+  const showHero = !(SITE.pages.collections.hideHeroCategories as readonly string[]).includes(collection.category);
 
   const related = getCollections()
     .filter((c) => c.slug !== collection.slug && c.category === collection.category)
@@ -50,22 +51,31 @@ export default async function CollectionDetailPage({ params }: CollectionDetailP
 
   return (
     <>
-      <section className="relative h-[50vh] min-h-[320px] w-full lg:h-[60vh]">
-        <EditorialImage
-          image={collection.coverImage}
-          sizes={IMAGE_SIZES.detailHero}
-          priority
-          className="h-full w-full"
-        />
-        <div className="absolute inset-0 bg-linear-to-t from-inverse/50 to-transparent" />
-        <Container className="absolute inset-x-0 bottom-0 pb-10 text-background">
-          <p className="mb-2 uppercase tracking-[0.2em] text-xs">{collection.season}</p>
-          <h1 className="heading-section">{collection.title}</h1>
-        </Container>
-      </section>
+      {showHero ? (
+        <section className="relative h-[50vh] min-h-[320px] w-full lg:h-[60vh]">
+          <EditorialImage
+            image={collection.coverImage}
+            sizes={IMAGE_SIZES.detailHero}
+            priority
+            className="h-full w-full"
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-inverse/50 to-transparent" />
+          <Container className="absolute inset-x-0 bottom-0 pb-10 text-background">
+            <p className="mb-2 uppercase tracking-[0.2em] text-xs">{collection.season}</p>
+            <h1 className="heading-section">{collection.title}</h1>
+          </Container>
+        </section>
+      ) : null}
 
       <section className="section-padding">
         <Container>
+          {showHero ? null : (
+            <div className="mb-8 text-center md:mb-12">
+              <p className="mb-3 uppercase tracking-[0.2em] text-xs text-muted">{collection.season}</p>
+              <h1 className="heading-section">{collection.title}</h1>
+            </div>
+          )}
+
           <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-muted sm:text-base">
             {collection.description}
           </p>

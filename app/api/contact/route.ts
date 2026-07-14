@@ -1,24 +1,24 @@
 import { NextResponse } from "next/server";
 
 import { getContactInfo } from "@/lib/contact";
-import { buildEnquiryEmailHtml, buildEnquiryEmailSubject } from "@/lib/email/enquiry";
+import { buildContactEmailHtml, buildContactEmailSubject } from "@/lib/email/contact";
 import { sendTransactionalEmail } from "@/lib/email/resend";
-import { validateEnquiryPayload } from "@/lib/validation";
+import { validateContactPayload } from "@/lib/validation";
 
-import type { EnquiryFormPayload } from "@/types";
+import type { ContactFormPayload } from "@/types";
 
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
-  let body: EnquiryFormPayload;
+  let body: ContactFormPayload;
 
   try {
-    body = (await request.json()) as EnquiryFormPayload;
+    body = (await request.json()) as ContactFormPayload;
   } catch {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const validationError = validateEnquiryPayload(body);
+  const validationError = validateContactPayload(body);
   if (validationError) {
     return NextResponse.json({ error: validationError }, { status: 400 });
   }
@@ -31,8 +31,8 @@ export async function POST(request: Request) {
   const result = await sendTransactionalEmail({
     to: toEmail,
     replyTo: body.email,
-    subject: buildEnquiryEmailSubject(body),
-    html: buildEnquiryEmailHtml(body),
+    subject: buildContactEmailSubject(body),
+    html: buildContactEmailHtml(body),
     idempotencyKey: body.idempotencyKey,
   });
 
@@ -42,4 +42,3 @@ export async function POST(request: Request) {
 
   return NextResponse.json({ ok: true, id: result.id });
 }
-

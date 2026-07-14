@@ -63,7 +63,7 @@ export default function ContactPage() {
               ) : null}
             </div>
 
-            {contact.email ? <ContactForm inboxEmail={contact.email} /> : null}
+            {contact.email ? <ContactForm /> : null}
           </div>
         </Container>
       </section>

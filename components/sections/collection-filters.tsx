@@ -16,6 +16,8 @@ import { cn } from "@/lib/utils";
 import { useMounted } from "@/hooks/use-mounted";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
+import type { Collection } from "@/types";
+
 export function CollectionFilters() {
   const searchParams = useSearchParams();
   const category = searchParams.get("category") ?? undefined;
@@ -29,7 +31,7 @@ export function CollectionFilters() {
     <div className="mb-10 flex flex-wrap gap-3">
       {filters.map((filter) => {
         const href = filter.value
-          ? collectionsCategoryPath(filter.value as "menswear" | "womenswear")
+          ? collectionsCategoryPath(filter.value as Collection["category"])
           : SITE.routes.collections;
         const isActive = filter.value === activeCategory || (!filter.value && !activeCategory);
 

@@ -9,12 +9,12 @@ A production-ready editorial website for **Sahil Malik**, luxury fashion designe
 
 ## Overview
 
-This is a static-first marketing and portfolio site — not an e-commerce backend. Product collections, couture seasons, and press are authored in TypeScript constant files, served through a thin data adapter, and pre-rendered at build time. Contact flows use client-side validation and a `mailto:` handoff; atelier details come from environment variables.
+This is a static-first marketing and portfolio site — not an e-commerce backend. Product collections, couture seasons, and press are authored in TypeScript constant files, served through a thin data adapter, and pre-rendered at build time. Contact and product enquiry forms send transactional email via Resend; atelier details come from environment variables.
 
 ```
 public/media/     →  generated/media-manifest.ts  →  constants/collections.ts
 constants/*.ts  →  lib/data                     →  Server Components  →  static HTML
-.env.local        →  lib/contact.ts               →  Contact page / WhatsApp / mailto
+.env.local        →  lib/contact.ts + lib/email/  →  Contact / WhatsApp / Resend
 ```
 
 **Convention:** Pages and components import **content** via `lib/data` getters and **configuration** (routes, labels, timing, image sizes) from `constants/`. Avoid hardcoding paths, copy, or magic numbers in components.
@@ -74,9 +74,8 @@ Product names and URLs are generated sequentially per collection, for example: `
 
 **Forms**
 
-- `ContactForm` — required-field and email validation, inline errors, disabled submit until valid
-- Opens `mailto:` to `CONTACT_EMAIL` — general appointments only
-- `EnquiryForm` — product-led enquiries via `POST /api/enquiry` (Resend)
+- `ContactForm` — appointment inquiries via `POST /api/contact` (Resend)
+- `EnquiryForm` — product-led enquiries via `POST /api/enquiry` (Resend), includes selected pieces + images
 - `EnquiryProvider` — client shortlist persisted in `localStorage` (`sahil-malik-enquiry-v1`)
 - `EnquiryBar` — floating chip when shortlist has items → `/enquiry`
 
@@ -149,17 +148,17 @@ Visit [http://localhost:3000](http://localhost:3000).
 
 Copy `.env.example` → `.env.local`. Mirror these in Vercel (Production + Preview).
 
-| Variable                   | Purpose                                                      |
-| -------------------------- | ------------------------------------------------------------ |
-| `CONTACT_EMAIL`            | Contact form inbox (`mailto:` target)                        |
-| `CONTACT_PHONE`            | Phone on contact page                                        |
-| `CONTACT_ADDRESS`          | Atelier address                                              |
-| `CONTACT_HOURS`            | Hours text (default: `By appointment only`)                  |
-| `WHATSAPP_PHONE`           | WhatsApp floating button (falls back to `CONTACT_PHONE`)     |
-| `WHATSAPP_MESSAGE`         | Pre-filled WhatsApp message                                  |
-| `WHATSAPP_DEFAULT_MESSAGE` | Alias for `WHATSAPP_MESSAGE`                                 |
-| `RESEND_API_KEY`           | Resend API key for `/api/enquiry`                            |
-| `RESEND_FROM_EMAIL`        | Verified sender, e.g. `Enquiries <enquiries@sahilmalik.com>` |
+| Variable                   | Purpose                                                    |
+| -------------------------- | ---------------------------------------------------------- |
+| `CONTACT_EMAIL`            | Atelier inbox — Resend recipient + contact page email      |
+| `CONTACT_PHONE`            | Phone on contact page                                      |
+| `CONTACT_ADDRESS`          | Atelier address                                            |
+| `CONTACT_HOURS`            | Hours text (default: `By appointment only`)                |
+| `WHATSAPP_PHONE`           | WhatsApp floating button (falls back to `CONTACT_PHONE`)   |
+| `WHATSAPP_MESSAGE`         | Pre-filled WhatsApp message                                |
+| `WHATSAPP_DEFAULT_MESSAGE` | Alias for `WHATSAPP_MESSAGE`                               |
+| `RESEND_API_KEY`           | Resend API key for `/api/contact` and `/api/enquiry`       |
+| `RESEND_FROM_EMAIL`        | Verified sender, e.g. `Enquiries <enquiry@sahilmalik.com>` |
 
 Read server-side via `getContactInfo()` in `lib/contact.ts` (marked `server-only`).
 
@@ -177,7 +176,7 @@ app/
   (site)/          ← marketing + catalog routes (URLs unchanged)
     page.tsx, about/, collections/, products/, couture/, contact/, press/, enquiry/
   (legal)/         ← faq/, policies/, privacy/, terms/
-  api/enquiry/     ← route handler
+  api/contact/ + api/enquiry/  ← Resend route handlers
   sitemap.ts, robots.ts, not-found.tsx
 
 components/     layout/, sections/, cards/, enquiry/, products/, ui/
@@ -190,7 +189,7 @@ lib/
   catalog/      product catalog types + helpers
   email/        transactional email templates
   contact.ts, seo.ts, validation.ts, animations/
-types/          data.ts (domain models), components.ts (prop types), index.ts
+types/          index.ts (all shared types / interfaces)
 public/media/   brand assets + menswear/womenswear product photography
 .github/        workflows/ci.yml, dependabot.yml, SECURITY.md
 ```
@@ -258,7 +257,11 @@ Products are discovered from disk — **one folder = one product**. Collections 
 **Media layout**
 
 ```
-public/media/{menswear|womenswear}/{collection}/{product-folder}/*.jpg
+# Menswear
+public/media/menswear/{collection}/set-{n}/*.jpg
+
+# Womenswear — sets sit directly under the category (no extra collection folder)
+public/media/womenswear/set-{n}/*.jpg
 ```
 
 - **Product folder** — use sequential names (`set-1/`, `set-2/`, …); all images in the folder become that product's gallery.
@@ -280,7 +283,7 @@ menswear/sherwani/set-1/dsc-0143-copy.jpg
 
 ### Add a new product collection
 
-1. Add product folders under `public/media/{menswear|womenswear}/{slug}/`.
+1. Add product folders under `public/media/menswear/{collection-slug}/` (or `public/media/womenswear/` for womenswear sets).
 2. Run `npm run generate:media`.
 3. Add a `COLLECTION_DEFS` entry in `constants/collections.ts` (title, category, description, `featured`, `order`).
 4. Link it in `SITE.menswearMenu` or `SITE.womenswearMenu` inside `constants/site.ts` if it should appear in navigation.
@@ -288,7 +291,7 @@ menswear/sherwani/set-1/dsc-0143-copy.jpg
 
 ### Add a product to an existing collection
 
-1. Create `public/media/{category}/{collection}/{folder}/` and add images.
+1. Create `public/media/menswear/{collection}/set-{n}/` (or `public/media/womenswear/set-{n}/`) and add images.
 2. Run `npm run generate:media` and `npm run build`.
 
 **SKU codes:** `SM-{ABBREV}-{NNN}` — Sherwani `SH`, Kurta Sets `KS`, Suits `SU`, Jawahar `JJ`, Bandhgala `BI`, Shirts `ST`, Womenswear Clearance `WC`.

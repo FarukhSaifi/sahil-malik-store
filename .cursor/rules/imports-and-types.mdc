@@ -1,7 +1,7 @@
 ---
 description: Import order and TypeScript type conventions
 globs: "**/*.{ts,tsx}"
-alwaysApply: false
+alwaysApply: true
 ---
 
 # Imports and types
@@ -22,13 +22,19 @@ alwaysApply: false
 - Use `import type` separately (`consistent-type-imports`).
 - Blank lines between groups; alphabetize within groups.
 
-## Types
+## Types — always in `types/index.ts`
 
-- Domain models → `types/data.ts`
-- Component props → `types/components.ts`
-- Re-export from `types/index.ts`; import via `@/types` in app code.
-- Catalog types/helpers → `lib/catalog/` (not `constants/`).
-- **Never** put `export type` / `export interface` in `constants/` — types and static data are separate.
+All shared interfaces/types live in **one file**: `types/index.ts`. Import via `@/types`.
+
+**Rules**
+
+- **Do** put every reusable `type` / `interface` in `types/index.ts`.
+- **Do** put component props there even if used by a single component.
+- **Do not** define `export type` / `export interface` in `constants/`, `components/`, `context/`, or `app/`.
+- **Do not** create `types/data.ts`, `types/components.ts`, or a top-level `interfaces/` folder.
+- Catalog helpers may **re-export** types from `@/types` (e.g. `lib/catalog`) but must not own the canonical definition.
+- Auto-generated types (e.g. `MediaManifestSlug` in `generated/`) stay in `generated/`.
+- Truly ephemeral locals (e.g. a one-line map callback) may stay inline; anything named and reused → `types/index.ts`.
 
 See `.cursor/rules/what-goes-where.mdc` for the full placement table.
 
