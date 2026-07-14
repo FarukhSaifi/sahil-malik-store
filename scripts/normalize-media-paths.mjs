@@ -8,13 +8,17 @@ const mediaRoot = path.join(root, "public", "media");
 
 const apply = process.argv.includes("--apply");
 
+/** Legacy / display folder names → canonical collection slug */
 const COLLECTION_RENAMES = {
   "Kurta Set": "kurta-sets",
+  "kurta set": "kurta-sets",
   Sherwani: "sherwani",
   Suits: "suits",
   "Jawahar Jacket Set": "jawahar-jacket-set",
   "Jawahar Jacket Sets": "jawahar-jacket-set",
+  "Jawhar Jacket Set": "jawahar-jacket-set", // common typo
   "Bandhgala & Indo-western": "bandhgala-indo-western",
+  "Bandhgala & Indo-Western": "bandhgala-indo-western",
   Shirts: "shirts",
 };
 
@@ -22,6 +26,8 @@ const WOMENSWEAR_COLLECTION = "womenswear-stock-clearance";
 
 /** Categories where product sets live directly under the category root (no nested collection folder). */
 const FLAT_CATEGORIES = new Set(["womenswear"]);
+
+const CANONICAL_MENSWEAR_SLUGS = [...new Set(Object.values(COLLECTION_RENAMES))];
 
 /** Legacy folder names → sequence index before renaming to set-N */
 const FOLDER_SORT_INDEX = {
@@ -41,6 +47,8 @@ const FOLDER_SORT_INDEX = {
   },
 };
 
+const IMAGE_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
+
 function slugifyFilename(filename) {
   const ext = path.extname(filename).toLowerCase();
   const base = path.basename(filename, path.extname(filename));
@@ -57,12 +65,43 @@ function ensureDir(dir) {
   }
 }
 
+function log(message) {
+  process.stdout.write(`${message}\n`);
+}
+
+/** Resolve the real on-disk directory name in `parentDir` matching `name` case-insensitively. */
+function findDirCaseInsensitive(parentDir, name) {
+  if (!fs.existsSync(parentDir)) {
+    return null;
+  }
+
+  const match = fs.readdirSync(parentDir).find((entry) => {
+    const fullPath = path.join(parentDir, entry);
+    return fs.statSync(fullPath).isDirectory() && entry.toLowerCase() === name.toLowerCase();
+  });
+
+  return match ?? null;
+}
+
 function movePath(source, target) {
   if (!fs.existsSync(source)) {
     return false;
   }
 
+  if (path.resolve(source) === path.resolve(target)) {
+    return false;
+  }
+
   if (fs.existsSync(target)) {
+    // Case-insensitive FS: source and target may be the same directory
+    try {
+      if (fs.statSync(source).ino === fs.statSync(target).ino) {
+        return false;
+      }
+    } catch {
+      // fall through
+    }
+
     log(`SKIP target exists: ${path.relative(mediaRoot, target)}`);
     return false;
   }
@@ -76,14 +115,15 @@ function movePath(source, target) {
   return true;
 }
 
-function log(message) {
-  process.stdout.write(`${message}\n`);
-}
-
 function folderSortIndex(collectionSlug, folderSlug) {
   const setMatch = folderSlug.match(/^set-(\d+)$/);
   if (setMatch) {
     return Number(setMatch[1]);
+  }
+
+  const bareNumber = folderSlug.match(/^(\d+)$/);
+  if (bareNumber) {
+    return Number(bareNumber[1]);
   }
 
   const known = FOLDER_SORT_INDEX[collectionSlug]?.[folderSlug];
@@ -112,7 +152,12 @@ function renameProductFoldersToGenericSets(collectionDir, collectionSlug) {
   const productDirs = fs
     .readdirSync(collectionDir)
     .filter((entry) => fs.statSync(path.join(collectionDir, entry)).isDirectory())
-    .sort((a, b) => folderSortIndex(collectionSlug, a) - folderSortIndex(collectionSlug, b));
+    .sort((a, b) => folderSortIndex(collectionSlug, a) - folderSortIndex(collectionSlug, b) || a.localeCompare(b));
+
+  const alreadyCanonical = productDirs.every((folderSlug, index) => folderSlug === `set-${index + 1}`);
+  if (alreadyCanonical) {
+    return;
+  }
 
   const tempMoves = productDirs.map((folderSlug, index) => ({
     from: path.join(collectionDir, folderSlug),
@@ -122,8 +167,7 @@ function renameProductFoldersToGenericSets(collectionDir, collectionSlug) {
   }));
 
   for (const move of tempMoves) {
-    const targetName = path.basename(move.final);
-    if (move.folderSlug === targetName) {
+    if (move.folderSlug === path.basename(move.final)) {
       continue;
     }
 
@@ -136,12 +180,17 @@ function renameProductFoldersToGenericSets(collectionDir, collectionSlug) {
   }
 
   for (const move of tempMoves) {
-    const targetName = path.basename(move.final);
-    if (move.folderSlug === targetName) {
+    if (move.folderSlug === path.basename(move.final)) {
       continue;
     }
 
-    const source = fs.existsSync(move.temp) ? move.temp : move.from;
+    const source = apply && fs.existsSync(move.temp) ? move.temp : move.from;
+    // In dry-run, temp folders were not created — show intended final rename
+    if (!apply) {
+      log(`DRY-RUN ${path.relative(mediaRoot, move.from)} → ${path.relative(mediaRoot, move.final)}`);
+      continue;
+    }
+
     movePath(source, move.final);
   }
 }
@@ -165,8 +214,7 @@ function normalizeFilenamesInDir(dir) {
       continue;
     }
 
-    const target = path.join(dir, nextName);
-    movePath(fullPath, target);
+    movePath(fullPath, path.join(dir, nextName));
   }
 }
 
@@ -175,53 +223,73 @@ function renameCollectionFolders(categoryDir) {
     return;
   }
 
-  for (const [oldName, newSlug] of Object.entries(COLLECTION_RENAMES)) {
-    const source = path.join(categoryDir, oldName);
-    const target = path.join(categoryDir, newSlug);
+  // Build lookup from lowercase legacy name → slug
+  const renameByLower = new Map(
+    Object.entries(COLLECTION_RENAMES).map(([oldName, slug]) => [oldName.toLowerCase(), slug]),
+  );
 
-    if (!fs.existsSync(source)) {
+  for (const entry of fs.readdirSync(categoryDir)) {
+    const fullPath = path.join(categoryDir, entry);
+    if (!fs.statSync(fullPath).isDirectory()) {
       continue;
     }
 
-    if (source === target || oldName.toLowerCase() === newSlug.toLowerCase()) {
-      const temp = path.join(categoryDir, `_${newSlug}_tmp`);
+    const slug = renameByLower.get(entry.toLowerCase());
+    if (!slug) {
+      continue;
+    }
+
+    // Already using the canonical folder name
+    if (entry === slug) {
+      continue;
+    }
+
+    const target = path.join(categoryDir, slug);
+
+    // Case-only rename (e.g. Sherwani → sherwani on case-insensitive volumes)
+    if (entry.toLowerCase() === slug.toLowerCase()) {
+      const temp = path.join(categoryDir, `_${slug}_tmp`);
       log(
-        `${apply ? "MOVE" : "DRY-RUN"} ${path.relative(mediaRoot, source)} → ${path.relative(mediaRoot, temp)} → ${path.relative(mediaRoot, target)}`,
+        `${apply ? "MOVE" : "DRY-RUN"} ${path.relative(mediaRoot, fullPath)} → ${path.relative(mediaRoot, temp)} → ${path.relative(mediaRoot, target)}`,
       );
       if (apply) {
-        fs.renameSync(source, temp);
+        fs.renameSync(fullPath, temp);
         fs.renameSync(temp, target);
       }
       continue;
     }
 
-    movePath(source, target);
+    if (findDirCaseInsensitive(categoryDir, slug) && findDirCaseInsensitive(categoryDir, slug) !== entry) {
+      log(`SKIP conflict: ${entry} → ${slug} (target already exists)`);
+      continue;
+    }
+
+    movePath(fullPath, target);
   }
 }
 
-function renameProductFolders(category, collectionSlug) {
-  const collectionDir = FLAT_CATEGORIES.has(category)
+function collectionDirFor(category, collectionSlug) {
+  return FLAT_CATEGORIES.has(category)
     ? path.join(mediaRoot, category)
     : path.join(mediaRoot, category, collectionSlug);
+}
 
-  renameProductFoldersToGenericSets(collectionDir, collectionSlug);
+function renameProductFolders(category, collectionSlug) {
+  renameProductFoldersToGenericSets(collectionDirFor(category, collectionSlug), collectionSlug);
 }
 
 function distributeLooseFiles(category, collectionSlug) {
-  const collectionDir = FLAT_CATEGORIES.has(category)
-    ? path.join(mediaRoot, category)
-    : path.join(mediaRoot, category, collectionSlug);
+  const collectionDir = collectionDirFor(category, collectionSlug);
 
   if (!fs.existsSync(collectionDir)) {
     return;
   }
 
-  const imageExtensions = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
   const looseFiles = fs
     .readdirSync(collectionDir)
     .filter((entry) => {
       const fullPath = path.join(collectionDir, entry);
-      return fs.statSync(fullPath).isFile() && imageExtensions.has(path.extname(entry).toLowerCase());
+      return fs.statSync(fullPath).isFile() && IMAGE_EXTENSIONS.has(path.extname(entry).toLowerCase());
     })
     .sort((a, b) => a.localeCompare(b));
 
@@ -241,7 +309,6 @@ function distributeLooseFiles(category, collectionSlug) {
 
     if (!targetDir) {
       const fallbackName = `set-${productDirs.length + 1}`;
-
       targetDir = fallbackName;
       const createdDir = path.join(collectionDir, targetDir);
       log(`${apply ? "MKDIR" : "DRY-RUN MKDIR"} ${path.relative(mediaRoot, createdDir)}`);
@@ -251,17 +318,15 @@ function distributeLooseFiles(category, collectionSlug) {
       productDirs.push(targetDir);
     }
 
-    const source = path.join(collectionDir, file);
-    const target = path.join(collectionDir, targetDir, slugifyFilename(file));
-    movePath(source, target);
+    movePath(path.join(collectionDir, file), path.join(collectionDir, targetDir, slugifyFilename(file)));
 
     const dirFiles = fs.existsSync(path.join(collectionDir, targetDir))
       ? fs
           .readdirSync(path.join(collectionDir, targetDir))
-          .filter((entry) => imageExtensions.has(path.extname(entry).toLowerCase())).length
+          .filter((entry) => IMAGE_EXTENSIONS.has(path.extname(entry).toLowerCase())).length
       : 0;
 
-    if (dirFiles >= 2 || collectionSlug === WOMENSWEAR_COLLECTION) {
+    if (dirFiles >= 2 || collectionSlug === WOMENSWEAR_COLLECTION || FLAT_CATEGORIES.has(category)) {
       index += 1;
     }
   }
@@ -275,15 +340,35 @@ function flattenWomenswear() {
     return;
   }
 
-  const entries = fs.readdirSync(nestedDir);
-
-  for (const entry of entries) {
+  for (const entry of fs.readdirSync(nestedDir)) {
     movePath(path.join(nestedDir, entry), path.join(categoryDir, entry));
   }
 
   if (apply && fs.existsSync(nestedDir) && fs.readdirSync(nestedDir).length === 0) {
     log(`RMDIR ${path.relative(mediaRoot, nestedDir)}`);
     fs.rmdirSync(nestedDir);
+  }
+}
+
+function warnUnknownMenswearFolders(menswearDir) {
+  if (!fs.existsSync(menswearDir)) {
+    return;
+  }
+
+  const known = new Set(CANONICAL_MENSWEAR_SLUGS.map((slug) => slug.toLowerCase()));
+  for (const entry of Object.keys(COLLECTION_RENAMES)) {
+    known.add(entry.toLowerCase());
+  }
+
+  for (const entry of fs.readdirSync(menswearDir)) {
+    const fullPath = path.join(menswearDir, entry);
+    if (!fs.statSync(fullPath).isDirectory()) {
+      continue;
+    }
+
+    if (!known.has(entry.toLowerCase())) {
+      log(`WARN unknown menswear folder (not renamed): ${entry}`);
+    }
   }
 }
 
@@ -303,8 +388,7 @@ function removeEmptyDirs(dir) {
     return;
   }
 
-  const hasEntries = fs.readdirSync(dir).length > 0;
-  if (!hasEntries) {
+  if (fs.readdirSync(dir).length === 0) {
     log(`${apply ? "RMDIR" : "DRY-RUN RMDIR"} ${path.relative(mediaRoot, dir)}`);
     if (apply) {
       fs.rmdirSync(dir);
@@ -317,8 +401,14 @@ function normalizeMediaPaths() {
 
   renameCollectionFolders(menswearDir);
   flattenWomenswear();
+  warnUnknownMenswearFolders(menswearDir);
 
-  for (const collectionSlug of Object.values(COLLECTION_RENAMES)) {
+  for (const collectionSlug of CANONICAL_MENSWEAR_SLUGS) {
+    const collectionDir = path.join(mediaRoot, "menswear", collectionSlug);
+    if (!fs.existsSync(collectionDir) && !findDirCaseInsensitive(menswearDir, collectionSlug)) {
+      continue;
+    }
+
     renameProductFolders("menswear", collectionSlug);
     distributeLooseFiles("menswear", collectionSlug);
     normalizeFilenamesInDir(path.join(mediaRoot, "menswear", collectionSlug));

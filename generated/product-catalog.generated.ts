@@ -150,11 +150,12 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 1,
     imagePaths: [
-      "/media/menswear/jawahar-jacket-set/set-1/dsc-0321-copy.jpg",
-      "/media/menswear/jawahar-jacket-set/set-1/dsc-0333-copy.jpg",
-      "/media/menswear/jawahar-jacket-set/set-1/dsc-0342-copy.jpg"
+      "/media/menswear/jawahar-jacket-set/set-1/dsc-9457-copy.jpg",
+      "/media/menswear/jawahar-jacket-set/set-1/dsc-9460-copy.jpg",
+      "/media/menswear/jawahar-jacket-set/set-1/dsc-9470-copy.jpg",
+      "/media/menswear/jawahar-jacket-set/set-1/dsc-9477-copy.jpg"
     ],
-    primaryImagePath: "/media/menswear/jawahar-jacket-set/set-1/dsc-0321-copy.jpg",
+    primaryImagePath: "/media/menswear/jawahar-jacket-set/set-1/dsc-9457-copy.jpg",
   },
   {
     key: "menswear/jawahar-jacket-set/set-2",
@@ -167,11 +168,11 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 2,
     imagePaths: [
-      "/media/menswear/jawahar-jacket-set/set-2/dsc-9483-copy.jpg",
-      "/media/menswear/jawahar-jacket-set/set-2/dsc-9491-copy.jpg",
-      "/media/menswear/jawahar-jacket-set/set-2/dsc-9492-copy.jpg"
+      "/media/menswear/jawahar-jacket-set/set-2/dsc-9485-copy.jpg",
+      "/media/menswear/jawahar-jacket-set/set-2/dsc-9490-copy.jpg",
+      "/media/menswear/jawahar-jacket-set/set-2/dsc-9491-copy.jpg"
     ],
-    primaryImagePath: "/media/menswear/jawahar-jacket-set/set-2/dsc-9483-copy.jpg",
+    primaryImagePath: "/media/menswear/jawahar-jacket-set/set-2/dsc-9485-copy.jpg",
   },
   {
     key: "menswear/jawahar-jacket-set/set-3",
@@ -184,11 +185,11 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 3,
     imagePaths: [
-      "/media/menswear/jawahar-jacket-set/set-3/dsc-9612.jpg",
-      "/media/menswear/jawahar-jacket-set/set-3/dsc-9619.jpg",
-      "/media/menswear/jawahar-jacket-set/set-3/dsc-9621.jpg"
+      "/media/menswear/jawahar-jacket-set/set-3/dsc-9980.jpg",
+      "/media/menswear/jawahar-jacket-set/set-3/dsc-9986.jpg",
+      "/media/menswear/jawahar-jacket-set/set-3/dsc-9988.jpg"
     ],
-    primaryImagePath: "/media/menswear/jawahar-jacket-set/set-3/dsc-9612.jpg",
+    primaryImagePath: "/media/menswear/jawahar-jacket-set/set-3/dsc-9980.jpg",
   },
   {
     key: "menswear/jawahar-jacket-set/set-4",
@@ -201,11 +202,29 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 4,
     imagePaths: [
-      "/media/menswear/jawahar-jacket-set/set-4/dsc-9980.jpg",
-      "/media/menswear/jawahar-jacket-set/set-4/dsc-9986.jpg",
-      "/media/menswear/jawahar-jacket-set/set-4/dsc-9988.jpg"
+      "/media/menswear/jawahar-jacket-set/set-4/dsc-9612.jpg",
+      "/media/menswear/jawahar-jacket-set/set-4/dsc-9620.jpg",
+      "/media/menswear/jawahar-jacket-set/set-4/dsc-9621.jpg",
+      "/media/menswear/jawahar-jacket-set/set-4/dsc-9624.jpg"
     ],
-    primaryImagePath: "/media/menswear/jawahar-jacket-set/set-4/dsc-9980.jpg",
+    primaryImagePath: "/media/menswear/jawahar-jacket-set/set-4/dsc-9612.jpg",
+  },
+  {
+    key: "menswear/jawahar-jacket-set/set-5",
+    category: "menswear",
+    collectionSlug: "jawahar-jacket-set",
+    folderSlug: "set-5",
+    slug: "jawahar-set-5",
+    sku: "SM-JJ-005",
+    title: "Jawahar Jacket Set 5",
+    featured: false,
+    order: 5,
+    imagePaths: [
+      "/media/menswear/jawahar-jacket-set/set-5/dsc-0321-copy.jpg",
+      "/media/menswear/jawahar-jacket-set/set-5/dsc-0333-copy.jpg",
+      "/media/menswear/jawahar-jacket-set/set-5/dsc-0342-copy.jpg"
+    ],
+    primaryImagePath: "/media/menswear/jawahar-jacket-set/set-5/dsc-0321-copy.jpg",
   },
   {
     key: "menswear/kurta-sets/set-1",
