@@ -19,6 +19,7 @@ const COLLECTION_RENAMES = {
   "Jawhar Jacket Set": "jawahar-jacket-set", // common typo
   "Bandhgala & Indo-western": "bandhgala-indo-western",
   "Bandhgala & Indo-Western": "bandhgala-indo-western",
+  "Bandghala & Indo-western Set": "bandhgala-indo-western",
   Shirts: "shirts",
 };
 

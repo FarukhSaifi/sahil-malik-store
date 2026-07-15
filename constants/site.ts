@@ -78,7 +78,7 @@ export const SITE = {
     {
       key: COLLECTION_CATEGORIES.womenswear,
       label: "Womenswear",
-      href: collectionPath(WOMENSWEAR_COLLECTION_SLUG),
+      href: collectionsCategoryPath(COLLECTION_CATEGORIES.womenswear),
       mega: COLLECTION_CATEGORIES.womenswear,
     },
     { key: "couture", label: "Paris Haute Couture", href: ROUTES.couture, mega: "couture" },

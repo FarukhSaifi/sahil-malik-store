@@ -15,11 +15,12 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 1,
     imagePaths: [
+      "/media/menswear/bandhgala-indo-western/set-1/dsc-0059-copy.jpg",
       "/media/menswear/bandhgala-indo-western/set-1/dsc-0060-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-1/dsc-0063-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-1/dsc-0064-copy.jpg"
+      "/media/menswear/bandhgala-indo-western/set-1/dsc-0065-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-1/dsc-0068-copy.jpg"
     ],
-    primaryImagePath: "/media/menswear/bandhgala-indo-western/set-1/dsc-0060-copy.jpg",
+    primaryImagePath: "/media/menswear/bandhgala-indo-western/set-1/dsc-0059-copy.jpg",
   },
   {
     key: "menswear/bandhgala-indo-western/set-2",
@@ -33,8 +34,11 @@ export const GENERATED_PRODUCT_DEFS = [
     order: 2,
     imagePaths: [
       "/media/menswear/bandhgala-indo-western/set-2/dsc-0074-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-2/dsc-0077-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-2/dsc-0079-copy.jpg",
       "/media/menswear/bandhgala-indo-western/set-2/dsc-0080-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-2/dsc-0082-copy.jpg"
+      "/media/menswear/bandhgala-indo-western/set-2/dsc-0082-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-2/dsc-0084-copy.jpg"
     ],
     primaryImagePath: "/media/menswear/bandhgala-indo-western/set-2/dsc-0074-copy.jpg",
   },
@@ -49,11 +53,12 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 3,
     imagePaths: [
-      "/media/menswear/bandhgala-indo-western/set-3/dsc-0100-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-3/dsc-0103-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-3/dsc-0107-copy.jpg"
+      "/media/menswear/bandhgala-indo-western/set-3/dsc-0099-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-3/dsc-0105-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-3/dsc-0107-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-3/dsc-0114-copy.jpg"
     ],
-    primaryImagePath: "/media/menswear/bandhgala-indo-western/set-3/dsc-0100-copy.jpg",
+    primaryImagePath: "/media/menswear/bandhgala-indo-western/set-3/dsc-0099-copy.jpg",
   },
   {
     key: "menswear/bandhgala-indo-western/set-4",
@@ -66,11 +71,12 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 4,
     imagePaths: [
-      "/media/menswear/bandhgala-indo-western/set-4/sunil-mehra-9435-1.jpg",
-      "/media/menswear/bandhgala-indo-western/set-4/sunil-mehra-9453.jpg",
-      "/media/menswear/bandhgala-indo-western/set-4/sunil-mehra-9479.jpg"
+      "/media/menswear/bandhgala-indo-western/set-4/dsc-0121-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-4/dsc-0123-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-4/dsc-0124-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-4/dsc-0131-copy.jpg"
     ],
-    primaryImagePath: "/media/menswear/bandhgala-indo-western/set-4/sunil-mehra-9435-1.jpg",
+    primaryImagePath: "/media/menswear/bandhgala-indo-western/set-4/dsc-0121-copy.jpg",
   },
   {
     key: "menswear/bandhgala-indo-western/set-5",
@@ -83,12 +89,11 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 5,
     imagePaths: [
-      "/media/menswear/bandhgala-indo-western/set-5/dsc-0121-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-5/dsc-0123-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-5/dsc-0124-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-5/dsc-0131-copy.jpg"
+      "/media/menswear/bandhgala-indo-western/set-5/sunil-mehra-9435-1.jpg",
+      "/media/menswear/bandhgala-indo-western/set-5/sunil-mehra-9453.jpg",
+      "/media/menswear/bandhgala-indo-western/set-5/sunil-mehra-9479.jpg"
     ],
-    primaryImagePath: "/media/menswear/bandhgala-indo-western/set-5/dsc-0121-copy.jpg",
+    primaryImagePath: "/media/menswear/bandhgala-indo-western/set-5/sunil-mehra-9435-1.jpg",
   },
   {
     key: "menswear/bandhgala-indo-western/set-6",
@@ -101,10 +106,11 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 6,
     imagePaths: [
-      "/media/menswear/bandhgala-indo-western/set-6/dsc-0594-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-6/dsc-0602-copy.jpg"
+      "/media/menswear/bandhgala-indo-western/set-6/untitled-session16795-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-6/untitled-session16800-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-6/untitled-session16803-copy.jpg"
     ],
-    primaryImagePath: "/media/menswear/bandhgala-indo-western/set-6/dsc-0594-copy.jpg",
+    primaryImagePath: "/media/menswear/bandhgala-indo-western/set-6/untitled-session16795-copy.jpg",
   },
   {
     key: "menswear/bandhgala-indo-western/set-7",
@@ -134,10 +140,10 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 8,
     imagePaths: [
-      "/media/menswear/bandhgala-indo-western/set-8/untitled-session16800-copy.jpg",
-      "/media/menswear/bandhgala-indo-western/set-8/untitled-session16803-copy.jpg"
+      "/media/menswear/bandhgala-indo-western/set-8/dsc-0594-copy.jpg",
+      "/media/menswear/bandhgala-indo-western/set-8/dsc-0602-copy.jpg"
     ],
-    primaryImagePath: "/media/menswear/bandhgala-indo-western/set-8/untitled-session16800-copy.jpg",
+    primaryImagePath: "/media/menswear/bandhgala-indo-western/set-8/dsc-0594-copy.jpg",
   },
   {
     key: "menswear/jawahar-jacket-set/set-1",
