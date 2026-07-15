@@ -740,7 +740,9 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 1,
     imagePaths: [
-      "/media/womenswear/set-1/dsc-0345-copy.jpg"
+      "/media/womenswear/set-1/dsc-0345-copy.jpg",
+      "/media/womenswear/set-1/dsc-0352-copy.jpg",
+      "/media/womenswear/set-1/dsc-0357-copy.jpg"
     ],
     primaryImagePath: "/media/womenswear/set-1/dsc-0345-copy.jpg",
   },
@@ -755,9 +757,11 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 2,
     imagePaths: [
-      "/media/womenswear/set-2/dsc-0357-copy.jpg"
+      "/media/womenswear/set-2/dsc-0425-copy.jpg",
+      "/media/womenswear/set-2/dsc-0428-copy.jpg",
+      "/media/womenswear/set-2/dsc-0433-copy.jpg"
     ],
-    primaryImagePath: "/media/womenswear/set-2/dsc-0357-copy.jpg",
+    primaryImagePath: "/media/womenswear/set-2/dsc-0425-copy.jpg",
   },
   {
     key: "womenswear/womenswear-stock-clearance/set-3",
@@ -770,9 +774,11 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 3,
     imagePaths: [
-      "/media/womenswear/set-3/dsc-0425-copy.jpg"
+      "/media/womenswear/set-3/dsc-0526-copy.jpg",
+      "/media/womenswear/set-3/dsc-0530-copy.jpg",
+      "/media/womenswear/set-3/dsc-0539-copy.jpg"
     ],
-    primaryImagePath: "/media/womenswear/set-3/dsc-0425-copy.jpg",
+    primaryImagePath: "/media/womenswear/set-3/dsc-0526-copy.jpg",
   },
   {
     key: "womenswear/womenswear-stock-clearance/set-4",
@@ -785,9 +791,11 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 4,
     imagePaths: [
-      "/media/womenswear/set-4/dsc-0428-copy.jpg"
+      "/media/womenswear/set-4/dsc-0609-copy.jpg",
+      "/media/womenswear/set-4/dsc-0622-copy.jpg",
+      "/media/womenswear/set-4/dsc-0627-copy.jpg"
     ],
-    primaryImagePath: "/media/womenswear/set-4/dsc-0428-copy.jpg",
+    primaryImagePath: "/media/womenswear/set-4/dsc-0609-copy.jpg",
   },
   {
     key: "womenswear/womenswear-stock-clearance/set-5",
@@ -800,9 +808,11 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 5,
     imagePaths: [
-      "/media/womenswear/set-5/dsc-0433-copy.jpg"
+      "/media/womenswear/set-5/untitled-session16656-copy.jpg",
+      "/media/womenswear/set-5/untitled-session16674-copy.jpg",
+      "/media/womenswear/set-5/untitled-session16676-copy.jpg"
     ],
-    primaryImagePath: "/media/womenswear/set-5/dsc-0433-copy.jpg",
+    primaryImagePath: "/media/womenswear/set-5/untitled-session16656-copy.jpg",
   },
   {
     key: "womenswear/womenswear-stock-clearance/set-6",
@@ -815,9 +825,10 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 6,
     imagePaths: [
-      "/media/womenswear/set-6/dsc-0462-copy.jpg"
+      "/media/womenswear/set-6/untitled-session16737-copy.jpg",
+      "/media/womenswear/set-6/untitled-session16773-copy.jpg"
     ],
-    primaryImagePath: "/media/womenswear/set-6/dsc-0462-copy.jpg",
+    primaryImagePath: "/media/womenswear/set-6/untitled-session16737-copy.jpg",
   },
   {
     key: "womenswear/womenswear-stock-clearance/set-7",
@@ -830,9 +841,11 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 7,
     imagePaths: [
-      "/media/womenswear/set-7/dsc-0481-copy.jpg"
+      "/media/womenswear/set-7/untitled-session16781-copy.jpg",
+      "/media/womenswear/set-7/untitled-session16790-copy.jpg",
+      "/media/womenswear/set-7/untitled-session16791-copy.jpg"
     ],
-    primaryImagePath: "/media/womenswear/set-7/dsc-0481-copy.jpg",
+    primaryImagePath: "/media/womenswear/set-7/untitled-session16781-copy.jpg",
   },
   {
     key: "womenswear/womenswear-stock-clearance/set-8",
@@ -845,9 +858,11 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 8,
     imagePaths: [
-      "/media/womenswear/set-8/dsc-0498-copy.jpg"
+      "/media/womenswear/set-8/untitled-session16805-copy.jpg",
+      "/media/womenswear/set-8/untitled-session16816-copy.jpg",
+      "/media/womenswear/set-8/untitled-session16831-copy.jpg"
     ],
-    primaryImagePath: "/media/womenswear/set-8/dsc-0498-copy.jpg",
+    primaryImagePath: "/media/womenswear/set-8/untitled-session16805-copy.jpg",
   },
   {
     key: "womenswear/womenswear-stock-clearance/set-9",
@@ -860,9 +875,10 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 9,
     imagePaths: [
-      "/media/womenswear/set-9/dsc-0526-copy.jpg"
+      "/media/womenswear/set-9/untitled-session16881-copy.jpg",
+      "/media/womenswear/set-9/untitled-session16900-copy.jpg"
     ],
-    primaryImagePath: "/media/womenswear/set-9/dsc-0526-copy.jpg",
+    primaryImagePath: "/media/womenswear/set-9/untitled-session16881-copy.jpg",
   },
   {
     key: "womenswear/womenswear-stock-clearance/set-10",
@@ -875,9 +891,11 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 10,
     imagePaths: [
-      "/media/womenswear/set-10/dsc-0530-copy.jpg"
+      "/media/womenswear/set-10/untitled-session16981-copy.jpg",
+      "/media/womenswear/set-10/untitled-session16985-copy.jpg",
+      "/media/womenswear/set-10/untitled-session16989-copy.jpg"
     ],
-    primaryImagePath: "/media/womenswear/set-10/dsc-0530-copy.jpg",
+    primaryImagePath: "/media/womenswear/set-10/untitled-session16981-copy.jpg",
   },
   {
     key: "womenswear/womenswear-stock-clearance/set-11",
@@ -890,8 +908,41 @@ export const GENERATED_PRODUCT_DEFS = [
     featured: false,
     order: 11,
     imagePaths: [
-      "/media/womenswear/set-11/dsc-0572-copy.jpg"
+      "/media/womenswear/set-11/dsc-0481-copy.jpg",
+      "/media/womenswear/set-11/dsc-0498-copy.jpg"
     ],
-    primaryImagePath: "/media/womenswear/set-11/dsc-0572-copy.jpg",
+    primaryImagePath: "/media/womenswear/set-11/dsc-0481-copy.jpg",
+  },
+  {
+    key: "womenswear/womenswear-stock-clearance/set-12",
+    category: "womenswear",
+    collectionSlug: "womenswear-stock-clearance",
+    folderSlug: "set-12",
+    slug: "womenswear-set-12",
+    sku: "SM-WC-012",
+    title: "Womens Wear Set 12",
+    featured: false,
+    order: 12,
+    imagePaths: [
+      "/media/womenswear/set-12/dsc-0565-copy.jpg",
+      "/media/womenswear/set-12/dsc-0572-copy.jpg"
+    ],
+    primaryImagePath: "/media/womenswear/set-12/dsc-0565-copy.jpg",
+  },
+  {
+    key: "womenswear/womenswear-stock-clearance/set-13",
+    category: "womenswear",
+    collectionSlug: "womenswear-stock-clearance",
+    folderSlug: "set-13",
+    slug: "womenswear-set-13",
+    sku: "SM-WC-013",
+    title: "Womens Wear Set 13",
+    featured: false,
+    order: 13,
+    imagePaths: [
+      "/media/womenswear/set-13/dsc-0450-copy.jpg",
+      "/media/womenswear/set-13/dsc-0462-copy.jpg"
+    ],
+    primaryImagePath: "/media/womenswear/set-13/dsc-0450-copy.jpg",
   }
 ] satisfies GeneratedProductDef[];
