@@ -1,6 +1,7 @@
 import { productPath } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 
+import { formatAppointmentDate, formatAppointmentTime } from "@/lib/appointment-datetime";
 import { detailRow, escapeHtml, sectionHeading, toAbsoluteAssetUrl, wrapEditorialEmail } from "@/lib/email/shared";
 
 import type { EnquiryFormPayload } from "@/types";
@@ -45,6 +46,10 @@ export function buildEnquiryEmailHtml(payload: EnquiryFormPayload): string {
     ${detailRow("Email", `<a href="mailto:${escapeHtml(payload.email)}" style="color:#111111;">${escapeHtml(payload.email)}</a>`)}
     ${payload.phone ? detailRow("Phone", escapeHtml(payload.phone)) : ""}
 
+    ${sectionHeading("Preferred appointment")}
+    ${detailRow("Date", escapeHtml(formatAppointmentDate(payload.preferredDate)))}
+    ${detailRow("Time", escapeHtml(formatAppointmentTime(payload.preferredTime)))}
+
     ${sectionHeading("Enquiry")}
     <p style="margin:0;font-size:15px;white-space:pre-wrap;">${escapeHtml(payload.message).replaceAll("\n", "<br />")}</p>
 
@@ -64,7 +69,7 @@ export function buildEnquiryEmailHtml(payload: EnquiryFormPayload): string {
 
   return wrapEditorialEmail({
     title: "Product Enquiry",
-    preheader: `${payload.name} enquired about ${productSummary}`,
+    preheader: `${payload.name} enquired about ${productSummary} for ${formatAppointmentDate(payload.preferredDate)}`,
     bodyHtml,
   });
 }
@@ -72,8 +77,8 @@ export function buildEnquiryEmailHtml(payload: EnquiryFormPayload): string {
 export function buildEnquiryEmailSubject(payload: EnquiryFormPayload): string {
   if (payload.products.length === 1) {
     const product = payload.products[0];
-    return `Product Enquiry — ${product.title} (${product.sku}) from ${payload.name}`;
+    return `Product Enquiry — ${product.title} (${product.sku}) from ${payload.name} — ${formatAppointmentDate(payload.preferredDate)}`;
   }
 
-  return `Product Enquiry — ${payload.products.length} pieces from ${payload.name}`;
+  return `Product Enquiry — ${payload.products.length} pieces from ${payload.name} — ${formatAppointmentDate(payload.preferredDate)}`;
 }

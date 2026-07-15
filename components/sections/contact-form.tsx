@@ -2,10 +2,19 @@
 
 import { useMemo, useState } from "react";
 
+import { useRouter } from "next/navigation";
+
 import { SITE } from "@/constants/site";
 
-import { getEmailError, getRequiredError, isFormValid, validateContactPayload } from "@/lib/validation";
+import {
+  getEmailError,
+  getPreferredDateError,
+  getPreferredTimeError,
+  getRequiredError,
+  isFormValid,
+} from "@/lib/validation";
 
+import { AppointmentDateTimePicker } from "@/components/ui/appointment-datetime-picker";
 import { Button } from "@/components/ui/button";
 import { FormField, getFieldDescribedBy } from "@/components/ui/form-field";
 import { Input } from "@/components/ui/input";
@@ -14,56 +23,74 @@ import { Textarea } from "@/components/ui/textarea";
 import type { ContactFormField } from "@/types";
 
 export function ContactForm() {
+  const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [preferredDate, setPreferredDate] = useState("");
+  const [preferredTime, setPreferredTime] = useState("");
   const [message, setMessage] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [touched, setTouched] = useState<Record<ContactFormField, boolean>>({
     name: false,
     email: false,
+    preferredDate: false,
+    preferredTime: false,
     message: false,
   });
   const [submitAttempted, setSubmitAttempted] = useState(false);
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
 
   const errors = useMemo(
     () => ({
       name: getRequiredError(name, SITE.form.errors.nameRequired),
       email: getEmailError(email, SITE.form.errors.emailRequired, SITE.form.errors.emailInvalid),
+      preferredDate: getPreferredDateError(
+        preferredDate,
+        SITE.form.errors.preferredDateRequired,
+        SITE.form.errors.preferredDateInvalid,
+      ),
+      preferredTime: getPreferredTimeError(preferredTime, SITE.form.errors.preferredTimeRequired),
       message: getRequiredError(message, SITE.form.errors.messageRequired),
     }),
-    [name, email, message],
+    [name, email, preferredDate, preferredTime, message],
   );
 
-  const canSubmit = isFormValid(errors) && status !== "loading";
-
+  const isLoading = status === "loading";
   const showError = (field: ContactFormField) => (touched[field] || submitAttempted ? errors[field] : undefined);
 
   const markTouched = (field: ContactFormField) => {
     setTouched((current) => ({ ...current, [field]: true }));
   };
 
+  const clearStatusOnEdit = () => {
+    if (status === "error") {
+      setStatus("idle");
+    }
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitAttempted(true);
 
-    if (!canSubmit) {
+    if (isLoading) {
       return;
     }
 
+    if (!isFormValid(errors)) {
+      return;
+    }
+
+    // Never block the request on the honeypot client-side — browsers/password
+    // managers often autofill hidden fields and that was aborting the API call.
     const payload = {
       name: name.trim(),
       email: email.trim(),
+      preferredDate: preferredDate.trim(),
+      preferredTime: preferredTime.trim(),
       message: message.trim(),
       idempotencyKey: crypto.randomUUID(),
-      honeypot,
+      honeypot: "",
     };
-
-    const validationError = validateContactPayload(payload);
-    if (validationError) {
-      setStatus("error");
-      return;
-    }
 
     setStatus("loading");
 
@@ -79,24 +106,22 @@ export function ContactForm() {
         return;
       }
 
-      setStatus("success");
-      setName("");
-      setEmail("");
-      setMessage("");
-      setSubmitAttempted(false);
-      setTouched({ name: false, email: false, message: false });
+      router.push(SITE.routes.thankYou);
     } catch {
       setStatus("error");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-      <div className="sr-only" aria-hidden>
-        <label htmlFor="contact-website">Website</label>
+    <form onSubmit={handleSubmit} className="relative space-y-4" noValidate>
+      <div
+        className="pointer-events-none absolute left-0 top-0 -z-10 h-0 w-0 overflow-hidden opacity-0"
+        aria-hidden="true"
+      >
+        <label htmlFor="contact-fax-number">Fax</label>
         <input
-          id="contact-website"
-          name="website"
+          id="contact-fax-number"
+          name="fax_number"
           type="text"
           tabIndex={-1}
           autoComplete="off"
@@ -114,7 +139,10 @@ export function ContactForm() {
           value={name}
           error={Boolean(showError("name"))}
           aria-describedby={getFieldDescribedBy("name", showError("name"))}
-          onChange={(event) => setName(event.target.value)}
+          onChange={(event) => {
+            clearStatusOnEdit();
+            setName(event.target.value);
+          }}
           onBlur={() => markTouched("name")}
         />
       </FormField>
@@ -128,10 +156,34 @@ export function ContactForm() {
           value={email}
           error={Boolean(showError("email"))}
           aria-describedby={getFieldDescribedBy("email", showError("email"))}
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={(event) => {
+            clearStatusOnEdit();
+            setEmail(event.target.value);
+          }}
           onBlur={() => markTouched("email")}
         />
       </FormField>
+
+      <AppointmentDateTimePicker
+        preferredDate={preferredDate}
+        preferredTime={preferredTime}
+        dateError={showError("preferredDate")}
+        timeError={showError("preferredTime")}
+        onInteract={clearStatusOnEdit}
+        onDateChange={(value) => {
+          clearStatusOnEdit();
+          setPreferredDate(value);
+          markTouched("preferredDate");
+          if (!preferredTime) {
+            setPreferredTime("");
+          }
+        }}
+        onTimeChange={(value) => {
+          clearStatusOnEdit();
+          setPreferredTime(value);
+          markTouched("preferredTime");
+        }}
+      />
 
       <FormField label={SITE.form.labels.message} htmlFor="message" error={showError("message")}>
         <Textarea
@@ -141,16 +193,13 @@ export function ContactForm() {
           value={message}
           error={Boolean(showError("message"))}
           aria-describedby={getFieldDescribedBy("message", showError("message"))}
-          onChange={(event) => setMessage(event.target.value)}
+          onChange={(event) => {
+            clearStatusOnEdit();
+            setMessage(event.target.value);
+          }}
           onBlur={() => markTouched("message")}
         />
       </FormField>
-
-      {status === "success" ? (
-        <p className="text-sm text-foreground" role="status">
-          {SITE.form.submitSuccess}
-        </p>
-      ) : null}
 
       {status === "error" ? (
         <p className="text-sm text-destructive" role="alert">
@@ -163,9 +212,9 @@ export function ContactForm() {
         variant="outlineInvert"
         size="lg"
         className="label-caps w-full sm:w-auto"
-        disabled={!canSubmit}
+        disabled={isLoading}
       >
-        {status === "loading" ? "Sending…" : SITE.form.submitLabel}
+        {isLoading ? "Sending…" : SITE.form.submitLabel}
       </Button>
     </form>
   );

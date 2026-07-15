@@ -143,6 +143,8 @@ export type EnquiryFormPayload = {
   name: string;
   email: string;
   phone?: string;
+  preferredDate: string;
+  preferredTime: string;
   message: string;
   products: EnquiryProductSummary[];
   idempotencyKey: string;
@@ -152,6 +154,8 @@ export type EnquiryFormPayload = {
 export type ContactFormPayload = {
   name: string;
   email: string;
+  preferredDate: string;
+  preferredTime: string;
   message: string;
   idempotencyKey: string;
   honeypot?: string;
@@ -230,9 +234,9 @@ export type EnquiryContextValue = {
   clearAll: () => void;
 };
 
-export type EnquiryFormField = "name" | "email" | "phone" | "message";
+export type EnquiryFormField = "name" | "email" | "phone" | "preferredDate" | "preferredTime" | "message";
 
-export type ContactFormField = "name" | "email" | "message";
+export type ContactFormField = "name" | "email" | "preferredDate" | "preferredTime" | "message";
 
 export type CollectionDefinition = {
   slug: string;
@@ -298,6 +302,16 @@ export type BookAppointmentLinkProps = {
   variant?: "default" | "outlineInvert";
   size?: "default" | "sm" | "lg";
   className?: string;
+};
+
+export type AppointmentDateTimePickerProps = {
+  preferredDate: string;
+  preferredTime: string;
+  dateError?: string;
+  timeError?: string;
+  onDateChange: (value: string) => void;
+  onTimeChange: (value: string) => void;
+  onInteract?: () => void;
 };
 
 export type CategoryTilesProps = {

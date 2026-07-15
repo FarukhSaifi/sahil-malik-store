@@ -148,17 +148,18 @@ Visit [http://localhost:3000](http://localhost:3000).
 
 Copy `.env.example` → `.env.local`. Mirror these in Vercel (Production + Preview).
 
-| Variable                   | Purpose                                                    |
-| -------------------------- | ---------------------------------------------------------- |
-| `CONTACT_EMAIL`            | Atelier inbox — Resend recipient + contact page email      |
-| `CONTACT_PHONE`            | Phone on contact page                                      |
-| `CONTACT_ADDRESS`          | Atelier address                                            |
-| `CONTACT_HOURS`            | Hours text (default: `By appointment only`)                |
-| `WHATSAPP_PHONE`           | WhatsApp floating button (falls back to `CONTACT_PHONE`)   |
-| `WHATSAPP_MESSAGE`         | Pre-filled WhatsApp message                                |
-| `WHATSAPP_DEFAULT_MESSAGE` | Alias for `WHATSAPP_MESSAGE`                               |
-| `RESEND_API_KEY`           | Resend API key for `/api/contact` and `/api/enquiry`       |
-| `RESEND_FROM_EMAIL`        | Verified sender, e.g. `Enquiries <enquiry@sahilmalik.com>` |
+| Variable                   | Purpose                                                      |
+| -------------------------- | ------------------------------------------------------------ |
+| `CONTACT_EMAIL`            | Contact form inbox + email shown on `/contact`               |
+| `ENQUIRY_EMAIL`            | Product enquiry form inbox (`/api/enquiry`)                  |
+| `CONTACT_PHONE`            | Phone on contact page                                        |
+| `CONTACT_ADDRESS`          | Atelier address                                              |
+| `CONTACT_HOURS`            | Hours text (default: `By appointment only`)                  |
+| `WHATSAPP_PHONE`           | WhatsApp floating button (falls back to `CONTACT_PHONE`)     |
+| `WHATSAPP_MESSAGE`         | Pre-filled WhatsApp message                                  |
+| `WHATSAPP_DEFAULT_MESSAGE` | Alias for `WHATSAPP_MESSAGE`                                 |
+| `RESEND_API_KEY`           | Resend API key for `/api/contact` and `/api/enquiry`         |
+| `RESEND_FROM_EMAIL`        | Verified sender, e.g. `Sahil Malik <contact@sahilmalik.com>` |
 
 Read server-side via `getContactInfo()` in `lib/contact.ts` (marked `server-only`).
 

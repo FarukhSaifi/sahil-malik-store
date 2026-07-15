@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { getContactInfo } from "@/lib/contact";
+import { getEnquiryInboxEmail } from "@/lib/contact";
 import { buildEnquiryEmailHtml, buildEnquiryEmailSubject } from "@/lib/email/enquiry";
 import { sendTransactionalEmail } from "@/lib/email/resend";
 import { validateEnquiryPayload } from "@/lib/validation";
@@ -19,11 +19,14 @@ export async function POST(request: Request) {
   }
 
   const validationError = validateEnquiryPayload(body);
+  if (validationError === "Invalid submission") {
+    return NextResponse.json({ ok: true });
+  }
   if (validationError) {
     return NextResponse.json({ error: validationError }, { status: 400 });
   }
 
-  const { email: toEmail } = getContactInfo();
+  const toEmail = getEnquiryInboxEmail();
   if (!toEmail) {
     return NextResponse.json({ error: "Email service not configured" }, { status: 503 });
   }
@@ -42,4 +45,3 @@ export async function POST(request: Request) {
 
   return NextResponse.json({ ok: true, id: result.id });
 }
-

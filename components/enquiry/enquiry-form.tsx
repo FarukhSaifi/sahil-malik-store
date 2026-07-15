@@ -3,14 +3,22 @@
 import { useMemo, useState } from "react";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 
-import { getEmailError, getRequiredError, isFormValid, validateEnquiryPayload } from "@/lib/validation";
+import {
+  getEmailError,
+  getPreferredDateError,
+  getPreferredTimeError,
+  getRequiredError,
+  isFormValid,
+} from "@/lib/validation";
 
 import { useEnquiry } from "@/context/enquiry-provider";
 
+import { AppointmentDateTimePicker } from "@/components/ui/appointment-datetime-picker";
 import { Button } from "@/components/ui/button";
 import { FormField, getFieldDescribedBy } from "@/components/ui/form-field";
 import { Input } from "@/components/ui/input";
@@ -19,26 +27,37 @@ import { Textarea } from "@/components/ui/textarea";
 import type { EnquiryFormField } from "@/types";
 
 export function EnquiryForm() {
+  const router = useRouter();
   const { items, clearAll } = useEnquiry();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [preferredDate, setPreferredDate] = useState("");
+  const [preferredTime, setPreferredTime] = useState("");
   const [message, setMessage] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [touched, setTouched] = useState<Record<EnquiryFormField, boolean>>({
     name: false,
     email: false,
     phone: false,
+    preferredDate: false,
+    preferredTime: false,
     message: false,
   });
   const [submitAttempted, setSubmitAttempted] = useState(false);
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
 
   const errors = useMemo(
     () => ({
       name: getRequiredError(name, SITE.enquiry.errors.nameRequired),
       email: getEmailError(email, SITE.enquiry.errors.emailRequired, SITE.enquiry.errors.emailInvalid),
       phone: undefined,
+      preferredDate: getPreferredDateError(
+        preferredDate,
+        SITE.enquiry.errors.preferredDateRequired,
+        SITE.enquiry.errors.preferredDateInvalid,
+      ),
+      preferredTime: getPreferredTimeError(preferredTime, SITE.enquiry.errors.preferredTimeRequired),
       message: getRequiredError(message, SITE.enquiry.errors.messageRequired),
       products:
         items.length === 0
@@ -47,29 +66,41 @@ export function EnquiryForm() {
             ? SITE.enquiry.errors.maxProducts
             : undefined,
     }),
-    [name, email, message, items.length],
+    [name, email, preferredDate, preferredTime, message, items.length],
   );
 
-  const canSubmit = isFormValid(errors) && status !== "loading";
-
+  const isLoading = status === "loading";
   const showError = (field: EnquiryFormField) => (touched[field] || submitAttempted ? errors[field] : undefined);
 
   const markTouched = (field: EnquiryFormField) => {
     setTouched((current) => ({ ...current, [field]: true }));
   };
 
+  const clearStatusOnEdit = () => {
+    if (status === "error") {
+      setStatus("idle");
+    }
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitAttempted(true);
 
-    if (!canSubmit) {
+    if (isLoading) {
       return;
     }
 
+    if (!isFormValid(errors)) {
+      return;
+    }
+
+    // Always clear honeypot on submit — autofill of hidden fields was blocking the API call.
     const payload = {
       name: name.trim(),
       email: email.trim(),
       phone: phone.trim() || undefined,
+      preferredDate: preferredDate.trim(),
+      preferredTime: preferredTime.trim(),
       message: message.trim(),
       products: items.map((item) => ({
         slug: item.productSlug,
@@ -79,14 +110,8 @@ export function EnquiryForm() {
         collectionTitle: item.collectionTitle,
       })),
       idempotencyKey: crypto.randomUUID(),
-      honeypot,
+      honeypot: "",
     };
-
-    const validationError = validateEnquiryPayload(payload);
-    if (validationError) {
-      setStatus("error");
-      return;
-    }
 
     setStatus("loading");
 
@@ -102,14 +127,8 @@ export function EnquiryForm() {
         return;
       }
 
-      setStatus("success");
       clearAll();
-      setName("");
-      setEmail("");
-      setPhone("");
-      setMessage("");
-      setSubmitAttempted(false);
-      setTouched({ name: false, email: false, phone: false, message: false });
+      router.push(SITE.routes.thankYou);
     } catch {
       setStatus("error");
     }
@@ -128,7 +147,7 @@ export function EnquiryForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+    <form onSubmit={handleSubmit} className="relative space-y-6" noValidate>
       <div>
         <p className="label-caps mb-3 text-muted">{SITE.enquiry.productSummaryLabel}</p>
         <ul className="space-y-2 text-sm">
@@ -147,11 +166,14 @@ export function EnquiryForm() {
         </p>
       ) : null}
 
-      <div className="sr-only" aria-hidden>
-        <label htmlFor="website">Website</label>
+      <div
+        className="pointer-events-none absolute left-0 top-0 -z-10 h-0 w-0 overflow-hidden opacity-0"
+        aria-hidden="true"
+      >
+        <label htmlFor="enquiry-fax-number">Fax</label>
         <input
-          id="website"
-          name="website"
+          id="enquiry-fax-number"
+          name="fax_number"
           type="text"
           tabIndex={-1}
           autoComplete="off"
@@ -169,7 +191,10 @@ export function EnquiryForm() {
           value={name}
           error={Boolean(showError("name"))}
           aria-describedby={getFieldDescribedBy("enquiry-name", showError("name"))}
-          onChange={(event) => setName(event.target.value)}
+          onChange={(event) => {
+            clearStatusOnEdit();
+            setName(event.target.value);
+          }}
           onBlur={() => markTouched("name")}
         />
       </FormField>
@@ -183,7 +208,10 @@ export function EnquiryForm() {
           value={email}
           error={Boolean(showError("email"))}
           aria-describedby={getFieldDescribedBy("enquiry-email", showError("email"))}
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={(event) => {
+            clearStatusOnEdit();
+            setEmail(event.target.value);
+          }}
           onBlur={() => markTouched("email")}
         />
       </FormField>
@@ -195,10 +223,31 @@ export function EnquiryForm() {
           type="tel"
           autoComplete="tel"
           value={phone}
-          onChange={(event) => setPhone(event.target.value)}
+          onChange={(event) => {
+            clearStatusOnEdit();
+            setPhone(event.target.value);
+          }}
           onBlur={() => markTouched("phone")}
         />
       </FormField>
+
+      <AppointmentDateTimePicker
+        preferredDate={preferredDate}
+        preferredTime={preferredTime}
+        dateError={showError("preferredDate")}
+        timeError={showError("preferredTime")}
+        onInteract={clearStatusOnEdit}
+        onDateChange={(value) => {
+          clearStatusOnEdit();
+          setPreferredDate(value);
+          markTouched("preferredDate");
+        }}
+        onTimeChange={(value) => {
+          clearStatusOnEdit();
+          setPreferredTime(value);
+          markTouched("preferredTime");
+        }}
+      />
 
       <FormField label={SITE.enquiry.labels.message} htmlFor="enquiry-message" error={showError("message")}>
         <Textarea
@@ -208,16 +257,13 @@ export function EnquiryForm() {
           value={message}
           error={Boolean(showError("message"))}
           aria-describedby={getFieldDescribedBy("enquiry-message", showError("message"))}
-          onChange={(event) => setMessage(event.target.value)}
+          onChange={(event) => {
+            clearStatusOnEdit();
+            setMessage(event.target.value);
+          }}
           onBlur={() => markTouched("message")}
         />
       </FormField>
-
-      {status === "success" ? (
-        <p className="text-sm text-foreground" role="status">
-          {SITE.enquiry.submitSuccess}
-        </p>
-      ) : null}
 
       {status === "error" ? (
         <p className="text-sm text-destructive" role="alert">
@@ -230,9 +276,9 @@ export function EnquiryForm() {
         variant="outlineInvert"
         size="lg"
         className="label-caps w-full sm:w-auto"
-        disabled={!canSubmit}
+        disabled={isLoading}
       >
-        {status === "loading" ? "Sending…" : SITE.enquiry.submitLabel}
+        {isLoading ? "Sending…" : SITE.enquiry.submitLabel}
       </Button>
     </form>
   );

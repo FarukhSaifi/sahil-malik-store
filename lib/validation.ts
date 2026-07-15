@@ -1,5 +1,7 @@
 import { SITE } from "@/constants/site";
 
+import { isDateBookable, parseDateInputValue } from "@/lib/appointment-datetime";
+
 import type { ContactFormPayload, EnquiryFormPayload } from "@/types";
 
 export function getRequiredError(value: string, message: string): string | undefined {
@@ -24,6 +26,39 @@ export function getEmailError(value: string, requiredMessage: string, invalidMes
   return undefined;
 }
 
+export function getPreferredDateError(
+  value: string,
+  requiredMessage: string,
+  invalidMessage: string,
+): string | undefined {
+  const trimmed = value.trim();
+
+  if (!trimmed) {
+    return requiredMessage;
+  }
+
+  const selected = parseDateInputValue(trimmed);
+  if (!selected || !isDateBookable(selected)) {
+    return invalidMessage;
+  }
+
+  return undefined;
+}
+
+export function getPreferredTimeError(value: string, requiredMessage: string): string | undefined {
+  const trimmed = value.trim();
+
+  if (!trimmed) {
+    return requiredMessage;
+  }
+
+  if (!(SITE.form.appointment.timeSlots as readonly string[]).includes(trimmed)) {
+    return requiredMessage;
+  }
+
+  return undefined;
+}
+
 export function isFormValid(errors: Record<string, string | undefined>): boolean {
   return Object.values(errors).every((error) => !error);
 }
@@ -41,6 +76,22 @@ export function validateEnquiryPayload(payload: EnquiryFormPayload): string | nu
 
   if (emailError) {
     return emailError;
+  }
+
+  const preferredDateError = getPreferredDateError(
+    payload.preferredDate,
+    SITE.enquiry.errors.preferredDateRequired,
+    SITE.enquiry.errors.preferredDateInvalid,
+  );
+
+  if (preferredDateError) {
+    return preferredDateError;
+  }
+
+  const preferredTimeError = getPreferredTimeError(payload.preferredTime, SITE.enquiry.errors.preferredTimeRequired);
+
+  if (preferredTimeError) {
+    return preferredTimeError;
   }
 
   if (!payload.message.trim()) {
@@ -81,6 +132,22 @@ export function validateContactPayload(payload: ContactFormPayload): string | nu
 
   if (emailError) {
     return emailError;
+  }
+
+  const preferredDateError = getPreferredDateError(
+    payload.preferredDate,
+    SITE.form.errors.preferredDateRequired,
+    SITE.form.errors.preferredDateInvalid,
+  );
+
+  if (preferredDateError) {
+    return preferredDateError;
+  }
+
+  const preferredTimeError = getPreferredTimeError(payload.preferredTime, SITE.form.errors.preferredTimeRequired);
+
+  if (preferredTimeError) {
+    return preferredTimeError;
   }
 
   if (!payload.message.trim()) {

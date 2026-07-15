@@ -4,6 +4,16 @@ import { SITE } from "@/constants/site";
 
 import type { ContactInfo } from "@/types";
 
+/** Inbox for /contact form submissions (and the email shown on the contact page). */
+export function getContactInboxEmail(): string {
+  return process.env.CONTACT_EMAIL?.trim() || SITE.contact.email;
+}
+
+/** Inbox for /enquiry form submissions. */
+export function getEnquiryInboxEmail(): string {
+  return process.env.ENQUIRY_EMAIL?.trim() || SITE.enquiry.email;
+}
+
 /** Reads contact details from environment variables (Vercel Production/Preview or .env.local). */
 export function getContactInfo(): ContactInfo {
   const phone = process.env.CONTACT_PHONE?.trim() || SITE.contact.phone;
@@ -11,7 +21,7 @@ export function getContactInfo(): ContactInfo {
   const mapQuery = SITE.contact.map.query;
 
   return {
-    email: process.env.CONTACT_EMAIL?.trim() || SITE.contact.email,
+    email: getContactInboxEmail(),
     phone,
     storeTitle: SITE.contact.storeTitle,
     address,

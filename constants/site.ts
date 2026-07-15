@@ -211,6 +211,14 @@ export const SITE = {
       subtitle: "Your Selection",
       ogImageAlt: "Sahil Malik Couture — Product Enquiry",
     },
+    thankYou: {
+      metaTitle: "Thank You",
+      metaDescription: "Your message has been received by Sahil Malik Couture.",
+      title: "Thank You",
+      subtitle: "Request Received",
+      description: "We have received your request and will be in touch shortly.",
+      cta: "Return Home",
+    },
     notFound: {
       code: "404",
       title: "Page Not Found",
@@ -222,13 +230,32 @@ export const SITE = {
     labels: {
       name: "Name",
       email: "Email",
+      preferredDate: "Preferred date",
+      preferredTime: "Preferred time",
+      preferredAppointment: "Preferred appointment",
       message: "Message",
     },
     errors: {
       nameRequired: "Name is required",
       emailRequired: "Email is required",
       emailInvalid: "Enter a valid email address",
+      preferredDateRequired: "Preferred date is required",
+      preferredDateInvalid: "Choose a valid future date",
+      preferredTimeRequired: "Preferred time is required",
       messageRequired: "Message is required",
+    },
+    appointment: {
+      pickPrompt: "Choose a date, then a time",
+      calendarHeading: "Select date",
+      timeHeading: "Select time",
+      previousMonth: "Previous month",
+      nextMonth: "Next month",
+      weekdays: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+      /** 24h HH:mm values offered as interactive slots */
+      timeSlots: ["11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"],
+      /** JS getDay() values that cannot be booked (0 = Sunday) */
+      closedWeekdays: [0],
+      maxDaysAhead: 90,
     },
     submitLabel: UI.sendInquiry,
     submitSuccess: "Thank you — your message has been sent.",
@@ -239,7 +266,7 @@ export const SITE = {
     storeTitle: "Flagship Store - Shahpur Jat, New Delhi",
     address: "253, Ground Floor, Opposite Govindam Sweets, Shahpur Jat, New Delhi 110049.",
     phone: "+91 99992 70640",
-    email: "atelier@sahilmalik.com",
+    email: "contact@sahilmalik.com",
     map: {
       query: "Sahil Malik Couture, 253, Ground Floor, Opposite Govindam Sweets, Shahpur Jat, New Delhi 110049",
       title: "Sahil Malik Couture atelier on Google Maps",
@@ -298,6 +325,7 @@ export const SITE = {
     policiesLink: "View policies",
   },
   enquiry: {
+    email: "inquiry@sahilmalik.com",
     maxItems: 20,
     storageKey: "sahil-malik-enquiry-v1",
     barLabel: (count: number) =>
@@ -326,6 +354,9 @@ export const SITE = {
       nameRequired: "Name is required",
       emailRequired: "Email is required",
       emailInvalid: "Enter a valid email address",
+      preferredDateRequired: "Preferred date is required",
+      preferredDateInvalid: "Choose a valid future date",
+      preferredTimeRequired: "Preferred time is required",
       messageRequired: "Message is required",
       noProducts: "Add at least one piece to your enquiry",
       maxProducts: "You can select up to 20 pieces",

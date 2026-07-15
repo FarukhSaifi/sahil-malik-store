@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { getContactInfo } from "@/lib/contact";
+import { getContactInboxEmail } from "@/lib/contact";
 import { buildContactEmailHtml, buildContactEmailSubject } from "@/lib/email/contact";
 import { sendTransactionalEmail } from "@/lib/email/resend";
 import { validateContactPayload } from "@/lib/validation";
@@ -19,11 +19,15 @@ export async function POST(request: Request) {
   }
 
   const validationError = validateContactPayload(body);
+  if (validationError === "Invalid submission") {
+    // Honeypot trip — acknowledge without sending so bots get a success response.
+    return NextResponse.json({ ok: true });
+  }
   if (validationError) {
     return NextResponse.json({ error: validationError }, { status: 400 });
   }
 
-  const { email: toEmail } = getContactInfo();
+  const toEmail = getContactInboxEmail();
   if (!toEmail) {
     return NextResponse.json({ error: "Email service not configured" }, { status: 503 });
   }

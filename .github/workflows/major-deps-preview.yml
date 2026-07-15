@@ -31,8 +31,11 @@ jobs:
 
       - name: Baseline — lint and build (current versions)
         run: |
-          export CONTACT_EMAIL=ci@example.com
+          export CONTACT_EMAIL=contact@example.com
+          export ENQUIRY_EMAIL=inquiry@example.com
           export CONTACT_HOURS=By appointment only
+          export RESEND_API_KEY=re_ci_build_placeholder
+          export RESEND_FROM_EMAIL="Sahil Malik <onboarding@resend.dev>"
           npm run lint
           npm run build
 
