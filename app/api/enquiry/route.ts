@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { getEnquiryInboxEmail } from "@/lib/contact";
+import { getEnquiryCcEmails, getEnquiryInboxEmail } from "@/lib/contact";
 import { buildEnquiryEmailHtml, buildEnquiryEmailSubject } from "@/lib/email/enquiry";
 import { sendTransactionalEmail } from "@/lib/email/resend";
 import { validateEnquiryPayload } from "@/lib/validation";
@@ -33,6 +33,7 @@ export async function POST(request: Request) {
 
   const result = await sendTransactionalEmail({
     to: toEmail,
+    cc: getEnquiryCcEmails(),
     replyTo: body.email,
     subject: buildEnquiryEmailSubject(body),
     html: buildEnquiryEmailHtml(body),

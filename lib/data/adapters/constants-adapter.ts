@@ -74,7 +74,7 @@ export const constantsAdapter = {
     const items = [...PRESS_ITEMS];
     return opts?.limit ? items.slice(0, opts.limit) : items;
   },
-  getCelebrities: () => CELEBRITIES,
+  getCelebrities: (opts?: QueryOptions) => filterFeatured(CELEBRITIES, opts),
   getPhilosophy: () => PHILOSOPHY,
   getAbout: () => ABOUT,
   getDiscoverItems: () => DISCOVER_ITEMS,

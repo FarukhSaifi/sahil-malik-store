@@ -19,7 +19,6 @@ import { HeroSlider } from "@/components/sections/hero-slider";
 import { PhilosophyBlock } from "@/components/sections/philosophy-block";
 import { PressCarousel } from "@/components/sections/press-carousel";
 
-
 export default async function HomePage() {
   const [heroSlides, categories, couture, celebrities, discover, philosophy, press] = await Promise.all([
     Promise.resolve(getHeroSlides()),

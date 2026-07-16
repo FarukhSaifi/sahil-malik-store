@@ -51,8 +51,9 @@ export async function sendTransactionalEmail(input: TransactionalEmailInput): Pr
 
   if (!config) {
     if (allowDevelopmentDryRun()) {
-      console.info("[email:dry-run] RESEND_API_KEY is missing or a placeholder. Email not sent.", {
+      console.warn("[email:dry-run] RESEND_API_KEY is missing or a placeholder. Email not sent.", {
         to: input.to,
+        cc: input.cc,
         replyTo: input.replyTo,
         subject: input.subject,
         idempotencyKey: input.idempotencyKey,
@@ -68,6 +69,7 @@ export async function sendTransactionalEmail(input: TransactionalEmailInput): Pr
     {
       from: config.fromEmail,
       to: [input.to],
+      ...(input.cc && input.cc.length > 0 ? { cc: input.cc } : {}),
       replyTo: input.replyTo,
       subject: input.subject,
       html: input.html,

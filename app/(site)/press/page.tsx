@@ -1,12 +1,12 @@
 import { SITE } from "@/constants/site";
 
-import { getPress } from "@/lib/data";
+import { getCelebrities, getPress } from "@/lib/data";
 import { buildMetadata } from "@/lib/seo";
 
 import { PressCard } from "@/components/cards/press-card";
+import { CelebrityGrid } from "@/components/sections/celebrity-grid";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
-
 
 export const metadata = buildMetadata({
   title: `${SITE.pages.press.metaTitle} | ${SITE.name}`,
@@ -16,18 +16,23 @@ export const metadata = buildMetadata({
 
 export default function PressPage() {
   const press = getPress();
+  const celebrities = getCelebrities();
 
   return (
-    <section className="section-padding">
-      <Container>
-        <SectionHeading title={SITE.pages.press.title} subtitle={SITE.pages.press.subtitle} />
+    <>
+      <section className="section-padding">
+        <Container>
+          <SectionHeading title={SITE.pages.press.title} subtitle={SITE.pages.press.subtitle} />
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-          {press.map((item) => (
-            <PressCard key={item.slug} item={item} />
-          ))}
-        </div>
-      </Container>
-    </section>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+            {press.map((item) => (
+              <PressCard key={item.slug} item={item} />
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <CelebrityGrid archive celebrities={celebrities} showViewAll={false} />
+    </>
   );
 }

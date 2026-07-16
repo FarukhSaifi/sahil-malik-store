@@ -174,9 +174,6 @@ export function ContactForm() {
           clearStatusOnEdit();
           setPreferredDate(value);
           markTouched("preferredDate");
-          if (!preferredTime) {
-            setPreferredTime("");
-          }
         }}
         onTimeChange={(value) => {
           clearStatusOnEdit();

@@ -110,7 +110,8 @@ export const SITE = {
   sections: {
     asSeenOn: {
       title: "As Seen On",
-      href: ROUTES.press,
+      href: ROUTES.asSeenOn,
+      unnamedAlt: "Celebrity in Sahil Malik",
     },
     discoverMore: {
       title: "Discover More",
@@ -174,6 +175,12 @@ export const SITE = {
       metaDescription: "Press coverage and editorial features on Sahil Malik.",
       title: "Press",
       subtitle: "In the media",
+    },
+    asSeenOn: {
+      metaTitle: "As Seen On",
+      metaDescription: "Celebrities and public figures styled in Sahil Malik Couture.",
+      title: "As Seen On",
+      subtitle: "Celebrities in Sahil Malik",
     },
     policies: {
       metaTitle: "Our Policies",

@@ -23,4 +23,9 @@ export const TIMING = {
     discover: 0.08,
     featured: 0.1,
   },
+  asSeenOn: {
+    /** Homepage mobile auto-advance interval for the celebrity slide track. */
+    intervalMs: 3200,
+    resumeMs: 6000,
+  },
 } as const;

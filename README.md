@@ -151,7 +151,9 @@ Copy `.env.example` → `.env.local`. Mirror these in Vercel (Production + Previ
 | Variable                   | Purpose                                                      |
 | -------------------------- | ------------------------------------------------------------ |
 | `CONTACT_EMAIL`            | Contact form inbox + email shown on `/contact`               |
+| `CONTACT_CC_EMAIL`         | Optional comma-separated CC list for `/api/contact`          |
 | `ENQUIRY_EMAIL`            | Product enquiry form inbox (`/api/enquiry`)                  |
+| `ENQUIRY_CC_EMAIL`         | Optional comma-separated CC list for `/api/enquiry`          |
 | `CONTACT_PHONE`            | Phone on contact page                                        |
 | `CONTACT_ADDRESS`          | Atelier address                                              |
 | `CONTACT_HOURS`            | Hours text (default: `By appointment only`)                  |

@@ -50,8 +50,11 @@ export type PressItem = {
 };
 
 export type Celebrity = {
-  name: string;
+  id: string;
+  /** Display name; omit when the person cannot be identified yet. */
+  name?: string;
   image: ImageAsset;
+  featured?: boolean;
 };
 
 export type Category = {
@@ -265,6 +268,7 @@ export type GeneratedProductDef = {
 
 export type TransactionalEmailInput = {
   to: string;
+  cc?: string[];
   replyTo: string;
   subject: string;
   html: string;
@@ -320,6 +324,12 @@ export type CategoryTilesProps = {
 
 export type CelebrityGridProps = {
   celebrities: Celebrity[];
+  /** Uses a two-column mobile grid instead of the homepage carousel. */
+  archive?: boolean;
+  /** Section anchor id. */
+  id?: string;
+  /** When false, hides the View All CTA (full archive pages). Default true. */
+  showViewAll?: boolean;
 };
 
 export type CollectionCardProps = {

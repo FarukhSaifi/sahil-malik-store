@@ -4,6 +4,17 @@ import { SITE } from "@/constants/site";
 
 import type { ContactInfo } from "@/types";
 
+function parseEmailList(value: string | undefined): string[] {
+  if (!value?.trim()) {
+    return [];
+  }
+
+  return value
+    .split(",")
+    .map((email) => email.trim())
+    .filter(Boolean);
+}
+
 /** Inbox for /contact form submissions (and the email shown on the contact page). */
 export function getContactInboxEmail(): string {
   return process.env.CONTACT_EMAIL?.trim() || SITE.contact.email;
@@ -12,6 +23,16 @@ export function getContactInboxEmail(): string {
 /** Inbox for /enquiry form submissions. */
 export function getEnquiryInboxEmail(): string {
   return process.env.ENQUIRY_EMAIL?.trim() || SITE.enquiry.email;
+}
+
+/** Optional CC recipients for contact form emails (comma-separated in CONTACT_CC_EMAIL). */
+export function getContactCcEmails(): string[] {
+  return parseEmailList(process.env.CONTACT_CC_EMAIL).filter((email) => email !== getContactInboxEmail());
+}
+
+/** Optional CC recipients for enquiry form emails (comma-separated in ENQUIRY_CC_EMAIL). */
+export function getEnquiryCcEmails(): string[] {
+  return parseEmailList(process.env.ENQUIRY_CC_EMAIL).filter((email) => email !== getEnquiryInboxEmail());
 }
 
 /** Reads contact details from environment variables (Vercel Production/Preview or .env.local). */

@@ -138,7 +138,7 @@ export function AppointmentDateTimePicker({
                   onClick={() => {
                     onInteract?.();
                     onDateChange(value);
-                    if (!preferredTime) {
+                    if (preferredTime) {
                       onTimeChange("");
                     }
                   }}
