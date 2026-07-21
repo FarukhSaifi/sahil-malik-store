@@ -32,3 +32,12 @@ lib/data/                   →  adapter + getters for pages
 - ESLint import order is strict — run `npm run lint:fix` after moving imports.
 
 See `README.md` for full constants table and media workflow.
+
+## Cursor Cloud specific instructions
+
+Standard commands live in `README.md` / `package.json` (`npm run dev`, `build`, `lint`, `generate:media`). Notes below cover only non-obvious cloud gotchas.
+
+- **Node version / PATH shadowing:** The README targets Node 24+. The VM's default `node` on `PATH` is `/exec-daemon/node` (v22.x) which cannot be removed and shadows nvm. Both lint and `next build`/`next dev` work fine on that v22, so it is an acceptable fallback. To use the documented Node 24 instead, select it with nvm: `nvm use 24` (default alias is set; run `nvm install 24` first if it is missing). Note that `nvm use`/`node -v` only affect the current shell because `/exec-daemon/node` wins on fresh shells — prepend `$HOME/.nvm/versions/node/v24.*/bin` to `PATH` in whatever shell runs the dev/build command.
+- **Env file:** Copy `.env.example` → `.env.local` before running (it is gitignored). No real secrets are required for local dev.
+- **Email dry-run:** In `next dev`, a missing/placeholder `RESEND_API_KEY` (like the one in `.env.example`) makes `/api/contact` and `/api/enquiry` succeed without sending email — the request returns `{ ok: true }` and logs `[email:dry-run] ...`. This is expected; you do not need a real Resend key to exercise the contact/enquiry forms end-to-end.
+- **Dev server:** `npm run dev` serves on `http://localhost:3000` (Turbopack).
