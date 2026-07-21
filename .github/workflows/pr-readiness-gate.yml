@@ -6,6 +6,8 @@ name: PR readiness gate
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
+  check_suite:
+    types: [completed]
   workflow_run:
     workflows: ["CI"]
     types: [completed]
@@ -28,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Convert failing PR to draft
+      - name: Enforce draft until checks pass
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -42,11 +44,17 @@ jobs:
           fi
 
           gh pr view "$PR_NUMBER" --repo "$GH_REPO" --json isDraft,statusCheckRollup \
-            --jq '{isDraft, failing: [.statusCheckRollup[]? | select(.conclusion != null and .conclusion != "SUCCESS" and .conclusion != "SKIPPED" and .conclusion != "NEUTRAL")]}' \
+            --jq '{isDraft, pending: [.statusCheckRollup[]? | select(.status == "IN_PROGRESS" or .status == "QUEUED")], failing: [.statusCheckRollup[]? | select(.conclusion != null and .conclusion != "SUCCESS" and .conclusion != "SKIPPED" and .conclusion != "NEUTRAL" and (.name != "gate-on-pr-event" and .name != "gate-on-ci-complete"))]}' \
             > /tmp/pr-status.json
 
           IS_DRAFT=$(jq -r '.isDraft' /tmp/pr-status.json)
+          PENDING=$(jq -r '.pending | length' /tmp/pr-status.json)
           FAILING=$(jq -r '.failing | length' /tmp/pr-status.json)
+
+          if [[ "$PENDING" -gt 0 ]]; then
+            echo "Checks still running — no readiness change."
+            exit 0
+          fi
 
           if [[ "$FAILING" -gt 0 && "$IS_DRAFT" == "false" ]]; then
             echo "CI not green — converting PR #$PR_NUMBER to draft."
@@ -54,6 +62,55 @@ jobs:
             gh pr comment "$PR_NUMBER" --repo "$GH_REPO" --body ":construction: **PR kept in draft** — CI checks are not all green yet.
 
           A Cursor Cloud Agent (if \`CURSOR_API_KEY\` is configured) will attempt fixes on this branch. This PR will be marked ready for review automatically once ESLint, Production build, and deployment checks pass."
+          elif [[ "$FAILING" -eq 0 && "$IS_DRAFT" == "true" ]]; then
+            echo "All checks green — marking PR #$PR_NUMBER ready for review."
+            gh pr ready "$PR_NUMBER" --repo "$GH_REPO"
+            gh pr comment "$PR_NUMBER" --repo "$GH_REPO" --body ":white_check_mark: **All CI checks passed** — this PR is now ready for review."
+          fi
+
+  gate-on-check-complete:
+    if: github.event_name == 'check_suite'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Mark PR ready when external checks pass
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SHA="${{ github.event.check_suite.head_sha }}"
+          PR_NUMBER=$(gh pr list --repo "$GH_REPO" --state open --json number,headRefOid \
+            --jq ".[] | select(.headRefOid == \"$SHA\") | .number" | head -1)
+
+          if [[ -z "$PR_NUMBER" ]]; then
+            echo "No open PR for commit $SHA."
+            exit 0
+          fi
+
+          AUTHOR=$(gh pr view "$PR_NUMBER" --repo "$GH_REPO" --json author --jq '.author.login')
+          HEAD_REF=$(gh pr view "$PR_NUMBER" --repo "$GH_REPO" --json headRefName --jq '.headRefName')
+
+          if [[ "$AUTHOR" != "dependabot[bot]" && ! "$HEAD_REF" =~ ^dependabot/ ]]; then
+            echo "Skipping readiness gate for non-dependency PR."
+            exit 0
+          fi
+
+          gh pr view "$PR_NUMBER" --repo "$GH_REPO" --json isDraft,statusCheckRollup \
+            --jq '{isDraft, pending: [.statusCheckRollup[]? | select(.status == "IN_PROGRESS" or .status == "QUEUED")], failing: [.statusCheckRollup[]? | select(.conclusion != null and .conclusion != "SUCCESS" and .conclusion != "SKIPPED" and .conclusion != "NEUTRAL" and (.name != "gate-on-pr-event" and .name != "gate-on-ci-complete" and .name != "gate-on-check-complete"))]}' \
+            > /tmp/pr-status.json
+
+          IS_DRAFT=$(jq -r '.isDraft' /tmp/pr-status.json)
+          PENDING=$(jq -r '.pending | length' /tmp/pr-status.json)
+          FAILING=$(jq -r '.failing | length' /tmp/pr-status.json)
+
+          if [[ "$PENDING" -gt 0 ]]; then
+            echo "Checks still running."
+            exit 0
+          fi
+
+          if [[ "$FAILING" -eq 0 && "$IS_DRAFT" == "true" ]]; then
+            echo "All checks green — marking PR #$PR_NUMBER ready for review."
+            gh pr ready "$PR_NUMBER" --repo "$GH_REPO"
+            gh pr comment "$PR_NUMBER" --repo "$GH_REPO" --body ":white_check_mark: **All CI checks passed** — this PR is now ready for review."
           fi
 
   gate-on-ci-complete:
@@ -90,7 +147,7 @@ jobs:
           fi
 
           gh pr view "$PR_NUMBER" --repo "$GH_REPO" --json isDraft,statusCheckRollup \
-            --jq '{isDraft, failing: [.statusCheckRollup[]? | select(.conclusion != null and .conclusion != "SUCCESS" and .conclusion != "SKIPPED" and .conclusion != "NEUTRAL")]}' \
+            --jq '{isDraft, failing: [.statusCheckRollup[]? | select(.conclusion != null and .conclusion != "SUCCESS" and .conclusion != "SKIPPED" and .conclusion != "NEUTRAL" and (.name != "gate-on-pr-event" and .name != "gate-on-ci-complete"))]}' \
             > /tmp/pr-status.json
 
           IS_DRAFT=$(jq -r '.isDraft' /tmp/pr-status.json)
