@@ -35,4 +35,6 @@ This prompt complements `cursor-pr-autofix.yml`.
 ## 4) Notes
 
 - The readiness gate uses `gh pr view ... statusCheckRollup` to determine whether checks are **pending / failing / successful**.
-- If you have different check names across repos, the gate still works because it evaluates conclusions/pending states rather than hardcoding specific workflows.
+- If your CI workflow has a different `name:` than `CI`, update:
+  - `.github/workflows/cursor-pr-autofix.yml` (`workflow_run.workflows: ["CI"]`)
+  - `.github/workflows/pr-readiness-gate.yml` (`workflow_run.workflows: ["CI"]`)
