@@ -19,6 +19,9 @@ concurrency:
   group: pr-readiness-${{ github.event.pull_request.number || github.event.workflow_run.id }}
   cancel-in-progress: true
 
+env:
+  GH_REPO: ${{ github.repository }}
+
 jobs:
   gate-on-pr-event:
     if: github.event_name == 'pull_request'
@@ -32,13 +35,13 @@ jobs:
           PR_NUMBER="${{ github.event.pull_request.number }}"
           AUTHOR="${{ github.event.pull_request.user.login }}"
 
-          # Dependabot major/minor PRs and Cursor autofix branches benefit from draft gating.
+          # Dependabot major/minor PRs benefit from draft gating until CI is green.
           if [[ "$AUTHOR" != "dependabot[bot]" && ! "${{ github.event.pull_request.head.ref }}" =~ ^dependabot/ ]]; then
             echo "Skipping readiness gate for non-dependency PR."
             exit 0
           fi
 
-          gh pr view "$PR_NUMBER" --json isDraft,statusCheckRollup \
+          gh pr view "$PR_NUMBER" --repo "$GH_REPO" --json isDraft,statusCheckRollup \
             --jq '{isDraft, failing: [.statusCheckRollup[]? | select(.conclusion != null and .conclusion != "SUCCESS" and .conclusion != "SKIPPED" and .conclusion != "NEUTRAL")]}' \
             > /tmp/pr-status.json
 
@@ -47,13 +50,10 @@ jobs:
 
           if [[ "$FAILING" -gt 0 && "$IS_DRAFT" == "false" ]]; then
             echo "CI not green — converting PR #$PR_NUMBER to draft."
-            gh pr ready "$PR_NUMBER" --undo
-            gh pr comment "$PR_NUMBER" --body "$(cat <<'EOF'
-            :construction: **PR kept in draft** — CI checks are not all green yet.
+            gh pr ready "$PR_NUMBER" --repo "$GH_REPO" --undo
+            gh pr comment "$PR_NUMBER" --repo "$GH_REPO" --body ":construction: **PR kept in draft** — CI checks are not all green yet.
 
-            A Cursor Cloud Agent (if \`CURSOR_API_KEY\` is configured) will attempt fixes on this branch. This PR will be marked ready for review automatically once ESLint, Production build, and deployment checks pass.
-            EOF
-            )"
+          A Cursor Cloud Agent (if \`CURSOR_API_KEY\` is configured) will attempt fixes on this branch. This PR will be marked ready for review automatically once ESLint, Production build, and deployment checks pass."
           fi
 
   gate-on-ci-complete:
@@ -72,8 +72,8 @@ jobs:
           fi
 
           PR_NUMBER=$(basename "$PR_URL")
-          AUTHOR=$(gh pr view "$PR_NUMBER" --json author --jq '.author.login')
-          HEAD_REF=$(gh pr view "$PR_NUMBER" --json headRefName --jq '.headRefName')
+          AUTHOR=$(gh pr view "$PR_NUMBER" --repo "$GH_REPO" --json author --jq '.author.login')
+          HEAD_REF=$(gh pr view "$PR_NUMBER" --repo "$GH_REPO" --json headRefName --jq '.headRefName')
 
           if [[ "$AUTHOR" != "dependabot[bot]" && ! "$HEAD_REF" =~ ^dependabot/ ]]; then
             echo "Skipping readiness gate for non-dependency PR."
@@ -82,14 +82,14 @@ jobs:
 
           if [[ "${{ github.event.workflow_run.conclusion }}" != "success" ]]; then
             echo "CI workflow did not succeed — keeping PR in draft."
-            IS_DRAFT=$(gh pr view "$PR_NUMBER" --json isDraft --jq '.isDraft')
+            IS_DRAFT=$(gh pr view "$PR_NUMBER" --repo "$GH_REPO" --json isDraft --jq '.isDraft')
             if [[ "$IS_DRAFT" == "false" ]]; then
-              gh pr ready "$PR_NUMBER" --undo
+              gh pr ready "$PR_NUMBER" --repo "$GH_REPO" --undo
             fi
             exit 0
           fi
 
-          gh pr view "$PR_NUMBER" --json isDraft,statusCheckRollup \
+          gh pr view "$PR_NUMBER" --repo "$GH_REPO" --json isDraft,statusCheckRollup \
             --jq '{isDraft, failing: [.statusCheckRollup[]? | select(.conclusion != null and .conclusion != "SUCCESS" and .conclusion != "SKIPPED" and .conclusion != "NEUTRAL")]}' \
             > /tmp/pr-status.json
 
@@ -98,6 +98,6 @@ jobs:
 
           if [[ "$FAILING" -eq 0 && "$IS_DRAFT" == "true" ]]; then
             echo "All checks green — marking PR #$PR_NUMBER ready for review."
-            gh pr ready "$PR_NUMBER"
-            gh pr comment "$PR_NUMBER" --body ":white_check_mark: **All CI checks passed** — this PR is now ready for review."
+            gh pr ready "$PR_NUMBER" --repo "$GH_REPO"
+            gh pr comment "$PR_NUMBER" --repo "$GH_REPO" --body ":white_check_mark: **All CI checks passed** — this PR is now ready for review."
           fi
