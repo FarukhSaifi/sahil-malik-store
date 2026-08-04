@@ -311,6 +311,9 @@ export const SITE = {
   copyright: "© 2026 Sahil Malik. All rights reserved.",
   product: {
     styleCodeLabel: "Style Code",
+    collectionLabel: "Collection",
+    modelSizeLabel: "Model wears a size",
+    modelHeightLabel: "Model Height",
     madeToOrder: "Made to order: 8–10 weeks",
     customisePrompt: "Want to customise your outfit?",
     customiseCta: "Book an appointment",

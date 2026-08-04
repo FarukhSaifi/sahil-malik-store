@@ -112,10 +112,19 @@ export type Product = {
   folderSlug: string;
   category: Collection["category"];
   description?: string;
+  modelSize?: string;
+  modelHeight?: string;
   image: ImageAsset;
   gallery: ImageAsset[];
   featured?: boolean;
   order: number;
+};
+
+export type ProductOverride = {
+  title: string;
+  description: string;
+  modelSize: string;
+  modelHeight: string;
 };
 
 export type ProductQueryOptions = {

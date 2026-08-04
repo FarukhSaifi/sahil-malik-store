@@ -24,9 +24,21 @@ export function ProductInfoPanel({ product, collectionTitle }: ProductInfoPanelP
           <dd className="font-medium tracking-wide">{product.sku}</dd>
         </div>
         <div className="flex flex-wrap gap-x-2">
-          <dt className="text-muted">Collection:</dt>
+          <dt className="text-muted">{SITE.product.collectionLabel}:</dt>
           <dd>{collectionTitle}</dd>
         </div>
+        {product.modelSize ? (
+          <div className="flex flex-wrap gap-x-2">
+            <dt className="text-muted">{SITE.product.modelSizeLabel}:</dt>
+            <dd>{product.modelSize}</dd>
+          </div>
+        ) : null}
+        {product.modelHeight ? (
+          <div className="flex flex-wrap gap-x-2">
+            <dt className="text-muted">{SITE.product.modelHeightLabel}:</dt>
+            <dd>{product.modelHeight}</dd>
+          </div>
+        ) : null}
       </dl>
 
       <p className="mb-6 text-xs uppercase tracking-[0.18em] text-muted">{SITE.product.madeToOrder}</p>
