@@ -33,6 +33,18 @@ export function ProductDetailsAccordion({ product, collectionTitle }: ProductDet
             <dt className="mb-1 font-medium text-foreground">Category</dt>
             <dd className="capitalize">{product.category}</dd>
           </div>
+          {product.modelSize ? (
+            <div>
+              <dt className="mb-1 font-medium text-foreground">{SITE.product.modelSizeLabel}</dt>
+              <dd>{product.modelSize}</dd>
+            </div>
+          ) : null}
+          {product.modelHeight ? (
+            <div>
+              <dt className="mb-1 font-medium text-foreground">{SITE.product.modelHeightLabel}</dt>
+              <dd>{product.modelHeight}</dd>
+            </div>
+          ) : null}
         </dl>
       </details>
 
