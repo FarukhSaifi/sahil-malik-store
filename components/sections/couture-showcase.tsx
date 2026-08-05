@@ -25,9 +25,9 @@ export function CoutureShowcase({ seasons }: CoutureShowcaseProps) {
               priority={index === 0}
               className="absolute inset-0 h-full w-full"
             />
-            <div className="absolute inset-0 bg-linear-to-t from-inverse/20 via-transparent   to-transparent transition-colors duration-700 group-hover:from-inverse/30" />
+            <div className="absolute inset-0 bg-inverse/45 transition-colors duration-700 group-hover:bg-inverse/55" />
             <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center text-background">
-              <p className="label-caps mb-4 text-background/80">{season.subtitle}</p>
+              <p className="label-caps mb-4 text-background/85">{season.subtitle}</p>
               <h2 className="heading-section max-w-4xl text-background">{season.title}</h2>
             </div>
           </Link>

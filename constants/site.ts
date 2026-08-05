@@ -14,6 +14,7 @@ export {
 } from "@/constants/routes";
 
 export const UI = {
+  home: "Home",
   discoverNow: "Discover Now",
   viewAll: "View All",
   explore: "Explore",
@@ -69,6 +70,7 @@ export const SITE = {
   ui: UI,
   a11y: A11Y,
   nav: [
+    { key: "home", label: UI.home, href: ROUTES.home },
     {
       key: COLLECTION_CATEGORIES.menswear,
       label: "Menswear",
@@ -81,12 +83,12 @@ export const SITE = {
       href: collectionsCategoryPath(COLLECTION_CATEGORIES.womenswear),
       mega: COLLECTION_CATEGORIES.womenswear,
     },
-    { key: "couture", label: "Paris Haute Couture", href: ROUTES.couture, mega: "couture" },
+    { key: "couture", label: "Couture", href: ROUTES.couture, mega: "couture" },
     // { key: "findUs", label: "Find Us", href: ROUTES.contact },
   ],
   navSecondary: [
-    { key: "press", label: "Press", href: ROUTES.press },
     { key: "about", label: "About", href: ROUTES.about },
+    { key: "contact", label: "Contact", href: ROUTES.contact },
   ],
   navMegaKeys: [COLLECTION_CATEGORIES.menswear, COLLECTION_CATEGORIES.womenswear, "couture"] as const,
   menswearMenu: [
@@ -99,15 +101,17 @@ export const SITE = {
   ],
   womenswearMenu: [{ label: "Stock Clearance", href: collectionPath(WOMENSWEAR_COLLECTION_SLUG) }],
   coutureMenu: [
-    { label: "Alchemy — Spring '26", href: couturePath("alchemy-spring-2026") },
-    { label: "Becoming Love — Fall '25", href: couturePath("becoming-love-fall-2025") },
-    { label: "Aura — Fall '24", href: couturePath("aura-fall-2024") },
+    { label: "Naqsh — Spring '26", href: couturePath("naqsh-spring-2026") },
+    { label: "Noorani — Fall '25", href: couturePath("noorani-fall-2025") },
   ],
   homepage: {
     featuredCoutureLimit: 2,
     pressLimit: 6,
   },
   sections: {
+    featuredCategories: {
+      title: "Featured Category",
+    },
     asSeenOn: {
       title: "As Seen On",
       href: ROUTES.asSeenOn,
@@ -128,7 +132,7 @@ export const SITE = {
       cta: { label: UI.bookAppointment, href: ROUTES.contact },
     },
     press: {
-      title: "Press",
+      title: "Client Reviews",
     },
   },
   pages: {
@@ -165,16 +169,17 @@ export const SITE = {
     },
     couture: {
       metaTitle: "Couture",
-      metaDescription: "Paris Haute Couture collections by Sahil Malik.",
-      title: "Paris Haute Couture",
-      subtitle: "Archive",
+      metaDescription:
+        "Signature couture by Sahil Malik — Naqsh and Noorani, ivory sherwani collections defined by hand embroidery and atelier craft.",
+      title: "Couture",
+      subtitle: "Signature Collections",
       detailMetaSuffix: "Couture",
     },
     press: {
-      metaTitle: "Press",
-      metaDescription: "Press coverage and editorial features on Sahil Malik.",
-      title: "Press",
-      subtitle: "In the media",
+      metaTitle: "Client Reviews",
+      metaDescription: "Client reviews of Sahil Malik Couture — craftsmanship, fit, and atelier experience.",
+      title: "Client Reviews",
+      subtitle: "From Google",
     },
     asSeenOn: {
       metaTitle: "As Seen On",
@@ -374,7 +379,12 @@ export const SITE = {
   },
 } as const;
 
-const LEFT_NAV_KEYS = new Set([COLLECTION_CATEGORIES.menswear, COLLECTION_CATEGORIES.womenswear, "couture"]);
+const LEFT_NAV_KEYS = new Set([
+  "home",
+  COLLECTION_CATEGORIES.menswear,
+  COLLECTION_CATEGORIES.womenswear,
+  "couture",
+]);
 const MEGA_NAV_KEYS = new Set(SITE.navMegaKeys);
 
 export function getNavBySide(side: "left" | "right") {
@@ -382,7 +392,9 @@ export function getNavBySide(side: "left" | "right") {
 }
 
 export function getNavDrawerItems() {
-  return SITE.nav.filter((item) => !MEGA_NAV_KEYS.has(item.key as (typeof SITE.navMegaKeys)[number]));
+  return SITE.nav.filter(
+    (item) => item.key !== "home" && !MEGA_NAV_KEYS.has(item.key as (typeof SITE.navMegaKeys)[number]),
+  );
 }
 
 export function getNavMegaItem(key: (typeof SITE.navMegaKeys)[number]) {

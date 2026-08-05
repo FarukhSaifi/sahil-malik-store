@@ -71,7 +71,7 @@ export function AppointmentDateTimePicker({
           <div className="flex items-center gap-1">
             <button
               type="button"
-              className="inline-flex h-10 w-10 items-center justify-center border border-border text-foreground transition-colors hover:border-foreground disabled:cursor-not-allowed disabled:opacity-30"
+              className="inline-flex h-10 w-10 cursor-pointer items-center justify-center border border-border text-foreground transition-colors hover:border-foreground disabled:cursor-not-allowed disabled:opacity-30"
               aria-label={SITE.form.appointment.previousMonth}
               disabled={!canGoPrevious}
               onClick={() => {
@@ -86,7 +86,7 @@ export function AppointmentDateTimePicker({
             </p>
             <button
               type="button"
-              className="inline-flex h-10 w-10 items-center justify-center border border-border text-foreground transition-colors hover:border-foreground disabled:cursor-not-allowed disabled:opacity-30"
+              className="inline-flex h-10 w-10 cursor-pointer items-center justify-center border border-border text-foreground transition-colors hover:border-foreground disabled:cursor-not-allowed disabled:opacity-30"
               aria-label={SITE.form.appointment.nextMonth}
               disabled={!canGoNext}
               onClick={() => {
@@ -131,7 +131,9 @@ export function AppointmentDateTimePicker({
                   aria-label={formatAppointmentDate(value)}
                   className={cn(
                     "relative flex h-10 items-center justify-center text-sm transition-colors",
-                    bookable ? "hover:bg-foreground hover:text-background" : "cursor-not-allowed text-muted/35",
+                    bookable
+                      ? "cursor-pointer hover:bg-foreground hover:text-background"
+                      : "cursor-not-allowed text-muted/35",
                     selected && "bg-foreground text-background",
                     !selected && isToday && bookable && "border border-foreground",
                   )}
@@ -165,10 +167,10 @@ export function AppointmentDateTimePicker({
                   disabled={!enabled}
                   aria-pressed={selected}
                   className={cn(
-                    "border px-3 py-2.5 text-xs uppercase tracking-[0.16em] transition-colors",
+                    "border px-3 py-2.5 text-xs uppercase tracking-[0.16em] whitespace-nowrap transition-colors",
                     !enabled && "cursor-not-allowed border-border text-muted/40",
-                    enabled && !selected && "border-border text-foreground hover:border-foreground",
-                    selected && "border-foreground bg-foreground text-background",
+                    enabled && !selected && "cursor-pointer border-border text-foreground hover:border-foreground",
+                    selected && "cursor-pointer border-foreground bg-foreground text-background",
                   )}
                   onClick={() => {
                     onInteract?.();

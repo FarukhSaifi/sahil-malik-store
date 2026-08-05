@@ -37,7 +37,7 @@ export function AddToEnquiryButton({ product, collectionTitle, variant = "card",
       variant={isCard ? "outlineInvert" : "default"}
       size={isCard ? "sm" : "lg"}
       className={cn(
-        isCard ? "h-10 w-10 shrink-0 bg-background/90 p-0 backdrop-blur-sm cursor-pointer" : "label-caps",
+        isCard ? "h-10 w-10 shrink-0 bg-background/90 p-0 backdrop-blur-sm" : "label-caps",
         className,
       )}
       onClick={handleClick}

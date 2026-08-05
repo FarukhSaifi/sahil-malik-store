@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import type { ButtonProps } from "@/types";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap uppercase tracking-[0.2em] text-xs font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:pointer-events-none disabled:cursor-not-allowed disabled:border-border disabled:bg-muted/15 disabled:text-muted disabled:hover:bg-muted/15 disabled:hover:text-muted min-h-11 min-w-11",
+  "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap uppercase tracking-[0.2em] text-xs font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:pointer-events-none disabled:cursor-not-allowed disabled:border-border disabled:bg-muted/15 disabled:text-muted disabled:hover:bg-muted/15 disabled:hover:text-muted min-h-11 min-w-11",
   {
     variants: {
       variant: {

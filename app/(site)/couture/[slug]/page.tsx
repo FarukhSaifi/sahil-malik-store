@@ -43,10 +43,10 @@ export default async function CoutureDetailPage({ params }: CoutureDetailPagePro
     <>
       <section className="relative h-[50vh] min-h-[320px] w-full lg:h-[65vh]">
         <EditorialImage image={season.heroImage} sizes={IMAGE_SIZES.detailHero} priority className="h-full w-full" />
-        <div className="absolute inset-0 bg-linear-to-t from-inverse/50 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-inverse/70 via-inverse/35 to-inverse/20" />
         <Container className="absolute inset-x-0 bottom-0 pb-10 text-background">
-          <p className="mb-2 uppercase tracking-[0.2em] text-xs">{season.subtitle}</p>
-          <h1 className="heading-section">{season.title}</h1>
+          <p className="mb-2 uppercase tracking-[0.2em] text-xs text-background/90">{season.subtitle}</p>
+          <h1 className="heading-section text-background">{season.title}</h1>
         </Container>
       </section>
 

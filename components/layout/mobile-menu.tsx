@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { SITE, getNavDrawerItems, getNavMegaItem } from "@/constants/site";
+import { ROUTES, SITE, getNavDrawerItems, getNavMegaItem } from "@/constants/site";
 
 import { Sheet, SheetClose, SheetContent } from "@/components/ui/sheet";
 
@@ -20,6 +20,16 @@ export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
           <p className="font-display text-2xl font-light tracking-[0.2em] uppercase">{SITE.name}</p>
 
           <nav className="flex flex-col gap-8">
+            <SheetClose asChild>
+              <Link
+                href={ROUTES.home}
+                prefetch
+                className="font-display text-3xl font-light transition-opacity hover:opacity-60"
+              >
+                {SITE.ui.home}
+              </Link>
+            </SheetClose>
+
             <div>
               <SheetClose asChild>
                 <Link href={menswearNav.href} prefetch className="label-caps text-muted">

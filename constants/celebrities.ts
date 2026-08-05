@@ -64,14 +64,17 @@ export const CELEBRITIES: Celebrity[] = [
   },
   {
     id: "as-seen-on-09",
+    name: "Darshan Kumar",
     image: celebImage("/media/celebrities/salim-merchant-03.jpg"),
   },
   {
     id: "darshan-raval-02",
+    name: "Rohit Purohit",
     image: celebImage("/media/celebrities/darshan-raval-02.jpg", "Darshan Raval"),
   },
   {
     id: "as-seen-on-11",
+    name: "Mantra Mugdh",
     image: celebImage("/media/celebrities/salim-merchant-meta.jpg"),
   },
 ];

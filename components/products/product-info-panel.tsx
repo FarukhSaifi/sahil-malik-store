@@ -4,6 +4,7 @@ import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 
 import { AddToEnquiryButton } from "@/components/enquiry/add-to-enquiry-button";
+import { ViewEnquiryLink } from "@/components/enquiry/view-enquiry-link";
 import { BookAppointmentLink } from "@/components/ui/book-appointment-link";
 
 import type { ProductInfoPanelProps } from "@/types";
@@ -46,13 +47,7 @@ export function ProductInfoPanel({ product, collectionTitle }: ProductInfoPanelP
       <div className="space-y-3">
         <AddToEnquiryButton product={product} collectionTitle={collectionTitle} variant="detail" className="w-full" />
         <BookAppointmentLink variant="outlineInvert" className="w-full" />
-        <Link
-          href={ROUTES.enquiry}
-          prefetch
-          className="block text-center text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:text-foreground"
-        >
-          {SITE.product.viewEnquiry}
-        </Link>
+        <ViewEnquiryLink />
       </div>
 
       <p className="mt-8 text-sm text-muted">

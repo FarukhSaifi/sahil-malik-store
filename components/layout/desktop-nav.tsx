@@ -4,7 +4,9 @@ import { useCallback, useState } from "react";
 
 import Link from "next/link";
 
-import { SITE, getNavBySide, getNavMegaItem } from "@/constants/site";
+import { ROUTES, SITE, getNavMegaItem } from "@/constants/site";
+
+import { cn } from "@/lib/utils";
 
 import { NavDropdown } from "./nav-dropdown";
 
@@ -22,6 +24,10 @@ export function DesktopNav({ overlay, side }: DesktopNavProps) {
   if (side === "left") {
     return (
       <nav className="relative hidden items-center gap-6 overflow-visible xl:gap-8 lg:flex">
+        <Link href={ROUTES.home} prefetch className={cn(linkClass, "inline-flex items-center")}>
+          {SITE.ui.home}
+        </Link>
+
         <NavDropdown
           id="menswear"
           label={menswearNav.label}
@@ -87,8 +93,8 @@ export function DesktopNav({ overlay, side }: DesktopNavProps) {
   }
 
   return (
-    <nav className="hidden items-center gap-8 overflow-visible lg:flex">
-      {getNavBySide("right").map((item) => (
+    <nav className="hidden items-center gap-6 overflow-visible xl:gap-8 lg:flex">
+      {SITE.navSecondary.map((item) => (
         <Link key={item.key} href={item.href} prefetch className={linkClass}>
           {item.label}
         </Link>
