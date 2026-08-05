@@ -68,6 +68,16 @@ const nextConfig: NextConfig = {
         destination: "/collections",
         permanent: true,
       },
+      {
+        source: "/couture/naqsh-spring-2026",
+        destination: "/couture/naqsh-2026",
+        permanent: true,
+      },
+      {
+        source: "/couture/noorani-fall-2025",
+        destination: "/couture/noorani-2026",
+        permanent: true,
+      },
     ];
   },
 };

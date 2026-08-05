@@ -18,10 +18,10 @@ const NOORANI_IMAGES = [
 
 export const COUTURE_SEASONS: CoutureSeason[] = [
   {
-    slug: "naqsh-spring-2026",
+    slug: "naqsh-2026",
     title: "Naqsh",
     subtitle: "Ivory Embellished Couture",
-    season: "Spring",
+    season: "2026",
     year: 2026,
     featured: true,
     heroImage: localImage(NAQSH_IMAGES[0], {
@@ -35,11 +35,11 @@ export const COUTURE_SEASONS: CoutureSeason[] = [
     gallery: galleryFromPaths(NAQSH_IMAGES, "Naqsh couture"),
   },
   {
-    slug: "noorani-fall-2025",
+    slug: "noorani-2026",
     title: "Noorani",
     subtitle: "Ivory Dabka Couture",
-    season: "Fall",
-    year: 2025,
+    season: "2026",
+    year: 2026,
     featured: true,
     heroImage: localImage(NOORANI_IMAGES[0], {
       width: 1920,

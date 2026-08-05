@@ -101,8 +101,8 @@ export const SITE = {
   ],
   womenswearMenu: [{ label: "Stock Clearance", href: collectionPath(WOMENSWEAR_COLLECTION_SLUG) }],
   coutureMenu: [
-    { label: "Naqsh — Spring '26", href: couturePath("naqsh-spring-2026") },
-    { label: "Noorani — Fall '25", href: couturePath("noorani-fall-2025") },
+    { label: "Naqsh", href: couturePath("naqsh-2026") },
+    { label: "Noorani", href: couturePath("noorani-2026") },
   ],
   homepage: {
     featuredCoutureLimit: 2,
