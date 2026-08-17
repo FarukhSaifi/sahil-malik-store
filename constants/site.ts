@@ -61,7 +61,6 @@ export const SITE = {
   tagline: "Luxury Fashion Designer",
   url: "https://sahilmalik.com",
   announcement: "Special prices live now",
-  heroPromo: "Special Prices",
   meta: {
     homeDescription:
       "Sahil Malik — luxury fashion designer. Discover sherwanis, kurta sets, suits, bandhgalas, and womenswear from the atelier.",
@@ -170,7 +169,7 @@ export const SITE = {
     couture: {
       metaTitle: "Couture",
       metaDescription:
-        "Signature couture by Sahil Malik — Naqsh and Noorani, ivory sherwani collections defined by hand embroidery and atelier craft.",
+        "Signature couture by Sahil Malik — Naqsh and Noorani, hand-embroidered sherwani and bandhgala collections from the atelier.",
       title: "Couture",
       subtitle: "Signature Collections",
       detailMetaSuffix: "Couture",

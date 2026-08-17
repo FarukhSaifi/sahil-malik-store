@@ -66,6 +66,7 @@ export type Category = {
 
 export type HeroSlide = {
   image: ImageAsset;
+  promo: string;
   quote?: string;
   attribution?: string;
 };

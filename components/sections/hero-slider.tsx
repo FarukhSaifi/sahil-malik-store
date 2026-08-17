@@ -65,20 +65,24 @@ export function HeroSlider({ slides }: HeroSliderProps) {
       </AnimatePresence>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center px-4 pt-16 text-center text-background sm:pt-20">
-        <motion.div
-          initial={canAnimate ? { opacity: 0, y: 16 } : false}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: canAnimate ? TIMING.hero.contentDuration : 0,
-            delay: canAnimate ? TIMING.hero.contentDelay : 0,
-          }}
-          className="max-w-4xl"
-        >
-          <h1 className="heading-promo mb-5">{SITE.heroPromo}</h1>
-          <CtaLink href={SITE.routes.collections} variant="light">
-            {SITE.ui.discoverNow}
-          </CtaLink>
-        </motion.div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={current.promo}
+            initial={canAnimate ? { opacity: 0, y: 16 } : false}
+            animate={{ opacity: 1, y: 0 }}
+            exit={canAnimate ? { opacity: 0, y: -8 } : undefined}
+            transition={{
+              duration: canAnimate ? TIMING.hero.contentDuration : 0,
+              delay: canAnimate ? TIMING.hero.contentDelay : 0,
+            }}
+            className="max-w-4xl"
+          >
+            <h1 className="heading-promo mb-5">{current.promo}</h1>
+            <CtaLink href={SITE.routes.collections} variant="light">
+              {SITE.ui.discoverNow}
+            </CtaLink>
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {current.quote ? (

@@ -9,11 +9,12 @@ const NAQSH_IMAGES = [
   "/media/menswear/sherwani/set-4/untitled-session16768-copy.jpg",
 ] as const;
 
-/** SM-SH-003 — Ivory Dabka Embroidered Couture Sherwani */
+/** SM-BI-003 — Blush 3D Hand Embroidered Raw Silk Bandhgala Set */
 const NOORANI_IMAGES = [
-  "/media/menswear/sherwani/set-3/dsc-0540-copy.jpg",
-  "/media/menswear/sherwani/set-3/dsc-0546-copy.jpg",
-  "/media/menswear/sherwani/set-3/dsc-0558-copy.jpg",
+  "/media/menswear/bandhgala-indo-western/set-3/dsc-0099-copy.jpg",
+  "/media/menswear/bandhgala-indo-western/set-3/dsc-0105-copy.jpg",
+  "/media/menswear/bandhgala-indo-western/set-3/dsc-0107-copy.jpg",
+  "/media/menswear/bandhgala-indo-western/set-3/dsc-0114-copy.jpg",
 ] as const;
 
 export const COUTURE_SEASONS: CoutureSeason[] = [
@@ -37,17 +38,17 @@ export const COUTURE_SEASONS: CoutureSeason[] = [
   {
     slug: "noorani-2026",
     title: "Noorani",
-    subtitle: "Ivory Dabka Couture",
+    subtitle: "Blush 3D Embroidered Couture",
     season: "2026",
     year: 2026,
     featured: true,
     heroImage: localImage(NOORANI_IMAGES[0], {
       width: 1920,
       height: 1080,
-      alt: "Noorani — Ivory Dabka Couture",
+      alt: "Noorani — Blush 3D Embroidered Couture",
     }),
     description:
-      "Radiant ivory couture defined by dabka hand embroidery with pearls and cut bead detailing — a ceremonial sherwani layered over silk kurta, completed with a matching stole and churidar pajama.",
+      "Named for radiance, Noorani presents a blush raw silk bandhgala defined by three-dimensional hand embroidery with kasab outlining, beads, and pearls — styled with a matching blush inner layer and ivory trousers for a refined contemporary silhouette.",
     gallery: galleryFromPaths(NOORANI_IMAGES, "Noorani couture"),
   },
 ];
